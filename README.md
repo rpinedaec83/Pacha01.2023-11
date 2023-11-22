@@ -4,6 +4,7 @@ Vargas Enriquez
 Gustavo Chacón
 Luis Chilin Capcha
 Leslie Tapara
+Victor Mercado
 Luis Alcca
 GiovanniRisco
 Vicente Mendo
