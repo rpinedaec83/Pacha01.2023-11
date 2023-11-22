@@ -4,3 +4,5 @@ Gustavo Chacón
 Luis Chilin Capcha
 Leslie Tapara
 Vicente Mendo
+Leslie Tapara
+MIRKO ROJAS
