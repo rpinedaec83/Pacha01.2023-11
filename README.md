@@ -5,6 +5,7 @@ Vargas Enriquez
 Gustavo Chacón
 Luis Chilin Capcha
 Leslie Tapara
+Ivan Cueva Cordoba
 Victor Mercado
 Luis Alcca
 GiovanniRisco
