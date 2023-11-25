@@ -1,2 +1,19 @@
 Proceso Ejercicio1
-//1. Hacer un algoritmo en Pseint que lea un número por el teclado y determinar si tiene tres dígitos.
+	
+//1. Hacer un algoritmo en Pseint que lea un nï¿½mero por el teclado y determinar si tiene tres dï¿½gitos.
+	
+		// Definir variable
+		Definir numero Como Entero
+		
+		// Solicitar al usuario ingresar un nï¿½mero
+		Escribir "Ingrese un nï¿½mero: "
+		Leer numero
+		
+		// Verificar si el nï¿½mero tiene tres dï¿½gitos
+		Si numero >= 100 y numero <= 999 Entonces
+			Escribir "El nï¿½mero tiene tres dï¿½gitos."
+		Sino
+			Escribir "El nï¿½mero no tiene tres dï¿½gitos."
+		FinSi
+		
+FinProceso
