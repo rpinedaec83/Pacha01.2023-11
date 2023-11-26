@@ -81,7 +81,7 @@
 23. Hacer un algoritmo en Pseint para calcular la suma de los números impares menores o iguales a n.
 
 24. Hacer un algoritmo en Pseint para realizar la suma de todos los números pares hasta el 1000.
-
+-------------------------------------------------------------
 25. Hacer un algoritmo en Pseint para calcular el factorial de un número de una forma distinta.
 
 26. Hacer un algoritmo en Pseint para calcular el resto y cociente por medio de restas sucesivas.
