@@ -14,3 +14,5 @@ Vicente Mendo
 Leslie Tapara
 MIRKO ROJAS
 Gustavo Fabricio Gonzales Rumay
+Jesus Milla 
+Gerardo Dagnino
