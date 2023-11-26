@@ -4,7 +4,7 @@ Proceso Ejercicio39
     Definir terminos Como Real
     Definir aproximacionPi Como Real
 	
-    Escribir "Ingrese la cantidad de repeticiones para la aproximación de Pi:"
+    Escribir "Ingrese la cantidad de términos para la aproximación de Pi:"
     Leer n
 	
     terminos = 0
