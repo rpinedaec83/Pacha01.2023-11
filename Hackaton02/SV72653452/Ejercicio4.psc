@@ -1,4 +1,4 @@
-//4. Hacer un algoritmo en Pseint que lea tres números enteros y los muestre de menor a mayor.
+//4. Hacer un algoritmo en Pseint que lea tres nï¿½meros enteros y los muestre de menor a mayor.
 Algoritmo Ejercicio4
 	Definir a, b, c  Como Entero
 	Definir aux Como Entero

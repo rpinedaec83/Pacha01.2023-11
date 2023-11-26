@@ -1,4 +1,4 @@
-//12. Hacer un algoritmo en Pseint que lea dos números y diga cuál es el mayor.
+//12. Hacer un algoritmo en Pseint que lea dos nï¿½meros y diga cuï¿½l es el mayor.
 
 Algoritmo Ejercicio12
 	Definir a,b Como Entero

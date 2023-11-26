@@ -1,4 +1,4 @@
-//14. Hacer un algoritmo en Pseint que lea un entero positivo del 1 al diez y al 9 y determine si es un número primo.
+//14. Hacer un algoritmo en Pseint que lea un entero positivo del 1 al diez y al 9 y determine si es un nï¿½mero primo.
 
 Algoritmo Ejercicio14
 	Escribir "Por favor ingrese un numero"

@@ -1,5 +1,5 @@
 //8. Hacer un algoritmo en Pseint para calcular el promedio de tres notas y determinar 
-//si el estudiante aprobó o no.
+//si el estudiante aprobï¿½ o no.
 
 Algoritmo Ejercicio8
 	Escribir "Ingrese Nota 01 : "

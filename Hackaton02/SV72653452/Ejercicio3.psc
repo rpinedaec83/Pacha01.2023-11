@@ -1,4 +1,4 @@
-//3. Hacer un algoritmo en Pseint que lea un número y determinar si termina en 4.
+//3. Hacer un algoritmo en Pseint que lea un nï¿½mero y determinar si termina en 4.
 Algoritmo Ejercicio3
 	Definir numer, ud Como Entero
 	Escribir "Dijite un numero entero"

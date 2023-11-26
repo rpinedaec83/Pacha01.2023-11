@@ -1,4 +1,4 @@
-//11. Hacer un algoritmo en Pseint que lea tres números y diga cuál es el mayor.
+//11. Hacer un algoritmo en Pseint que lea tres nï¿½meros y diga cuï¿½l es el mayor.
 
 Algoritmo Ejercicio11
 	Definir a,b,c Como Entero

@@ -1,4 +1,4 @@
-//15. Hacer un algoritmo en Pseint que convierta centímetros a pulgadas y libras a kilogramos.
+//15. Hacer un algoritmo en Pseint que convierta centï¿½metros a pulgadas y libras a kilogramos.
 
 Algoritmo Ejercicio15
 	
