@@ -1,13 +1,13 @@
-Proceso Ejer_25
+Proceso Ejercicio25
 	Definir numero, factorial Como Entero
 	
-    // Leer el número para calcular el factorial
-    Escribir("Ingrese un número para calcular el factorial:")
+    // Leer el numero para calcular el factorial
+    Escribir("Ingrese un numero para calcular el factorial:")
     Leer numero
 	
-    // Verificar si el número es negativo
+    // Verificar si el numero es negativo
     Si numero < 0 Entonces
-        Escribir("El factorial no está definido para números negativos.")
+        Escribir("El factorial no esta definido para numeros negativos.")
     Sino
         // Inicializar el factorial a 1
         factorial <- 1

@@ -1,4 +1,4 @@
-Proceso Ejer_26
+Proceso Ejercicio26
 	Definir dividendo, divisor, cociente, resto Como Entero
 	
    
