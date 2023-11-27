@@ -2,7 +2,7 @@
 
 Algoritmo Ejercicio10
 	Definir numer Como Entero
-	Escribir  "Ingresa un numero:";
+	Escribir  "Ingresa un número entero:";
     Leer numer;
     Si TRUNC(numer/2) = numer/2 Entonces
         Escribir "El número ingresado  es par.";

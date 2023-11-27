@@ -8,12 +8,12 @@ Algoritmo Ejercicio6
 	Escribir "Escribir cuantas horas a trabajado"
 	Leer  horas
 	
-	Si horas >= 40 Entonces
-		horas_extras=horas-40
-		pago = (40*20) + (horas_extras *25)
+	Si horas > 40 Entonces
+		horas_extras <- horas - 40
+		pago <- (40*20) + (horas_extras*25)
 	SiNo
-		pago=horas*20
+		pago <- horas*20
 	finSi
 	
-	Escribir  "El pago semanal por horas es : " , pago
+	Escribir  "El pago semanal por total de horas es : " , pago
 FinAlgoritmo

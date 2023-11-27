@@ -7,12 +7,12 @@
 
 Algoritmo Ejercicio7
 	
-	definir precio,descuento Como Real;
-	definir tipo Como Caracter;
-	escribir "¿Buenos dias por favor digitar el precio del Helado?";
-	leer precio;
-	escribir "¿Que tipo de Membresia tiene ?(Tipo A ,B O C)";
-	leer tipo;
+	Definir precio,descuento Como Real;
+	Definir tipo Como Caracter;
+	Escribir "Ingrese el precio del helado";
+	Leer precio;
+	Escribir "Indique el tipo de membresía: A, B o C)";
+	Leer tipo;
 	Segun tipo Hacer
 		"A":
 			descuento = (precio * 10)/100;
@@ -23,7 +23,10 @@ Algoritmo Ejercicio7
 		"C":
 			descuento = (precio * 20)/100;
 			precio = precio - descuento;
+		De Otro Modo:
+			Escribir "Tipo de membresia incorrecta"
 	Fin Segun
-	escribir "El precio del Helado es ",precio," soles";
+	
+	Escribir "El precio del Helado es ",precio," soles";
 FinAlgoritmo
 	

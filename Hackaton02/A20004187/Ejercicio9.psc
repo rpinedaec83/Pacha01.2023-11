@@ -9,12 +9,12 @@ Algoritmo  Ejercicio9
     Si sueldo>2000 Entonces
         incremento = sueldo*0.05;
     FinSi
-	Si sueldo<2000 Entonces
+	Si sueldo<=2000 Entonces
         incremento = sueldo*0.10;
     FinSi
     nuevo_sueldo = sueldo+incremento;
     Escribir "Incremento en el sueldo: ", incremento;
-    Escribir "Sueldo : ", nuevo_sueldo;
+    Escribir "Sueldo actualizado: ", nuevo_sueldo;
 	
 	
 FinAlgoritmo

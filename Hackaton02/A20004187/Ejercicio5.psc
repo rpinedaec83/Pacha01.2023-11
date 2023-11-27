@@ -8,16 +8,16 @@ Algoritmo  Ejercicio5
     subtotal <- cantidad_zapatos*80;
     descuento <- 0;
     Si cantidad_zapatos>10 Y cantidad_zapatos<=20 Entonces
-        descuento <- subtotal*0.1;
+        descuento = subtotal*0.1;
     FinSi
     Si cantidad_zapatos>20 Y cantidad_zapatos<=30 Entonces
         descuento <- subtotal*0.2;
     FinSi
     Si cantidad_zapatos>30 Entonces
-        descuento <- subtotal*0.4;
+        descuento = subtotal*0.4;
     FinSi
-    total <- subtotal-descuento;
-	Escribir  "Venta Total :" , subtotal;
-    Escribir "El descuento es : ", descuento;
-	Escribir "Precio con descuento incluido es: : ", total;
+    total = subtotal-descuento;
+	Escribir "Precio subtotal: ", subtotal;
+    Escribir "El descuento es: ", descuento;
+	Escribir "Precio final: ", total;
 FinAlgoritmo

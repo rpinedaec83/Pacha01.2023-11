@@ -14,7 +14,5 @@ Algoritmo Ejercicio15
     kilogramos <- libras*0.45359237;
     Escribir "El valor convertido de libra a kilogramos es: ", kilogramos;
 	
-	
-	
 FinAlgoritmo
 	

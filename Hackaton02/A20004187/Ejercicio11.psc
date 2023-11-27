@@ -2,20 +2,19 @@
 
 Algoritmo Ejercicio11
 	Definir a,b,c Como Entero
-	Escribir Sin Saltar "Ingrese el primer numero:";
+	Escribir "Ingrese el 1er número:";
     Leer a;
-    Escribir Sin Saltar "Ingresa el segundo numero:";
+    Escribir "Ingresa el 2do número:";
     Leer b;
-    Escribir Sin Saltar "Ingresa el tercer numero:";
+    Escribir "Ingresa el 3er número:";
     Leer c;
-    mayor = a;
+    mayor <- a;
     Si mayor < b Entonces
-        mayor = b;
+        mayor <- b;
     FinSi
     Si mayor < c Entonces
-        mayor = c;
+        mayor <- c;
     FinSi
-    Escribir "El numero mayor es : ", mayor;
-	
+    Escribir "El numero mayor es: ", mayor;
 	
 FinAlgoritmo

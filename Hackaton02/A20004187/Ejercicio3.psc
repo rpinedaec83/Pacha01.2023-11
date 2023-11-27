@@ -3,10 +3,10 @@ Proceso Ejercicio3
 	Definir num, term Como Entero
 	Escribir "Ingrese un número"
 	Leer num
-Si num >= 0 Entonces
-	term = num - trunc(num/10)*10
-Fin Si
-Si term == 4 Entonces
+
+	term <- num - trunc(num/10)*10
+
+Si term == 4 o term == -4 Entonces
 	Escribir "El número termina en 4"
 SiNo
 	Escribir "El número no termina en 4"
