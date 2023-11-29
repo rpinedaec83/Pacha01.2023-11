@@ -1,3 +1,4 @@
+//8. Hacer un algoritmo en Pseint para calcular el promedio de tres notas y determinar si el estudiante aprobÃ³ o no.
 Proceso ejercicio8
 	Definir nota1, nota2, nota3 Como Real
 	Escribir "Ingresa nota 1:"
@@ -8,7 +9,7 @@ Proceso ejercicio8
 	Leer nota3 
 	
 	Si nota1 > 20 o nota2 > 20 o nota3 > 20 Entonces
-		Escribir "Por favor, ingresa notas válidas menores o iguales a 20."
+		Escribir "Por favor, ingresa notas vï¿½lidas menores o iguales a 20."
 	Sino
 		promedio <- (nota1 + nota2 + nota3) / 3
 		Escribir "El promedio del alumno es ", promedio

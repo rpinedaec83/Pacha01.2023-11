@@ -1,5 +1,5 @@
 Proceso ejercicio1
-	Escribir "Ingrese número"
+	Escribir "Ingrese nï¿½mero"
 	Leer numero
 	si numero >= 100 y numero <= 999 entonces
 		Escribir "Es un numero de 3 digitos."
