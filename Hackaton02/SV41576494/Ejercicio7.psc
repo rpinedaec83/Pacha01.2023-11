@@ -4,32 +4,32 @@ Proceso desc_tipo_membresia
 // sólo existen tres tipos de membresía, tipo A, tipo B y tipo C. Los descuentos son los siguientes:
 // Tipo A 10% de descuento Tipo B 15% de descuento Tipo C 20% de descuento
 	
-	Definir memb Como Caracter;
+	Definir memb Como entero;
 	Definir desct, compra como real;
 	desct <- 0;
 	compra <- 0;
 	Escribir Sin Saltar "Valor de Compra: S/."
 	Leer compra;
-	Escribir Sin Saltar "Escoger el Tipo de Membresía (Tipo A, Tipo B ó Tipo C): ";
-	Leer Tecla
+	Escribir "Escoger el Tipo de Membresía" 
+	Escribir "Escoge la opción: "
+	Escribir "1 = Tipo A"
+	Escribir "2 = Tipo B"
+	Escribir "3 = Tipo C"
+	Leer memb
 	Escribir "";
-	Si (memb = A) Entonces
-		Escribir "Membresia Tipo A";
-		desct <- 0.10;
+	Si memb == 1 Entonces
+		desct = compra*0.10;
 	SiNo
-			SI (memb = B) Entonces
-				Escribir "Membresia Tipo B";
-				desct <- 0.15;
+			SI memb == 2 Entonces
+				desct =compra*0.15;
 			SiNo
-				SI (memb = C) Entonces
-					Escribir "Membresia Tipo C";
-					desct <- 0.20;
+				SI memb == C3 Entonces
+					desct =compra*0.20;
 			FinSi
 		FinSi
 	FinSi
 	
 	Escribir "Descuento : S/.",desct;
-	Escribir "Importe desct : S/.",compra*desct;
-	Escribir "Pago Total : S/.",compra-(compra*desct);
+	Escribir "Pago Total : S/.",compra-desct;
 		
 FinProceso
