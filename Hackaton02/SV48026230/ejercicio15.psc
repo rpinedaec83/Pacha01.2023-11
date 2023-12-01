@@ -1,3 +1,4 @@
+// 15.Hacer un algoritmo en Pseint que convierta cent�metros a pulgadas y libras a kilogramos.
 Proceso ejercicio15
 	Escribir  "Ingresa el valor de centimetros:";
     Leer centimetros;
