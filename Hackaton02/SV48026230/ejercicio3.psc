@@ -1,12 +1,13 @@
+//3.Hacer un algoritmo en Pseint que lea un nÃºmero y determinar si termina en 4.
 Proceso ejercicio3
 	Definir numero Como Entero
 	
-    Escribir "Ingrese un número:"
+    Escribir "Ingrese un nï¿½mero:"
     Leer numero
 	
     Si numero % 10 = 4 Entonces
-        Escribir "El número termina en 4."
+        Escribir "El nï¿½mero termina en 4."
     Sino
-        Escribir "El número no termina en 4."
+        Escribir "El nï¿½mero no termina en 4."
     FinSi
 FinProceso
