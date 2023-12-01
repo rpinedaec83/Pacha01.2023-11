@@ -6,7 +6,7 @@
 
 3. Hacer un algoritmo en Pseint que lea un número y determinar si termina en 4.
 
-4. Hacer un algoritmo en Pseint que lea tres números enteros y los muestre de menor a mayor. (Pendiente)
+4. Hacer un algoritmo en Pseint que lea tres números enteros y los muestre de menor a mayor.
 
 5. Hacer un algoritmo en Pseint para una tienda de zapatos que tiene una promoción de descuento para vender al mayor, esta dependerá del número de zapatos que se compren. Si son más de diez, se les dará un 10% de descuento sobre el total de la compra; si el número de zapatos es mayor de veinte pero menor de treinta, se le otorga un 20% de descuento; y si son más treinta zapatos se otorgará un 40% de descuento. El precio de cada zapato es de $80.
 
@@ -30,14 +30,14 @@
 
 13. Hacer un algoritmo en Pseint que lea una letra y diga si es una vocal.
 
-14. Hacer un algoritmo en Pseint que lea un entero positivo del 1 al diez y al 9 y determine si es un número primo. (Pendiente)
+14. Hacer un algoritmo en Pseint que lea un entero positivo del 1 al diez y al 9 y determine si es un número primo.
 
 15. Hacer un algoritmo en Pseint que convierta centímetros a pulgadas y libras a kilogramos.
 
 16. Hacer un algoritmo en Pseint que lea un número y según ese número, indique el día que corresponde.
 
 17. Hacer un algoritmo en Pseint donde se ingrese una hora y nos calcule la hora dentro de un segundo.
-(17 PENDIENTE)
+
 18. Hacer un algoritmo en Pseint para una empresa se encarga de la venta y distribución de CD vírgenes. Los clientes pueden adquirir los artículos (supongamos un único producto de una única marca) por cantidad. Los precios son:
 
     $10. Si se compran unidades separadas hasta 9.
@@ -94,7 +94,7 @@
 
 30. Hacer un algoritmo en Pseint para calcular la suma de los primeros cien números con un ciclo para.
 
-    31. Hacer un algoritmo en Pseint parar calcular la media de los números pares e impares, sólo se ingresará diez números.
+31. Hacer un algoritmo en Pseint parar calcular la media de los números pares e impares, sólo se ingresará diez números.
 
 32. Se quiere saber cuál es la ciudad con la población de más personas, son tres provincias y once ciudades, hacer un algoritmo en Pseint que nos permita saber eso. (NO HAY DATOS SUFICIENTES)
 
@@ -109,7 +109,7 @@
 37. Hacer un algoritmo en Pseint para conseguir el M.C.D de un número por medio del algoritmo de Euclides.
 
 38. Hacer un algoritmo en Pseint que nos permita saber si un número es un número perfecto.
-    
+
 39. Hacer un algoritmo en Pseint que cumpla con la aproximación del número pi con la serie de Gregory-Leibniz. La formula que se debe aplicar es:
 
     Pi = (4/1) - (4/3) + (4/5) - (4/7) + (4/9) - (4/11) + (4/13) - (4/15) ...
