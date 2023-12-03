@@ -17,6 +17,6 @@ function ejercicio40() {
         denominador += 2
     }
 
-    alert("La aproximación de pi con" + n + "términos es:" + pi_A)
+    alert("La aproximacion de pi con" + n + "terminos es:" + pi_A)
 }
 
