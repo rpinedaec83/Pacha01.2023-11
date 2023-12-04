@@ -1,9 +1,9 @@
-//Hacer un algoritmo en Pseint que lea un número y determinar si termina en 4.
+//Hacer un algoritmo en Pseint que lea un nï¿½mero y determinar si termina en 4.
 Proceso ejercico3
 	escribir "primerNumero"
 	leer primerNumero
-	segundoNumero = primerNumero % 10
-	si( segundoNumero = 4)
+	segundoNumero = primerNumero 
+	si( segundoNumero == 4)
 		Entonces
 		escribir "el numero termina en 4"
 	SiNo
