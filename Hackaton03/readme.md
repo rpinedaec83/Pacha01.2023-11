@@ -37,7 +37,7 @@
 16. Hacer un algoritmo en JavaScript que lea un número y según ese número, indique el día que corresponde.
 
 17. Hacer un algoritmo en JavaScript donde se ingrese una hora y nos calcule la hora dentro de un segundo.
-(17 PENDIENTE)
+
 18. Hacer un algoritmo en JavaScript para una empresa se encarga de la venta y distribución de CD vírgenes. Los clientes pueden adquirir los artículos (supongamos un único producto de una única marca) por cantidad. Los precios son:
 
     $10. Si se compran unidades separadas hasta 9.
