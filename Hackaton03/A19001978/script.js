@@ -724,10 +724,11 @@ function ejercicio_27() {
  */
 function ejercicio_28() {
     let sumaTotal = 0
-
-    for (let i = 1; i <= 100; i++) {
-        sumaTotal += i
-    }
+    let conta = 1
+    do {
+        sumaTotal += conta
+        conta++
+    } while(conta <= 100)
 
     imprimir(`La suma de los cien primeros numeros es: ${sumaTotal}`)
 }
@@ -752,3 +753,176 @@ function ejercicio_29() {
  * 30. Hacer un algoritmo en JavaScript para calcular la suma 
  * de los primeros cien números con un ciclo para.
  */
+function ejercicio_30() {
+    let sumaTotal = 0
+
+    for (let i = 1; i <= 100; i++) {
+        sumaTotal += i
+    }
+
+    imprimir(`La suma de los cien primeros numeros es: ${sumaTotal}`)
+}
+
+/**
+ * 31. Hacer un algoritmo en JavaScript parar calcular la media de 
+ * los números pares e impares, sólo se ingresará diez números.
+ */
+function ejercicio_31() {
+    let mediaPares = 0
+    let contaPares = 0
+    let totalPares = 0
+    let mediaImpares = 0
+    let contaImpares = 0
+    let totalImpares = 0
+    let numero = 0
+
+    for (let i = 1; i <= 10; i++) {
+        numero = parseInt(prompt("Ingrese un numero: "))
+        if (numero % 2 === 0) {
+            totalPares += numero
+            contaPares++
+        } else {
+            totalImpares += numero
+            contaImpares++
+        }
+    }
+
+    mediaPares = totalPares / contaPares
+    mediaImpares = totalImpares / contaImpares
+
+    imprimir(`La suma total de los numeros pares es: ${totalPares} y su media es: ${mediaPares}
+    <br>La suma total de los impares es: ${totalImpares} y su media es: ${mediaImpares}`)
+}
+
+/**
+ * 33. Hacer un algoritmo en JavaScript que permita al usuario continuar con el programa.
+ */
+function ejercicio_33() {
+    
+    let respuesta = ''
+
+    while (true) {
+        respuesta = prompt("Desea continuar el programa? (S/N)").toLowerCase()
+
+        if (respuesta === "n") {
+            imprimir(`Programa finalizado :C`)
+            break
+        } 
+    }
+}
+
+/**
+ * 34. Hacer un algoritmo en JavaScript que imprima la tabla de multiplicar 
+ * de los números del uno nueve.
+ */
+function ejercicio_34() {
+    let respuesta = ""
+
+    for (let i = 1; i <= 9; i++) {
+        respuesta += `<br>***************<br>`
+        for (let j = 0; j <= 10; j++) {
+            respuesta += `${i} x ${j} = ${i*j}<br>`
+        }
+    }
+
+    imprimir(respuesta)
+}
+
+/**
+ * 35. Hacer un algoritmo en JavaScript que nos permita saber cuál es el 
+ * número mayor y menor, se debe ingresar sólo veinte números.
+ */
+function ejercicio_35() {
+    let numero = 0
+    let numMayor = -9999
+    let numMenor = 9999
+
+    for (let i = 1; i <= 20; i++) {
+        numero = parseInt(prompt("Ingrese un numero: "))
+
+        if (numero > numMayor) {
+            numMayor = numero
+        }
+        if (numero < numMenor) {
+            numMenor = numero
+        }
+    }
+    
+    imprimir(`El numero mayor es: ${numMayor}
+    <br>El numero menor es: ${numMenor}`)
+}
+
+/**
+ * 36. Hacer un algoritmo en JavaScript para calcular la serie de Fibonacci.
+ */
+function ejercicio_36() {
+    let numAnt = 0
+    let numSig = 1
+    let respuesta = ""
+    suma = 0
+
+    let cantidadNumeros = parseInt(prompt("Ingrese la cantidad de numeros a generar: "))
+
+    for (let i = 1; i <= cantidadNumeros; i++) {
+        suma = numAnt + numSig
+        respuesta += `${suma}, `
+        numAnt = numSig
+        numSig = suma
+    }
+
+    imprimir(respuesta)
+}
+
+/**
+ * 37. Hacer un algoritmo en JavaScript para conseguir el M.C.D 
+ * de un número por medio del algoritmo de Euclides.
+ */
+function ejercicio_37() {
+    let primerNumero = parseInt(prompt("Ingrese el primer numero: "))
+    let segundoNumero = parseInt(prompt("Ingrese el segundo numero: "))
+    let resto = 0
+    
+    while (segundoNumero > 0) {
+        resto = primerNumero % segundoNumero
+        primerNumero = segundoNumero
+        segundoNumero = resto
+    }
+
+    imprimir(`El M.C.D de los numeros es: ${primerNumero}`)
+}
+
+/**
+ * 38. Hacer un algoritmo en JavaScript que nos permita saber si un número es un número perfecto.
+ */
+function ejercicio_38() {
+    let numerIngresado = parseInt(prompt("Ingrese el numero a verificar: "))
+    let sumaDivisores = 0
+
+    for (let i = 1; i < numerIngresado; i++) {
+        if (numerIngresado % i === 0) {
+            sumaDivisores += i
+        }
+    }
+
+    if (sumaDivisores === numerIngresado) {
+        imprimir(`El numero ${numerIngresado} es perfecto`)
+    } else {
+        imprimir(`El numero ${numerIngresado} NO es perfecto`)
+    }
+    console.log(sumaDivisores)
+}
+
+/***
+ * 39. Hacer un algoritmo en JavaScript que cumpla con la aproximación 
+ * del número pi con la serie de Gregory-Leibniz. La formula que se debe aplicar es:
+
+    Pi = (4/1) - (4/3) + (4/5) - (4/7) + (4/9) - (4/11) + (4/13) - (4/15) ...
+ */
+function ejercicio_39() {
+    let cantValores = parseInt(prompt("Ingrese la cantidad de valores a generar: "))
+    respuesta = ""
+
+    for (let i = 1; i <= cantValores; i++) {
+        
+    }
+}
