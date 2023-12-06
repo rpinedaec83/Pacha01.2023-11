@@ -918,11 +918,42 @@ function ejercicio_38() {
 
     Pi = (4/1) - (4/3) + (4/5) - (4/7) + (4/9) - (4/11) + (4/13) - (4/15) ...
  */
-function ejercicio_39() {
-    let cantValores = parseInt(prompt("Ingrese la cantidad de valores a generar: "))
-    respuesta = ""
-
-    for (let i = 1; i <= cantValores; i++) {
-        
+    function ejercicio_39() {
+        let numerIteraciones = parseInt(prompt(`Ingrese el nuero de iteraciones: `))
+        let aproxPI = 0
+    
+        for (let i = 1; i <= numerIteraciones; i++) {
+            if (i % 2 === 0) {
+                aproxPI += 4 / (i + 2)
+            }
+            else {
+                aproxPI -= 4 / (i + 2)
+            }
+        }
+    
+        aproxPI += 4
+    
+        imprimir(`El valor aproximando de PI es: ${aproxPI}`)
     }
+
+/**
+ * 40. Hacer un algoritmo en JavaScript que cumpla con la aproximación del número pi con la 
+ * serie de Nilakantha. La formula que se debe aplicar es:
+ * Pi = = 3 + 4/(2*3*4) - 4/(4*5*6) + 4/(6*7*8) - 4/(8*9*10) + 4/(10*11*12) - 4/(12*13*14) ...
+ */
+function ejercicio_40() {
+    let numeroIteraciones = parseInt(prompt("Ingrese el numero de iteraciones: "))
+    let aproxPI = 0
+
+    for (let i = 1; i <= numeroIteraciones; i++) {
+        if (i % 2 === 0) {
+            aproxPI -= 4 / ((i + 1) * (i + 2) * (i + 3))
+        } else {
+            aproxPI += 4 / ((i + 1) * (i + 2) * (i + 3))
+        }
+    }
+
+    aproxPI += 3
+
+    imprimir(`La aproximancion a PI es: ${aproxPI}`)
 }
