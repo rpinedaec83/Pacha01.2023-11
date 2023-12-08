@@ -1,10 +1,22 @@
-function ejercicio01(){
-//Hacer un algoritmo en JavaScript que lea un número por el teclado y determinar si tiene tres dígitos.
-let numero = parseInt( prompt("Escribe un numero"))
-if(numero>100 && numero< 999){
-    alert("Este numero tiene 3 digitos")
-}
-else{
-    alert("Este numero no tiene 3 digitos")
-}
+
+function ejercicio01()
+{
+
+class Calculadora {
+    
+    constructor(num1, num2) {
+      this.num1 = num1;
+      this.num2 = num2;
+    }
+  
+    
+    sumar() {
+      return this.num1 + this.num2;
+    }
+  }
+  
+ 
+  const miCalculadora = new Calculadora(5, 7);
+  const resultado = miCalculadora.sumar();
+  alert("El resultado de 5+7 es = " + resultado); 
 }
