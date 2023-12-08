@@ -67,3 +67,4 @@ tv1.navegacionInternet("www.x-codec.net")
 let barra1 = new AudioSonido("JBL","JBL3344","000234",50,"NFC, Bluetooth");
 barra1.encender()
 barra1.subirVolumen();
+
