@@ -48,4 +48,4 @@ function ejercicio04(){
             document.write("Medio: ", num2);
             document.write("Menor: ", num1); 
         }
-    }
+}    
