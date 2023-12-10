@@ -1,6 +1,6 @@
 /*-  ¿Cómo defines una función?
-Una función en JavaScript se define con la palabra clave function, 
-seguida del nombre de la función y paréntesis que pueden contener 
+Una función en JavaScript se llega a definir con la palabra clave function, 
+seguida del nombre que se le dara a función y paréntesis que pueden contener 
 parámetros de entrada. Luego se coloca el bloque de código encerrado entre llaves { }, 
 que contiene las instrucciones que la función ejecutará cuando sea llamada. 
 De la siguiente manera ;
