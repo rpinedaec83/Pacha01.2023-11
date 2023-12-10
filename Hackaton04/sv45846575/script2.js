@@ -96,13 +96,18 @@ alert("Hasta cuantos argumentos puedes declarar en una funcion? No existe un lí
 function Ejercicio7(){
     // Ejercicio RETO 2
     // Ejercicio 7.1
-    //Utilizando función arrow, crear una función que reciba como parámetros un nombre, apellido y edad y los retorne en un string concatenado “Hola mi nombre es sebastián yabiku y mi edad 33”
+    //Crear una función que reciba como parámetros un nombre, apellido y edad y los retorne en un string concatenado “Hola mi nombre es sebastián yabiku y mi edad 33”
 
-let nombre = prompt("Ingrese su nombre y apellido: ");
+let nombre = prompt("Ingrese su nombre: ");
+apellido= prompt("Ingrese su apellido: ");
  edad= prompt("Ingrese su edad: ");
+ {
+nombrecompleto=()=>
+alert(" Hola mi nombre es " +nombre + apellido+" y mi edad es " +edad);
+}}
 
-alert(" Hola mi nombre es " +nombre + " y mi edad es " +edad);
-}
+
+
 
 function Ejercicio8(){
     //Ejercicio7.2
@@ -121,6 +126,12 @@ var cubo3= prompt( "Ingrese el tercer numero para determinar el cubo");
  
 alert(" La suma total de sus cubos es " +total)
 }
+
+
+
+
+
+
 
 
 function Ejercicio9(){
@@ -149,6 +160,13 @@ function Ejercicio9(){
         // Devolvemos el tipo
         return tipo;
       }
+
+
+
+
+
+
+
 
 
       function Ejercicio10(){
@@ -359,6 +377,10 @@ function contarDesde(numero) {
 }}
 
 
+
+
+
+
 function Ejercicio23(matriz){
 
 
@@ -383,6 +405,11 @@ function Ejercicio23(matriz){
     // Devolvemos la diferencia
     return mayor - menor;
   }
+
+
+
+
+
 
   function Ejercicio24(matriz){
 
@@ -461,12 +488,20 @@ function Ejercicio27(cadenaDePalabras){
         return `¡Encontré a Nemo en la posición ${posicion + 1}!`;
       }
 
+
+
+
+
+
+
       function Ejercicio28(){
-//Cree una función que capitalice la última letra de cada palabra.
-text=parseInt(prompt("Ingrese una palabra"))
-const uppercaseText = "";
-for (const letter of text){
-  uppercaseText+=letter.toUpperCase();
-  alert (""+uppercaseText);
-      }
-    }
+        
+
+   
+
+      let saludo = '¡Hola!';
+
+      let primeraLetra = saludo[0].toUpperCase();
+      
+      console.log(primeraLetra);}
+      // devuelve la letra 'H' en este caso
