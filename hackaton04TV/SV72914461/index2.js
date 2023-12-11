@@ -270,6 +270,7 @@ alert(`la matriz es [ ${lik}] , [${disl} ] , [${foll} ] `);
 
 
 
+
 //14.	Cree una función donde, dado el número n, devuelva la suma de todos los números cuadrados  incluyendo n.
 //squaresSum(3) ➞ 14
 // 1² + 2² + 3² =
