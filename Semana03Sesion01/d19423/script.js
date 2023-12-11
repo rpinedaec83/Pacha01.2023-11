@@ -122,4 +122,3 @@ console.log(numeroPI);
 let age = 23
 let voteable = (age > 18) ? "Si eres mayor de edad":"aun te falta crecer";
 console.log(voteable)
-
