@@ -3,199 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hackaton 04 sv46995152 </title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-        }
-
-        section {
-            margin-bottom: 10px;
-        }
-    </style>
+    <title>HACKATON 04 </title>
+    <link rel="stylesheet" href="./styles.css">
 </head>
-<body>
-    <h1>RETO 1 </h1>
-
-    <section>
-        <button type="button" onclick="suma(1,2);">Ejercicio 1</button>
-
-        <script src="script.js"></script>
+<body> 
+    <h1>Utilizar Javascript para definir algoritmos</h1>
+    <h2>Reto 1</h2>
+    <section class="reto01">
+        <button type="button" onclick="ejercicio01();">Ejercicio 01</button>
+        <button type="button" onclick="ejercicio02();">Ejercicio 02</button>
+        <button type="button" onclick="ejercicio03();">Ejercicio 03</button>
+        <button type="button" onclick="ejercicio04();">Ejercicio 04</button>
+        <button type="button" onclick="ejercicio05();">Ejercicio 05</button>
     </section>
-
-    <section>
-        <button type="button" onclick="potencia(2,3);">Ejercicio 2</button>
-
-        <script src="script2.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="sumOfCubes(1, 5, 9);">Ejercicio 3</button>
-
-        <script src="script3.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="triArea(3, 2);">Ejercicio 4</button>
-
-        <script src="script4.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="calculator(2,'+',2);">Ejercicio 5</button>
-
-        <script src="script5.js"></script>
-    </section>
-
-    <section>
-        <h3> Preguntas</h3>
-        <b>¿Cómo defines una función?</b>
-        <p>Se definen usando la palabra reservada "function" seguida del nombre,<br>
-            los argumentos que recibe la función y el código que realiza la tarea.</p>
-
-        <b>¿Hasta cuantos argumentos puedes declarar en una función?</b>
-        <p>no hay un límite estricto en la cantidad de argumentos que puedes declarar en una función.<br>
-            Puedes declarar tantos como necesites.<br>
-            Sin embargo, a medida que aumentwe los numeros de argumentos tambien aumenta<br>
-            la dificultal de entender y mantener el codigo.</p>
-        
-    </section>
-    
-    <h1>RETO 2 </h1>
-
-    <section>
-        <button type="button" onclick="generarSaludo('Sebastián', 'Yabiku', 33);">Ejercicio 1</button>
-
-        <script src="script01.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="ejercicio02();">Ejercicio 2</button>
-
-        <script src="script02.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="obtenerTipoDeValor('uno');">Ejercicio 3</button>
-
-        <script src="script03.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="sumarTodos(1, 2, 3, 4, 5);">Ejercicio 4</button>
-
-        <script src="script04.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="filtrarStrings([1, 'dos', 3, 'cuatro', true, 'cinco']);">Ejercicio 5</button>
-
-        <script src="script05.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="minMax([1, 2, 3, 4, 5]);">Ejercicio 6</button>
-
-        <script src="script06.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="formatPhoneNumber([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);">Ejercicio 7</button>
-
-        <script src="script07.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="findLargestNums([[4, 2, 7, 1], [20, 70, 40, 90], [1, 2, 0]]);">Ejercicio 8</button>
-
-        <script src="script08.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="charIndex('hello', 'l');">Ejercicio 9</button>
-
-        <script src="script09.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="toArray({ a: 1, b: 2 });">Ejercicio 10</button>
-
-        <script src="script10.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="getBudgets([{ name: 'John', age: 21, budget: 23000 },{ name: 'Steve',  age: 32, budget: 40000 },{ name: 'Martin',  age: 16, budget: 2700 }]) ;">Ejercicio 11</button>
-
-        <script src="script11.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="getStudentNames([ { name: 'Steve' }, { name: 'Mike' },{ name: 'John' }]);">Ejercicio 12</button>
-
-        <script src="script12.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="objectToArray({likes: 2,dislikes: 3,followers: 10});">Ejercicio 13</button>
-
-        <script src="script13.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="squaresSum(3);">Ejercicio 14</button>
-
-        <script src="script14.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="multiplyByLength([2, 3, 1, 0]);">Ejercicio 15</button>
-
-        <script src="script15.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="countdown(5);">Ejercicio 16</button>
-
-        <script src="script16.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="diffMaxMin([10, 4, 1, 4, -10, -50, 32, 21]);">Ejercicio 17</button>
-
-        <script src="script17.js"></script>
-    </section>
-    
-    <section>
-        <button type="button" onclick="filterList([1, 2, 3, 'x', 'y', 10]);">Ejercicio 18</button>
-
-        <script src="script18.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="repeat(13, 5);">Ejercicio 19</button>
-
-        <script src="script19.js"></script>
-    </section>
-
-    
-    <section>
-        <button type="button" onclick="String.prototype.vreplace ('u');">Ejercicio 20</button>
-
-        <script src="script20.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="findNemo('I am finding Nemo !');">Ejercicio 21</button>
-
-        <script src="script21.js"></script>
-    </section>
-
-    <section>
-        <button type="button" onclick="capLast('hello');">Ejercicio 22</button>
-
-        <script src="script22.js"></script>
-    </section>
-
+    <h2>Reto 2</h2>
+    <button type="button" onclick="concatenarDatos();">Concatenar Datos</button>
+    <button type="button" onclick="sumOfCubes2();">Sumar los cubos</button>
+    <button type="button" onclick="obtenerTipoDeValor();">Obtener tipo de valor</button>
+    <button type="button" onclick="sumar();">Sumar numeros</button>
+    <script src="./script.js"></script>
 </body>
 </html>
