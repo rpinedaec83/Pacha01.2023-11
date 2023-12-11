@@ -6,7 +6,7 @@ class Productos{
         this.precio = precio;
     }
     encender(){
-        console.log(`El equipo ${this.modelo} se encendio`);
+        console.log(`El equipo ${this.modelo } se encendio`);
     }
     encender(voltaje){
         if(voltaje < 220){

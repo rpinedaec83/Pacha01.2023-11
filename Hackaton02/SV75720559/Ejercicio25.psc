@@ -2,7 +2,7 @@ Proceso Ejercicio25
 	Definir num, fact , i Como Entero
 		
 	Escribir "Ingrese el numero que se va a calcular su factorial : "
-	Leer numero
+	Leer num
 		
 	fact = 1
 		
