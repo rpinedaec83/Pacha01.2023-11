@@ -82,3 +82,47 @@ console.log(yamaha.correrEnUnaSolaRueda())// Corriendo en una sola rueda
 console.log(yamaha.correrEnUnaSolaRueda())// Corriendo en una sola rueda
 console.log(yamaha.acelerar())
 console.log(yamaha.frenar())
+
+
+function Person(first, last, age, eyecolor) {
+    this.firstName = first;
+    this.lastName = last;
+    this.age = age;
+    this.eyeColor = eyecolor;
+  }
+  
+  Person.prototype.nationality = "Ecuatoriana";
+  Person.prototype.name = function() {
+    return this.firstName + " " + this.lastName;
+  };
+
+  console.log(Person)
+
+  let papa = new Person("Rene", "Pineda", 58, "brown")
+  console.log(papa.nationality)
+  console.log(papa.name())
+
+  let mama = new Person("Miriam", "Lopez", 57, "brown")
+
+  console.log(mama.nationality)
+  mama.nationality = "Colombiana"
+  console.log(mama.nationality);
+
+const Aerolinea = function () {
+    let Nombre;
+    let Ubicacion;
+
+    return {
+        init: function (parametros) {
+            Nombre = parametros.Nombre;
+            Ubicacion=parametros.Ubicacion;
+            
+        },
+    };
+}();
+
+let parametros = {
+    Nombre:"LAN",
+    Ubicacion: "Lima"
+}
+Aerolinea.init(parametros)
