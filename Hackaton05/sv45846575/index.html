@@ -1,11 +1,67 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
+  
+    <h1 id="nombre_de_la_tienda"></h1>
+    <h2 id="ubicacion"></h2>
+
+    <div id="div_reserva" style="display: none;">
+
+        <label for="">Nombre del cliente:</label>
+        <label for="" id="nombre_cliente"></label>
+        <br>
+        <label for="">Apellido del cliente:</label>
+        <label for="" id="apellido_cliente"></label>
+        <br>
+    </div>
+    <button id="registro">Registro</button>
+    <div id="divregistro" style="display:block;">
+        
+    <label for= ""></label>
+    <br>
+    <label id="nombre_cliente" for=""></label>
+    <label for= "">Informacion del cliente: </label>
+    <br>
+    <label id="dni" for=""></label>
+    <label for= "">Numero de DNI: </label>
+    <br>
+    <label id="imei" for=""></label>
+    <label for= "">Numero IMEI: </label>
+    <br>
+  
+    </div>
+
+
+
+
+    <button id="diagnostico"> Diagnostico</button>
+    <br>
+    <br>
+    <button id="asignacion_de_tecnico">Asignacion de Tecnico</button>
+    <br>
+    <br>
+    <button id="estado">Estado de la reparacion</button>
+    <br>
+    <br>
+    <label id="estado" for=""></label>
+    <label for= "">Estado de la reparacion: </label>
+   <br>
+   <br>
     <script src="script.js"></script>
+    <script>
+        let parametros = {
+                Nombre: "Reparaciones Rosita",
+                Ubicacion: "Ubicado para ti en Lima-Peru"
+                        }
+            ReparacionesRosita.init(parametros)
+    </script>
 </body>
+
 </html>
