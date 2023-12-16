@@ -33,7 +33,30 @@ const Aerolinea = function () {
         reserva.asignarAvionIda(arrAviones[0]);
         reserva.asignarAvionVuelta(arrAviones[1]);
         console.log(reserva);
+        let Pasajero = asignarPasajero(); 
+        reserva.avionIda.agregar_pasajero(Pasajero);
+        reserva.avionVuelta.agregar_pasajero(Pasajero);
+        console.log(reserva);
+
+
+
     }
+
+
+
+    
+    function asignarPasajero(){
+        let nombres = prompt("Ingrese el nombre del pasajero");
+        let apellidos = prompt("Ingrese los apellido del pasajero");
+        let nrodocumento = prompt("Ingrese el numero de documento del pasajero");
+        let objpasajeroS = new Pasajeros(nombres, apellidos, nrodocumento);
+        return objpasajeroS;
+
+    }
+
+
+
+
     return {
         init: function (parametros) {
             Nombre = parametros.Nombre;
@@ -63,10 +86,10 @@ class Aviones{
     }
 }
 class Pasajeros{
-    constructor(nombres, apellidos, nro_documento){
+    constructor(nombres, apellidos, nrodocumento){
         this.nombres = nombres;
         this.apellidos = apellidos;
-        this.nro_documento = nro_documento
+        this.nrodocumento = nrodocumento
     }
 }
 
@@ -86,3 +109,4 @@ class Reservas{
         this.avionVuelta = avion;
     }
 }
+

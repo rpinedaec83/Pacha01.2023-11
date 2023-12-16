@@ -80,6 +80,14 @@ if (operador== 1){
 //Una funcion puede tener 255 argumentos.
 
 
+
+
+
+
+
+
+
+
 //RETO 
 
 //1.	Utilizando función arrow, crear una función que reciba como parámetros un 
@@ -115,6 +123,11 @@ function sumOfCubes(n)
 //invocar la función para los distintos tipos de js
 
 
+
+
+
+
+
 //4.Crear una función que reciba n cantidad de argumentos y los sume ( utilizar parametros rest)
 
 function sum(...theArgs) {
@@ -127,8 +140,10 @@ function sum(...theArgs) {
   
   alert(sum(1, 2, 3,15,25,80,90,80,90));
   
-  
   alert(sum(1, 2, 3, 4,5,6,7,8,9,10,11,12,13));
+
+
+
 
   //5.	Crear una función que reciba un array de valores y filtre los valores que no son string
 
@@ -288,3 +303,93 @@ alert(`la matriz es [ ${lik}] , [${disl} ] , [${foll} ] `);
 //15.	Cree una función para multiplicar todos los valores en una matriz por la cantidad de valores en la matriz dada
 //multiplyByLength([2, 3, 1, 0]) ➞ [8, 12, 4, 0]
 
+
+
+
+
+//17Cree una función que tome una matriz y devuelva la diferencia entre los números más grandes y más pequeños.
+//diffMaxMin([10, 4, 1, 4, -10, -50, 32, 21]) ➞ 82
+// Smallest number is -50, biggest is 32.
+
+
+
+const diferenciamayorymenor = (array)=>{
+
+   const maximo = Math.max(...array)
+   const minimo = Math.minn(...array)
+
+   const diferencia = Math.max(...array) - Math.min(...array)
+
+   return `el valor maximo es ${maximo}, minimo es : ${minimo} y la diferencia es : ${diferencia}`
+
+
+
+}
+//console.log(diferenciamayorymenor[])
+
+
+
+//18Cree una función que filtre las cadenas de una matriz y devuelva una nueva matriz que solo contenga enteros.
+//filterList([1, 2, 3, "x", "y", 10]) ➞ [1, 2, 3, 10]
+
+const filterNumbers = (arr) => {
+
+    return arr.filter(value => value == 'number')
+}
+
+
+//19Cree una función que tome dos argumentos (elemento, tiempos).
+// El primer argumento (elemento) es el elemento que necesita repetirse, mientras que el
+// segundo argumento (veces) es la cantidad de veces que se debe repetir el elemento. Devuelve el resultado en una matriz.
+//repeat(13, 5) ➞ [13, 13, 13, 13, 13]
+
+
+const repeat = (elemento,veces) => {
+
+    return Array.from ({length: veces}, () => elemento)
+
+}
+consolse.log(repeat(13,5));
+
+//20Escriba una función, .vreplace () que extienda el prototipo de cadena reemplazando todas 
+//las vocales en una cadena con una vocal especificada.
+//"apples and bananas".vreplace("u") ➞ "upplus und bununus"
+
+String.prototype, vreplace = fuction (vocalNueva);{
+
+return this.replace(/[aeiou]/gi, vocalNueva)
+
+}
+const result= "apples and bananas".vreplace("u")
+
+
+console.log(result)
+
+
+//Te dan una cadena de palabras. Debe encontrar la palabra "Nemo" y devolver una cadena como esta:
+// "¡Encontré a Nemo en [el orden de la palabra que encuentra nemo]!".//
+//findNemo("I am finding Nemo !") ➞ "I found Nemo at 4!"
+
+const cadena = 'I am fiding nemo'
+
+const encontrarANemo = (cadernaTexto) => {
+const ArrayPalabras = cadernaTexto.Split('')
+const pocisionNemo = ArrayPalabras.indexOf('nemo')
+
+return pocisionNemo +1
+}
+console.log(encontrarANemo(cadena))
+
+
+
+//Cree una función que capitalice la última letra de cada palabra.
+//capLast("hello") ➞ "hellO"
+
+const capLast = (word)=> {
+
+    return word.split("").map(letter => letter.slice(0,-1) +
+    letter.slice(-1).toUpperCae()).join('')
+
+}
+
+capLast("Hola")
