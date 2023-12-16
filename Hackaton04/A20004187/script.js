@@ -121,9 +121,6 @@ function ejercicio02(){
     function ejercicioR2_03(){
     //Crear una funcion que me retorne el tipo de valor entregado, 
     //invocar la función para los distintos tipos de js
-    let n1 =prompt( "Ingrese algo")
-   
-    alert(`Es de tipo:  ${typeof(n1)}`)
     }
     function ejercicioR2_04(){
     //Crear una función que reciba n cantidad de argumentos y los sume ( utilizar parametros rest)
