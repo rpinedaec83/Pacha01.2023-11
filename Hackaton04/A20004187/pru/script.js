@@ -121,24 +121,31 @@ function ejercicio02(){
     function ejercicioR2_03(){
     //Crear una funcion que me retorne el tipo de valor entregado, 
     //invocar la función para los distintos tipos de js
-    const obtenerTipo = (valor) => {
-      return typeof valor;
-    };
-  let input = "Hola";
-  alert(`El tipo de valor de "${input}" es ${obtenerTipo(input)}`);
-  input = 23;
-  alert(`El tipo de valor de "${input}" es ${obtenerTipo(input)}`);
-  input = 23.5;
-  alert(`El tipo de valor de "${input}" es ${obtenerTipo(input)}`);
-  input = true;
-  alert(`El tipo de valor de "${input}" es ${obtenerTipo(input)}`);
-  input = null;
-  alert(`El tipo de valor de "${input}" es ${obtenerTipo(input)}`);
-  input = {};
-  alert(`El tipo de valor de "${input}" es ${obtenerTipo(input)}`);
-  input = [1,2,3,4];
-  alert(`El tipo de valor de "${input}" es ${obtenerTipo(input)}`);
-    }
+   
+    function TipoValor( v1,v2,v3,v4,v5,v6){
+        return typeof v1;
+        return typeof v2;
+        return typeof v3;
+        return typeof v4;
+        return typeof v5;
+        return typeof v6;
+      };
+      let dato1 = "Gustavo";
+      let dato2 = 33;
+      let dato3 = true;
+      let dato4 = null;
+      let dato5;
+      let dato6 = {
+        name: "Aldo",
+        lastname: "Chacón"
+      };
+    alert(`El tipo de valor de "${dato1}" es ${TipoValor(dato1)}`);
+    alert(`El tipo de valor de "${dato2}" es ${TipoValor(dato2)}`);
+    alert(`El tipo de valor de "${dato3}" es ${TipoValor(dato3)}`);
+    alert(`El tipo de valor de "${dato3}" es ${TipoValor(dato4)}`);
+    alert(`El tipo de valor de "${dato5}" es ${TipoValor(dato5)}`);
+    alert(`El tipo de valor de "${dato6}" es ${TipoValor(dato6)}`);
+      }
     function ejercicioR2_04(){
     //Crear una función que reciba n cantidad de argumentos y los sume ( utilizar parametros rest)
     const sumar = (...args) => {
@@ -225,8 +232,30 @@ function ejercicio02(){
     //Cree una función que tome una matriz de matrices con números. 
     //Devuelve una nueva matriz (única) con el mayor número de cada uno.
     //findLargestNums([[4, 2, 7, 1], [20, 70, 40, 90], [1, 2, 0]]) ➞ [7, 90, 2]
- 
-    }
+
+    function matrizMayor(a1,a2,a3){
+    m1 = Math.max(...a1);
+    m2 = Math.max(...a2);
+    m3 = Math.max(...a3);
+    let mT = [m1,m2,m3]
+    return mT;
+}
+    
+    let arr1=[];
+    let arr2=[];
+    let arr3=[];
+
+    for(i=0;i<4;i++){
+    arr1[i]=prompt(`Ingrese el elemento ${i} de la matriz 1`);
+}
+    for(i=0;i<4;i++){
+    arr2[i]=prompt(`Ingrese el elemento ${i} de la matriz 2`);
+}
+    for(i=0;i<4;i++){
+    arr3[i]=prompt(`Ingrese el elemento ${i} de la matriz 3`);
+}
+    alert(`La matriz con los numeros mayores es [${matrizMayor(arr1,arr2,arr3)}]`);
+}
     function ejercicioR2_09(){
     //Dada una palabra, escriba una función que devuelva el primer índice y el último índice de un carácter.
     
@@ -275,6 +304,22 @@ function ejercicio02(){
     //{ name: "Steve",  age: 32, budget: 40000 },
     //{ name: "Martin",  age: 16, budget: 2700 }
     //]) ➞ 65700
+        
+    function presupuesto(a){
+    return a[0].budget+a[1].budget+a[2].budget
+    }
+      
+    let arr = [{
+            name:"John",
+            age:21,
+            budget:23000},{
+            name:"Steve",
+            age:32,
+            budget:40000},{
+            name:"Martin",
+            age:16,
+            budget:2700}]
+    alert(`La suma de los presupuestos es ${presupuesto(arr)}`);
     }
     function ejercicioR2_12(){
     //Cree una función que tome una matriz de estudiantes y devuelva una matriz de nombres de estudiantes.
@@ -283,7 +328,16 @@ function ejercicio02(){
     //{ name: "Mike" },
     //{ name: "John" }
     //]) ➞ ["Becky", "John", "Steve"]
-
+    function arrNombres(arr){
+        aN = [arr[0].name,arr[1].name,arr[2].name];
+        return aN;
+    }
+    let arrEst = [{ 
+        name: "Steve" },{   
+        name: "Mike" },{   
+        name: "John" }];
+        console.log(arrEst);
+        alert(`La matriz de nombres es: [${arrNombres(arrEst)}]`);
 }
     function ejercicioR2_13(){
     //Escriba una función que convierta un objeto en una matriz de claves y valores.
@@ -292,6 +346,18 @@ function ejercicio02(){
     //dislikes: 3,
     //followers: 10
     //}) ➞ [["likes", 2], ["dislikes", 3], ["followers", 10]]
+    
+    function objetoArrray(obj){
+        return Object.entries(obj);
+    }
+    const objeto={
+    likes: 2,
+    dislikes: 3,
+    followers: 10,
+    }
+    console.log(objetoArrray(objeto));
+    alert(`la matriz es: [${objetoArrray(objeto)}]`)
+
 
     }
     function ejercicioR2_14(){
@@ -300,8 +366,16 @@ function ejercicio02(){
     // 1² + 2² + 3² =
     // 1 + 4 + 9 =
     // 14
-    
-
+    function sumaCuadrados(n){
+        let sumaC=0;
+        for(i=1;i<=n;i++){
+            sumaC+=Math.pow(i,2);
+            }
+            return sumaC;
+    }
+   
+    n=parseInt(prompt("Ingrese un numero"))
+    console.log(sumaCuadrados(n));
     }
     function ejercicioR2_15(){
     //Cree una función para multiplicar todos los valores en una matriz 
@@ -398,6 +472,16 @@ function ejercicio02(){
     //mientras que el segundo argumento (veces) es la cantidad de veces que se debe repetir el elemento. 
     //Devuelve el resultado en una matriz.
     //repeat(13, 5) ➞ [13, 13, 13, 13, 13]
+    function matrizD(e,v){
+        let m = [];
+        for(i=0;i<v;i++){
+            m[i]=e;
+        }
+        return m;
+    }
+    let elem = parseInt(prompt("Ingrese un numero elemento"));
+    let veces = parseInt(prompt("Ingrese un numero de veces"));
+    console.log(matrizD(elem,veces));
     
     }
     function ejercicioR2_20(){
@@ -422,6 +506,7 @@ function ejercicio02(){
     //"¡Encontré a Nemo en [el orden de la palabra que encuentra nemo]!".
     //findNemo("I am finding Nemo !") ➞ "I found Nemo at 4!"
     
+
     }
     function ejercicioR2_22(){
     //Cree una función que capitalice la última letra de cada palabra.

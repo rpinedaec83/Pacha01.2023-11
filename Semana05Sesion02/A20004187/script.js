@@ -22,6 +22,13 @@ const Aerolinea = function () { //Esta funcion envia los parametros para ser mos
         console.log("Voy a empezar a realizar la reserva");
         let origen = prompt("Escriba su ciudad de origen");
         console.log(origen);
+        let destino = prompt("Escriba su ciudad de destino");
+        console.log(destino);
+        let fechaIda = prompt("Escriba la fecha de Ida");
+        let fechaVuelta = prompt("Escriba la fecha de vuelta");
+        let reserva = new Reservas(origen,destino,fechaIda,fechaVuelta)
+        console.log(arrAviones);
+        reserva.asignarAvionIda(arrAviones[0]);
     }
     return {
         //Init es como el constructor
