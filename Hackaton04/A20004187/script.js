@@ -102,8 +102,11 @@ function ejercicio02(){
     let a = prompt("Escriba su apellido")
     let e = prompt("Escriba su edad")
 
+    if (n.length>0 && a.length>0 && e>0){
     alert(present(n,a,e));
-
+    }else{
+    alert(`Datos incorrectos`);
+    }
     }
     function ejercicioR2_02(){
     //Cree una función que tome números y devuelva la suma de sus cubos.
@@ -127,19 +130,32 @@ function ejercicio02(){
     }
     function ejercicioR2_05(){
     //Crear una función que reciba un array de valores y filtre los valores que no son string
-
+    const miArray = [1,2,3,`Juan`,`Pedro`,`cuatro`,`5`]
+    const filtrarArray = (array) =>{
+    return array.filter((value)=>typeof value === "string")
+ }
+ alert(filtrarArray(miArray))
     }
     function ejercicioR2_06(){
     //Cree una función que tome una matriz de números y devuelva los números mínimos y máximos, 
     //en ese orden.
     //minMax([1, 2, 3, 4, 5]) ➞ [1, 5]
+    let numero3=[1,2,3,4,5];
+
+    alert(`El valor minimo de la matriz es ${Math.min(...numero3)}`);
+    alert(`El valor Maximo de la matriz es ${Math.max(...numero3)}`);
 
     }
     function ejercicioR2_07(){
     //Escriba una función que tome una matriz de 10 enteros (entre 0 y 9) y 
     //devuelva una cadena en forma de un número de teléfono.
     //formatPhoneNumber([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]) ➞ "(123) 456-7890"
-
+    const formatearNumero = (numeros) =>{
+        return`(${numeros.slice(0,3).join("")}) ${numeros.slice(3,6).join("")}-${numeros.slice(6).join("")}`
+    }
+    let phone=(prompt("Ingrese 10 numeros del 0 al 9"));
+    console.log(phone);
+    alert(formatearNumero(phone.split('')));
     }
     function ejercicioR2_08(){
     //Cree una función que tome una matriz de matrices con números. 
@@ -203,6 +219,11 @@ function ejercicio02(){
     //Cree una función para multiplicar todos los valores en una matriz 
     //por la cantidad de valores en la matriz dada
     //multiplyByLength([2, 3, 1, 0]) ➞ [8, 12, 4, 0]
+    const multiplicarLength = (arr) =>{
+        return arr.map(element => element * arr.length)
+    }
+    alert(multiplicarLength([2,3,1,0]));
+
     }
     function ejercicioR2_16(){
     //Cree una función que tome un número como argumento y 
@@ -214,11 +235,30 @@ function ejercicio02(){
     //los números más grandes y más pequeños.
     //diffMaxMin([10, 4, 1, 4, -10, -50, 32, 21]) ➞ 82
     // Smallest number is -50, biggest is 32.
+    const diferenciaMayorMenor = (array) =>{
+        const maximo = Math.max(...array)
+        const minimo = Math.min(...array)
+
+        const diferencia = Math.max(...array) - Math.min(...array)
+
+        return `el valor maximo es ${maximo}, minimo es: ${minimo} y la diferencia es: ${diferencia}`;
+    }
+        alert((diferenciaMayorMenor([10,4,1,4,-10,-50,32,21])));
     }
     function ejercicioR2_18(){
     //Cree una función que filtre las cadenas de una matriz y 
     //devuelva una nueva matriz que solo contenga enteros.
     //filterList([1, 2, 3, "x", "y", 10]) ➞ [1, 2, 3, 10]
+    const res = []
+    const array = [1,2,3,`x`,`y`,10]
+
+    array.forEach(e=>{
+        if(!isNaN(e)){
+            res.push(e);
+        };
+    });
+    const filterNumbers = (arr) => arr.filter(value => typeof value === `number`)
+    alert((filterNumbers(array)));
     }
     function ejercicioR2_19(){
     //Cree una función que tome dos argumentos (elemento, tiempos). 
@@ -226,19 +266,44 @@ function ejercicio02(){
     //mientras que el segundo argumento (veces) es la cantidad de veces que se debe repetir el elemento. 
     //Devuelve el resultado en una matriz.
     //repeat(13, 5) ➞ [13, 13, 13, 13, 13]
+    const repeat = (elemento,veces)=>{
+        return Array.from({length: veces}, () => elemento)
+    }
+    alert(repeat(13,5));
     }
     function ejercicioR2_20(){
     //Escriba una función, .vreplace () que extienda el prototipo de cadena 
     //reemplazando todas las vocales en una cadena con una vocal especificada.
     //"apples and bananas".vreplace("u") ➞ "upplus und bununus"
+    
+    String.prototype.vreplace = function (vocalNueva){
+        return this.replace(/[aeiou]/gi,vocalNueva)
+    }
+    const result = "apples and bananas".vreplace("u");
+
+    alert(result);
     }
     function ejercicioR2_21(){
     //Te dan una cadena de palabras. Debe encontrar la palabra "Nemo" y devolver una cadena como esta: 
     //"¡Encontré a Nemo en [el orden de la palabra que encuentra nemo]!".
     //findNemo("I am finding Nemo !") ➞ "I found Nemo at 4!"
+    const cadena = `I am finding Nemo !`;
+
+    const encontarNemo = (cadenaTexto) =>{
+        const ArrayPalabras = cadenaTexto.split(``)
+        console.log(ArrayPalabras);
+        const posicionNemo = ArrayPalabras.indexOf(`N`)
+        console.log(posicionNemo);
+        return posicionNemo + 1;
+    }
+    console.log(`Encontre a nemo en la posicion ${encontarNemo(cadena)}`);
     }
     function ejercicioR2_22(){
     //Cree una función que capitalice la última letra de cada palabra.
     //capLast("hello") ➞ "hellO"
+    const capLast = (word) =>{
+        return word.split("").map(letter=>letter.slice(0,-1)+letter.slice(-1).toUpperCase()).join(``)
+    }
+    alert(capLast("Hola"));
     }
     

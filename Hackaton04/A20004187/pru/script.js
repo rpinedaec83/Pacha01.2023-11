@@ -179,7 +179,7 @@ function ejercicio02(){
 
       return countNoString;
     };
-  let array = [1,2,"3",{"id":1,"nombre":"Mirko"},null,"Hola"];
+  let array = [1,2,"3",{"id":1,"nombre":"Jose"},null,"Hola"];
   alert(`En el array [${array}] hay ${filtrar(array)} elementos no String`)
     }
     function ejercicioR2_06(){
