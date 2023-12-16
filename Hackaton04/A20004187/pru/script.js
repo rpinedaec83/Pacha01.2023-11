@@ -148,20 +148,23 @@ function ejercicio02(){
       }
     function ejercicioR2_04(){
     //Crear una función que reciba n cantidad de argumentos y los sume ( utilizar parametros rest)
-    const sumar = (...args) => {
-      return args.reduce((total, valor) => total + valor, 0);
-    };
-  let numeros = [];
-  let n = 0;
-  let count = 0;
-  while (n>=0){
-      n = parseFloat(prompt(`Ingrese el N°${count+1}:`));
-      if(n>=0){
-          count++;
-          numeros.push(n);
-      }
-  }
-  alert(`La suma de los ${count} número(s) es ${sumar(...numeros)}`)
+    function sum(...theArgs){
+        let total=0;
+        for(const arg of theArgs){
+            total +=arg;
+        }
+        return total;
+    }
+    let nums = [];
+    let n = 0;
+    let i = 0;
+    while (n>=0){
+        n = parseInt(prompt(`Ingrese el N°${i}:`));
+        if(n>=0){
+            i++;
+            nums.push(n);
+        }
+
     }
     function ejercicioR2_05(){
     //Crear una función que reciba un array de valores y filtre los valores que no son string
