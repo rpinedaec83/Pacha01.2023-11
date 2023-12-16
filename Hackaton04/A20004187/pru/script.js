@@ -164,6 +164,7 @@ function ejercicio02(){
             i++;
             nums.push(n);
         }
+    }
 
     }
     function ejercicioR2_05(){
@@ -528,5 +529,4 @@ function ejercicio02(){
   } catch (error) {
       alert(error.message);
   }
-    
     }
