@@ -302,8 +302,9 @@ function ejercicio02(){
     //Cree una función que capitalice la última letra de cada palabra.
     //capLast("hello") ➞ "hellO"
     const capLast = (word) =>{
-        return word.split("").map(letter=>letter.slice(0,-1)+letter.slice(-1).toUpperCase()).join(``)
+        return word.split("").map(letter=>letter.slice(0,-1)+letter.slice(-1).toUpperCase()).join(``);
+        
     }
-    alert(capLast("Hola"));
+    console.log(capLast("hola"));
     }
     
