@@ -1,12 +1,12 @@
-// Hacer un algoritmo en Pseint que diga si un n?mero es par o impar.
+// Hacer un algoritmo en Pseint que diga si un numero es par o impar.
 Proceso Ejercicio10
     Definir numero Como Entero
-    Escribir "Ingrese un n?mero:"
+    Escribir "Ingrese un numero:"
     Leer numero
 	
     Si numero % 2 = 0 Entonces
-        Escribir "El n?mero ", numero, " es par."
+        Escribir "El numero ", numero, " es par."
     Sino
-        Escribir "El n?mero ", numero, " es impar."
+        Escribir "El numero ", numero, " es impar."
     FinSi
 FinProceso
