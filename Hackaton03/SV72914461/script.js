@@ -864,8 +864,7 @@ alert("El M.C.D. de "+ numero1 + " y "+ numero2+ " es : "+ mcd);
 }
 
 
-function ejercicio38 ()
-{
+function ejercicio38(){
 
 function esNumeroPerfecto(numero) {
     let suma = 1;
