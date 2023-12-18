@@ -1,5 +1,5 @@
 class Vehiculo {
-constructor(numPlaca, color, marrca, velocidad){
+constructor(numPlaca, color, marca, velocidad){
 this.numPlaca= numPlaca;
 this.color= color;
 this.marca=marca;
