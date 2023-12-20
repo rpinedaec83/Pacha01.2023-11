@@ -187,8 +187,8 @@
             repairShop.revisarTelefono(telefono);
             repairShop.autorizarReparacion(telefono, autorizacion, abono);
             const tecnico = new Tecnicos('Técnico', tecnico);
-            repairShop.asignarTecnico(telefono, tecnico);
-            repairShop.agregarRepuesto(telefono, repuesto);
+            reparaciones.asignarTecnico(telefono, tecnico);
+            reparaciones.agregarRepuesto(telefono, repuesto);
             mostrarEstadoEquipo(telefono);
         }
         function mostrarEstadoEquipo(telefono) {
@@ -201,7 +201,7 @@
             return false;
         }
         
-        const repairShop = new RepairShop('Sucursal A');
+        const reparaciones = new Reparaciones('Sucursal A');
     </script>
 </body>
 </html>
