@@ -52,4 +52,18 @@ const countriesData = {
   tr.appendChild(td2)
   console.log(tblData);
   tblData[0].appendChild(tr);
-  
+
+  let lista = document.querySelector("ul")
+  console.log(lista)
+
+  let ceviche = document.querySelector(".ceviche")
+console.log(ceviche)  
+
+let ceviche2 = document.querySelector("#ceviche")
+console.log(ceviche2)  
+
+let camote = document.getElementById("camote") .parentNode.nodeName
+console.log(camote)  
+
+let numb = document.getElementById("camote").childNodes
+console.log(numb)  
