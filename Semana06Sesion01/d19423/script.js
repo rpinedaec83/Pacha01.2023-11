@@ -38,37 +38,6 @@ for (let index = 0; index < arrDivs.length; index++) {
     console.log(element.innerHTML)
 }
 
-<<<<<<< HEAD
-  let tblData = document.getElementsByClassName("tblData");
-  let tr = document.createElement("tr");
-  let td0  = document.createElement("td");
-  td0.innerText = "CocaCola";
-  let td1  = document.createElement("td");
-  td1.innerText = "Juan Perez";
-  let td2  = document.createElement("td");
-  td2.innerText = "Peru"
-  tr.appendChild(td0)
-  tr.appendChild(td1)
-  tr.appendChild(td2)
-  console.log(tblData);
-  tblData[0].appendChild(tr);
-
-  let lista = document.querySelector("ul")
-  console.log(lista)
-
-  let ceviche = document.querySelector(".ceviche")
-console.log(ceviche)  
-
-let ceviche2 = document.querySelector("#ceviche")
-console.log(ceviche2)  
-
-let camote = document.getElementById("camote") .parentNode.nodeName
-console.log(camote)  
-
-let numb = document.getElementById("camote").childNodes
-console.log(numb)  
-=======
-
 let tblData = document.getElementsByClassName("tblData");
 let tr = document.createElement("tr");
 let td0 = document.createElement("td");
@@ -118,11 +87,6 @@ console.log(div1.clientWidth)
 
 console.log(div1.clientHeight)
 
-// let btnHola = document.getElementById("btnHola");
-// btnHola.onclick= function(){
-// console.log("Hizo Click")
-// };
-
 function clickdesdeHtml() {
     console.log("Hizo click desde Html")
 }
@@ -154,4 +118,3 @@ function myBlurFunction() {
         document.getElementById("myInput").style.backgroundColor = "green";
     }
 }
->>>>>>> fuentes/main
