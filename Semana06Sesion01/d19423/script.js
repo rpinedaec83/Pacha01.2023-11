@@ -38,7 +38,6 @@ for (let index = 0; index < arrDivs.length; index++) {
     console.log(element.innerHTML)
 }
 
-
 let tblData = document.getElementsByClassName("tblData");
 let tr = document.createElement("tr");
 let td0 = document.createElement("td");
@@ -87,11 +86,6 @@ tablaEstilo.removeAttribute("class");
 console.log(div1.clientWidth)
 
 console.log(div1.clientHeight)
-
-// let btnHola = document.getElementById("btnHola");
-// btnHola.onclick= function(){
-// console.log("Hizo Click")
-// };
 
 function clickdesdeHtml() {
     console.log("Hizo click desde Html")
