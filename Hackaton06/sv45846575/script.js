@@ -45,9 +45,12 @@ class Telefono {
             } else if (result.isDenied) {
                 Swal.fire("No se puede proveer el servicio", "", "info");
             }
+            localStorage.setItem("Verificar IMEI ", JSON.stringify(arrTelefonos))
         });
 
+//-------------------------------------------------
 
 
     }
+
 }
