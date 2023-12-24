@@ -152,5 +152,5 @@ function agregarCarrito(nombre){
     lstCarrito.innerHTML = strHtml;
     document.getElementById("total").innerText = `Total: $${total}`
     console.log(arrCarrito)
-    localStorage.setItem("carrito", JSON.stringify(arrCarrito));
+        localStorage.setItem("carrito", JSON.stringify(arrCarrito));
 }
