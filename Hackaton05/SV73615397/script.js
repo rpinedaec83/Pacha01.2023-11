@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(e) {
     loadSelectTecnicos();
     loadSelectCelulares();
+    llenarTabla();
 });
 class Telefono{
     constructor(numeroTelefono, imei, marca, modelo, estado = "En Revisión", diagnostico = "") {
@@ -21,6 +22,17 @@ class Telefono{
         return localStorage.getItem('celulares')!== null ? JSON.parse(localStorage.getItem('celulares')) : [];
     }
 }
+class Cliente {
+    constructor(nombre, autorizacion, abono,numeroTelefono) {
+      this.nombre = nombre;
+      this.autorizacion = autorizacion;
+      this.abono = abono
+      this.numeroTelefono = numeroTelefono
+    }
+    static listar(){
+        return localStorage.getItem('clientes') !== null ? JSON.parse(localStorage.getItem('clientes')):[];
+    }
+  }
 class Revision{
     constructor(tecnico){
         this.fecha = Date.now();
@@ -31,10 +43,11 @@ class Revision{
     }
     
     realizarDiagnostico(telefono,diagnostico){
-        let esPrimeraRevision = ListRevisiones && !ListRevisiones.find(r=>r.telefono === telefonoEncontrado);
+        let esPrimeraRevision = this.listar() && !this.listar().find(r=>r.telefono.numeroTelefono === telefonoEncontrado.numeroTelefono);
         this.telefono = telefono;
         this.diagnostico = diagnostico;
         this.primeraRevision = esPrimeraRevision;
+        this.estado = esPrimeraRevision ? 'Reportado' : 'En revision';
     }
 
     static listar(){
@@ -50,7 +63,16 @@ class Tecnico {
         return localStorage.getItem('tecnicos')!== null ? JSON.parse(localStorage.getItem('tecnicos')) : [];
     }
 }
-
+class Reparacion{
+    constructor(numeroTelefono,estacion,repuestos){
+        this.numeroTelefono = numeroTelefono;
+        this.estacion = estacion;
+        this.repuestos = repuestos;
+    }
+    static listar(){
+        return localStorage.getItem('reparaciones') !== null ? JSON.parse(localStorage.getItem('reparaciones')):[];
+    }
+}
 let currentArraySkills =[];
 
 function loadSelectCelulares() {
@@ -79,7 +101,7 @@ function loadPhoneInfo(event) {
 let imei = event.target.value;
 const outputDiv = document.getElementById('outputTelefono');    
 phone = localStorage.getItem('celulares') !== null ? JSON.parse(localStorage.getItem('celulares')).find(ph=> ph.imei === imei) : null;
-if(phone !== null){
+if(phone !== undefined){
     outputDiv.innerHTML = "";
     phoneInfo = `
             <p><strong>Número de telefono:</strong> ${phone.numeroTelefono} </p>
@@ -96,59 +118,106 @@ else{
 }
 }
 
-function submitRevision(){
-    ListRevisiones = Revision.listar();
-
-    tecnicoEncontrado = Tecnico.listar().find(t => t.nombre === document.getElementById('revisionTecnico').value);
-    telefonoEncontrado = Telefono.listar().find(tlf => tlf.imei === document.getElementById('revisionTelefono').value);
-    diagnosticoIngresado = document.getElementById('revisionDiagnostico').value;
-
-    console.log(tecnicoEncontrado);
-    console.log(telefonoEncontrado);
-
-    let revisionRealizada = telefonoEncontrado.realizarRevision(tecnicoEncontrado,diagnosticoIngresado);
-
-    ListRevisiones.push(revisionRealizada);
-    console.log(revisionRealizada);
-    localStorage.setItem('revisiones',JSON.stringify(ListRevisiones));
-}
 function submitPhoneForm() {
-    let phoneNumber = document.getElementById('phoneNumber').value;
-    let imei = document.getElementById('imei').value;
-    let marca = document.getElementById('brand').value;
-    let modelo = document.getElementById('model').value;
+    try {
+        let phoneNumber = document.getElementById('phoneNumber').value;
+        let imei = document.getElementById('imei').value;
+        let marca = document.getElementById('brand').value;
+        let modelo = document.getElementById('model').value;
 
-    const phoneInfo = {
-        phoneNumber,
-        imei,
-        brand,
-        model,
-    };
-    const objTelefono = new Telefono(phoneNumber,imei,marca,modelo)
-    document.getElementById('phoneNumber').value = "";
-    document.getElementById('imei').value = "";
-    document.getElementById('brand').value = "";
-    document.getElementById('model').value = "";
-
-    localStorage.setItem('celular', JSON.stringify(objTelefono));
-    listCelulares = localStorage.getItem('celulares') !== null ? JSON.parse(localStorage.getItem('celulares')):[];
-    listCelulares.push(objTelefono);
-    localStorage.setItem('celulares', JSON.stringify(listCelulares));
+        if(phoneNumber.length === 0 || imei.length === 0 || marca.length === 0 || modelo.length === 0){throw new Error("no se aceptan campos NULOS");}
+        if(Telefono.listar().find(t=>t.imei === imei || t.numeroTelefono === phoneNumber)){throw new Error("Duplicado!");}
+        const objTelefono = new Telefono(phoneNumber,imei,marca,modelo)
+        document.getElementById('phoneNumber').value = "";
+        document.getElementById('imei').value = "";
+        document.getElementById('brand').value = "";
+        document.getElementById('model').value = "";
+        let nombreCliente = "";
+        let autoriza = null;
+        let abono = 0;
+        Swal.fire({
+            title: "Ingresa tu nombre:",
+            input: "text",
+            inputAttributes: {
+              autocapitalize: "off"
+            },
+            showCancelButton: true,
+            confirmButtonText: "Ingresar",
+            showLoaderOnConfirm: true,}).then((result) => {
+            console.log(result);
+            console.log(result.value);
+            if(result.isConfirmed && result.value!==""){
+                nombreCliente = result.value;
+                console.log(nombreCliente);
+                Swal.fire({
+                    title: "Autoriza la revisión?",
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: "SI",
+                    denyButtonText: `NO`
+                }).then((result) => {
+                    autoriza = result.isConfirmed;
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title:"Ingrese el '%' abonado",
+                            input: 'range',
+                            inputAttributes: {
+                              min: 0,
+                              max: 100,
+                            },
+                            inputValue: 25
+                          }).then((result)=>{
+                            console.log(result);
+                            abono = Number(result.value);
+                            if(Number(result.value)>=50 && autoriza){
+                                const nuevoCliente = new Cliente(nombreCliente,autoriza,abono,phoneNumber);
+                                let listClientes = Cliente.listar();
+                                listClientes.push(nuevoCliente)
+                                console.log(listClientes);
+                                localStorage.setItem('clientes', JSON.stringify(listClientes));
+                                localStorage.setItem('celular', JSON.stringify(objTelefono));
+                                listCelulares = localStorage.getItem('celulares') !== null ? JSON.parse(localStorage.getItem('celulares')):[];
+                                listCelulares.push(objTelefono);
+                                localStorage.setItem('celulares', JSON.stringify(listCelulares));
+                            }
+                          })
+                    }
+                });    
+            }
+          });
+        loadSelectTecnicos();
+        loadSelectCelulares();
+        llenarTabla();
+    } catch (error) {
+        Swal.fire(`Error:${error.message}`, "", "error");
+    }
 }
 function agregarSkill(event) {
     event.preventDefault();
     try {
         let skill = document.getElementById('skillTecnico').value;
-        if(skill !== "" && confirm("Está de acuerdo con ingresar esta skill?")){
-            currentArraySkills.push(skill);
-            displaySkills(currentArraySkills);
-            document.getElementById('skillTecnico').value = "";
+        let nombreTecnico = document.getElementById('tecnicoNombre').value;
+
+        if(skill !== ""){
+            Swal.fire({
+                title: "Está de acuerdo con ingresar esta skill?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "SI",
+                denyButtonText: `NO`
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    currentArraySkills.push(skill);
+                    displaySkills(currentArraySkills);
+                }
+                document.getElementById('skillTecnico').value = "";
+            });
         }
-        else if (skill === ""){
+        else if (skill === "" || nombreTecnico === ""){
             throw new Error("No se aceptan nulos")
         }
     } catch (error) {
-        alert(`Error:${error.message}`)
+        Swal.fire(`Error:${error.message}`, "", "error");
     }
 }
 function displaySkills(array) {
@@ -158,14 +227,184 @@ function displaySkills(array) {
 function submitTecnico(){
     try {
         let nombre = document.getElementById('tecnicoNombre').value;
-        if(nombre===""){throw new Error("No se aceptan campos Nulos")}
+        if(nombre==="" || currentArraySkills.length === 0){throw new Error("No se aceptan campos Nulos")}
         const nuevoTecnico = new Tecnico(nombre,currentArraySkills);
         let tecnicos = localStorage.getItem('tecnicos')!== null ? JSON.parse(localStorage.getItem('tecnicos')) : [];
         tecnicos.push(nuevoTecnico);
         localStorage.setItem('tecnicos', JSON.stringify(tecnicos));
         currentArraySkills = [];
         displaySkills(currentArraySkills);
+        loadSelectTecnicos();
+        loadSelectCelulares();
     } catch (error) {
-        alert(`Error: ${error.message}`)
+        Swal.fire(`Error:${error.message}`, "", "error");
+    }
+}
+function llenarTabla() {
+    const tabla = document.getElementById('tbTelefonos');
+    const divModales = document.getElementById("modalesReparacion");
+    divModales.innerHTML = "";
+    // Limpiar la tabla antes de volver a llenar
+    while (tabla.rows.length > 1) {
+      tabla.deleteRow(1);
+    }
+
+    // Iterar sobre el array y agregar filas a la tabla
+    for (const celular of Telefono.listar()) {
+      const fila = tabla.insertRow(-1); // -1 inserta al final
+
+      const celdaNumero = fila.insertCell(0);
+      const celdaImei = fila.insertCell(1);
+      const celdaEstado = fila.insertCell(2);
+    
+      celdaImei.textContent = celular.imei;
+      celdaNumero.textContent = celular.numeroTelefono;
+      celdaEstado.textContent = celular.estado;
+      fila.insertCell(3).innerHTML  = `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reparacion_${celular.numeroTelefono}">Reparar</button>`;
+      console.log(crearReparacionModal(celular.imei));
+      divModales.innerHTML += crearReparacionModal(celular.imei);
+    }
+  }
+function submitRevision(){
+    try {
+        listRevisiones = Revision.listar();
+        
+        tecnicoEncontrado = Tecnico.listar().find(t => t.nombre === document.getElementById('revisionTecnico').value);
+        telefonoEncontrado = Telefono.listar().find(tlf => tlf.imei === document.getElementById('revisionTelefono').value);
+
+        if(tecnicoEncontrado === undefined){
+            throw new Error("Seleccione un Técnico");
+        }
+        if(telefonoEncontrado === undefined){
+            throw new Error("Seleccione un Telefono");
+        }
+
+        diagnosticoIngresado = document.getElementById('revisionDiagnostico').value;
+
+        if(diagnosticoIngresado === "        " || diagnosticoIngresado === "" || diagnosticoIngresado.indexOf(" ") === 0){
+            throw new Error("Ingrese un diagnostico");
+        }
+
+        console.log(tecnicoEncontrado);
+        console.log(telefonoEncontrado);
+
+        let revisionRealizada = telefonoEncontrado.realizarRevision(tecnicoEncontrado,diagnosticoIngresado);
+        listRevisiones.push(revisionRealizada);
+        console.log(revisionRealizada);
+        localStorage.setItem('revisiones',JSON.stringify(listRevisiones));
+        
+    } catch (error) {
+        Swal.fire(`Error:${error.message}`, "", "error");
+    }
+}
+
+let currentArrayRepuestos = [];
+
+function agregarRepuesto(event,numeroTelefono) {
+    event.preventDefault();
+    try {
+        let repuesto = document.getElementById(`repuesto_${numeroTelefono}`).value;
+        if(repuesto !== ""){
+            Swal.fire({
+                title: "Está seguro?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "SI",
+                denyButtonText: `NO`
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    currentArrayRepuestos.push(repuesto);
+                    displayRepuestos(currentArrayRepuestos,numeroTelefono);
+                }
+                document.getElementById(`repuesto_${numeroTelefono}`).value = "";
+            });
+        }
+        else if (repuesto === ""){
+            throw new Error("No se aceptan nulos")
+        }
+    } catch (error) {
+        Swal.fire(`Error:${error.message}`, "", "error");
+    }
+}
+function displayRepuestos(array,numeroTelefono) {
+    const divRepuestos = document.getElementById(`repuestos_${numeroTelefono}`);
+    divRepuestos.innerHTML = array.length>0 ? array.map(e=>`<li> ${e} </li>`).join('') : "";
+}
+function cerrarReparacion(numeroTelefono) {
+    currentArrayRepuestos = [];
+    displayRepuestos(currentArrayRepuestos,numeroTelefono);
+}
+function crearReparacionModal(imei){
+    const telefonoEncontrado = Telefono.listar().find(t=>t.imei === imei);
+    const clienteEncontrado = Cliente.listar().find(c => c.numeroTelefono === telefonoEncontrado.numeroTelefono);
+    let modalReparacion = `
+    <div class="modal fade" id="reparacion_${telefonoEncontrado.numeroTelefono}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Telefono del cliente ${clienteEncontrado.nombre}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3 row">
+                    <div class="col-2">
+                        <label class="form-label" for="repuesto_${telefonoEncontrado.numeroTelefono}">Repuesto:</label>
+                    </div>
+                    <div class="col-7">
+                        <input type="text" class="form-control" id="repuesto_${telefonoEncontrado.numeroTelefono}" name="repuesto_${telefonoEncontrado.numeroTelefono}" required></input>
+                    </div>
+                    <button class="col-3 btn btn-warning" onclick="agregarRepuesto(event,${telefonoEncontrado.numeroTelefono})">Agregar Repuesto</button>
+                </div>
+                <div class="mb-3 row">                    
+                    <ul class="col-12" id="repuestos_${telefonoEncontrado.numeroTelefono}">
+
+                    </ul>       
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-2">
+                        <label class="form-label" for="estacion_${telefonoEncontrado.numeroTelefono}">Estación:</label>
+                    </div>
+                    <select class="col-10 form-control" id="estacion_${telefonoEncontrado.numeroTelefono}" name="estacion_${telefonoEncontrado.numeroTelefono}">
+                        <option value="" selected>----------------------</option>
+                        <option value="Estación de Reparación">Estación de Reparación</option>
+                        <option value="Estación de Control de Calidad">Estación de Control de Calidad</option>
+                        <option value="Estación de Entrega">Estación de Entrega</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="cerrarReparacion(${telefonoEncontrado.numeroTelefono})" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="submitReparacion(document.getElementById('estacion_${telefonoEncontrado.numeroTelefono}').value,currentArrayRepuestos,${telefonoEncontrado.imei})" >Registrar reparacion</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    `;
+    return modalReparacion;
+}
+
+function submitReparacion(estacion,arrayRepuestos,paramImei) {
+    try {
+        if(estacion === ""){throw new Error("No Añadió una estación!");}
+        let telefonoEncontrado = Telefono.listar().find(t=>t.imei === paramImei.toString());
+        let indexTelf = Telefono.listar().findIndex(t=>t.imei === paramImei.toString());
+        let lisTelefonos = Telefono.listar();
+        let estadoCambiado = estacion==="Estación de Entrega" ? "Terminado" : "En reparación";
+        telefonoEncontrado.estado = estadoCambiado;
+        lisTelefonos[indexTelf] = telefonoEncontrado;
+        // console.log(estacion);
+        // console.log(arrayRepuestos);
+        // console.log(paramImei);
+        // console.log(telefonoEncontrado);
+        // console.log(lisTelefonos);
+
+        localStorage.setItem('celulares',JSON.stringify(lisTelefonos));
+        const nuevaReparacion = new Reparacion(telefonoEncontrado.numeroTelefono,estacion,arrayRepuestos);
+        let listReparaciones = Reparacion.listar();
+        listReparaciones.push(nuevaReparacion);
+        localStorage.setItem('reparaciones',JSON.stringify(listReparaciones));
+        llenarTabla();
+    } catch (error) {
+        Swal.fire(`Error:${error.message}`, "", "error");
     }
 }
