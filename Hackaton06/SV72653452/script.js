@@ -1,20 +1,26 @@
-class Telefono {
-    constructor(imei, marca) {
+class Telefono 
+{
+    constructor(imei, marca)
+     {
         this.imei = imei;
         this.marca = marca;
         this.reportado = false;
     }
 }
 
-class Tecnico {
-    constructor(nombre, skills) {
+class Tecnico
+ {
+    constructor(nombre, skills)
+    {
         this.nombre = nombre;
         this.skills = skills;
     }
 }
 
-class FalloHardware {
-    constructor(bateria, pantalla, botoneslaterales, camara, ram) {
+class FalloHardware 
+{
+    constructor(bateria, pantalla, botoneslaterales, camara, ram) 
+    {
         this.bateria = bateria;
         this.pantalla = pantalla;
         this.botoneslaterales = botoneslaterales;
@@ -23,8 +29,10 @@ class FalloHardware {
     }
 }
 
-class NuevosFallosHardware {
-    constructor(altavoz, microfono, puertodecarga, puertosim, puertoaux) {
+class NuevosFallosHardware 
+{
+    constructor(altavoz, microfono, puertodecarga, puertosim, puertoaux) 
+    {
         this.altavoz = altavoz;
         this.microfono = microfono;
         this.puertodecarga = puertodecarga;
@@ -33,25 +41,33 @@ class NuevosFallosHardware {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+
+
+
+document.addEventListener("DOMContentLoaded", () => 
+{
     const iniciarReparacionButton = document.getElementById("iniciarReparacion");
     const reiniciarSistemaButton = document.getElementById("reiniciarSistema");
 
     iniciarReparacionButton.addEventListener("click", iniciarReparacion);
-    
     reiniciarSistemaButton.addEventListener("click", reiniciarSistema);
 
     const telefonos = [];
 
-    function desactivarBoton(boton) {
+    function desactivarBoton(boton) 
+    {
         boton.disabled = true;
     }
 
-    async function iniciarReparacion() {
+
+
+    async function iniciarReparacion()
+     {
         // Solicitar el número de IMEI al usuario a través de un cuadro de diálogo
         const imei = prompt("Ingrese el número de IMEI:");
 
-        if (!imei) {
+        if (!imei) 
+        {
             alert("El IMEI es obligatorio. No se puede proceder con la reparación.");
             return;
         }
@@ -67,7 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // Preguntar al usuario si el teléfono está reportado a través de un cuadro de diálogo
         telefonoNuevo.reportado = await confirmDialog("¿El teléfono está reportado?", "Sí", "No");
 
-        if (telefonoNuevo.reportado) {
+        if (telefonoNuevo.reportado) 
+        {
             alert("Lo sentimos, no se puede reparar un teléfono reportado.");
             return;
         }
@@ -86,7 +103,8 @@ document.addEventListener("DOMContentLoaded", () => {
                                   <p>Técnico Asignado: ${tecnicoAsignado.nombre}</p>`;
 
         // Mostrar alerta de ejecución del diagnóstico 1 después de 3 segundos
-        setTimeout(async () => {
+        setTimeout(async () =>
+         {
             alert("Ejecutando Diagnóstico 1...");
             // Aquí puedes llamar a la función para mostrar los fallos de hardware
             await mostrarDiagnosticoHardware(telefonoNuevo.marca);
@@ -94,13 +112,16 @@ document.addEventListener("DOMContentLoaded", () => {
             // Preguntar si desea iniciar la reparación
             const iniciarReparacion = await confirmDialog("¿Quieres iniciar con la reparación del celular?", "Sí", "No");
 
-            if (iniciarReparacion) {
+            if (iniciarReparacion) 
+            {
                 let abonoNum;
-                do {
+                do 
+                {
                     const abono = prompt("Total aproximado $300. Ingrese el abono del 50% de la reparación ($150):");
                     abonoNum = parseFloat(abono);
 
-                    if (abonoNum !== 150) {
+                    if (abonoNum !== 150) 
+                    {
                         alert("Debe ingresar exactamente $150 para continuar con la reparación.");
                     }
                 } while (abonoNum !== 150);
@@ -112,7 +133,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // Realizar reparación de las nuevas fallas
                 await realizarReparacionNuevasFallas();
-            } else {
+            } 
+            else 
+            {
                 alert("No se procedió con la reparación.");
             }
         }, 1000);
@@ -131,48 +154,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    function reiniciarSistema() {
+
+
+    function reiniciarSistema() 
+    {
         location.reload(); // Recargar la página para reiniciar el sistema
     }
 
-    async function confirmDialog(message, btnTrue, btnFalse) {
-        const dialog = document.createElement("div");
-        dialog.style.position = "fixed";
-        dialog.style.top = "50%";
-        dialog.style.left = "50%";
-        dialog.style.transform = "translate(-50%, -50%)";
-        dialog.style.padding = "20px";
-        dialog.style.backgroundColor = "white";
-        dialog.style.border = "1px solid #ccc";
-        dialog.style.borderRadius = "8px";
-        dialog.style.zIndex = "1000";
 
+
+
+
+    async function confirmDialog(message, btnTrue, btnFalse) 
+    {
+        const dialog = document.createElement("div");
+        dialog.classList.add("dialog-container");
+    
         const texto = document.createElement("p");
         texto.textContent = message;
         dialog.appendChild(texto);
-
+    
         const botonSi = document.createElement("button");
         botonSi.textContent = btnTrue;
-        botonSi.addEventListener("click", () => {
+        botonSi.addEventListener("click", () => 
+        {
             dialog.returnValue = true;
-            cerrarCuadroDialogo(dialog); // Cerrar el cuadro de diálogo actual
+            cerrarCuadroDialogo(dialog);
         });
         dialog.appendChild(botonSi);
-
+    
         const botonNo = document.createElement("button");
         botonNo.textContent = btnFalse;
-        botonNo.addEventListener("click", () => {
+        botonNo.addEventListener("click", () => 
+        {
             dialog.returnValue = false;
-            cerrarCuadroDialogo(dialog); // Cerrar el cuadro de diálogo actual
+            cerrarCuadroDialogo(dialog);
         });
         dialog.appendChild(botonNo);
-
+    
         document.body.appendChild(dialog);
-
-        // Esperar hasta que el cuadro de diálogo se cierre
-        return new Promise(resolve => {
-            const interval = setInterval(() => {
-                if (dialog.returnValue !== undefined) {
+    
+        return new Promise(resolve => 
+            {
+            const interval = setInterval(() => 
+            {
+                if (dialog.returnValue !== undefined) 
+                {
                     resolve(dialog.returnValue);
                     clearInterval(interval);
                 }
@@ -180,31 +207,44 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function cerrarCuadroDialogo(dialog) {
-        if (dialog) {
+
+
+
+
+
+    function cerrarCuadroDialogo(dialog) 
+    {
+        if (dialog) 
+        {
             dialog.parentNode.removeChild(dialog);
         }
     }
 
-    async function mostrarDiagnosticoHardware(marca) {
-        // Aquí puedes implementar la lógica para mostrar los fallos de hardware
-        // Puedes utilizar la variable 'marca' para determinar si es Android o iOS
+
+
+
+
+    async function mostrarDiagnosticoHardware(marca)
+    {
         const analisisFalla = marca === "Android" ? AnalisisdeFallaAndroid : AnalisisdeFallaIOS;
         const diagnosticoAleatorio = analisisFalla[Math.floor(Math.random() * analisisFalla.length)];
-
+    
         const infoContainer = document.getElementById("infoReparacion");
-        infoContainer.innerHTML += `<p>Diagnostico 1:</p>
-                                    <p>${diagnosticoAleatorio.bateria}</p>
-                                    <p>${diagnosticoAleatorio.pantalla}</p>
-                                    <p>${diagnosticoAleatorio.botoneslaterales}</p>
-                                    <p>${diagnosticoAleatorio.camara}</p>
-                                    <p>${diagnosticoAleatorio.ram}</p>`;
-
-
-        
+        const diagnosticoContainer = document.createElement("div");
+        diagnosticoContainer.classList.add("info-container");
+    
+        diagnosticoContainer.innerHTML = `<p>Diagnóstico 1:</p>
+                                          <p>${diagnosticoAleatorio.bateria}</p>
+                                          <p>${diagnosticoAleatorio.pantalla}</p>
+                                          <p>${diagnosticoAleatorio.botoneslaterales}</p>
+                                          <p>${diagnosticoAleatorio.camara}</p>
+                                          <p>${diagnosticoAleatorio.ram}</p>`;
+    
+        infoContainer.appendChild(diagnosticoContainer);
     }
 
-    async function mostrarDiagnosticoNuevasFallas() {
+    async function mostrarDiagnosticoNuevasFallas() 
+    {
         const infoContainer = document.getElementById("infoReparacion");
         infoContainer.innerHTML += "<p>Diagnóstico 2:</p>";
     
@@ -214,32 +254,41 @@ document.addEventListener("DOMContentLoaded", () => {
         const diagnostico2 = await obtenerDiagnosticoNuevasFallas(fallosAleatorios);
         guardarEnAlmacenamiento("Diagnostico2", diagnostico2);
     
-        for (const fallo in fallosAleatorios) {
+        for (const fallo in fallosAleatorios) 
+        {
             infoContainer.innerHTML += `<p>${fallo}: ${fallosAleatorios[fallo]}</p>`;
         }
     }
     
-    async function obtenerDiagnosticoNuevasFallas(fallos) {
+    async function obtenerDiagnosticoNuevasFallas(fallos) 
+    {
         let diagnostico = "Diagnóstico 2:";
         for (const fallo in fallos) {
+
             diagnostico += `${fallo}: ${fallos[fallo]}`;
         }
         return diagnostico;
     }
+
+    
     async function realizarReparacionNuevasFallas() 
     {
         const reparacionNuevasFallas = await confirmDialog("¿Desea realizar la reparación de las nuevas fallas?", "Sí", "No");
 
-        if (reparacionNuevasFallas) {
+        if (reparacionNuevasFallas) 
+        {
             let abonoNum;
-            do {
+            do
+             {
                 const abono = prompt("Inserte los $450 faltantes para culminar la operación:");
                 abonoNum = parseFloat(abono);
 
-                if (abonoNum !== 450) {
+                if (abonoNum !== 450) 
+                {
                     alert("Debe ingresar exactamente $450 para continuar con la reparación.");
                 }
-            } while (abonoNum !== 450);
+            } 
+            while (abonoNum !== 450);
 
             mostrarDiagnosticoFinalBuenEstado();
             // Almacenar información en el almacenamiento web
@@ -248,11 +297,13 @@ document.addEventListener("DOMContentLoaded", () => {
         } 
         else 
         {
-            do {
+            do 
+            {
                 const abono = prompt("Inserte los $150 faltantes para culminar la operación:");
                 abonoNum = parseFloat(abono);
 
-                if (abonoNum !== 150) {
+                if (abonoNum !== 150)
+                 {
                     alert("Debe ingresar exactamente $150 para continuar con la reparación.");
                 }
             } while (abonoNum !== 150);
@@ -285,14 +336,16 @@ document.addEventListener("DOMContentLoaded", () => {
         storage.setItem(clave, valor);
     }
 
-    function mostrarDiagnosticoFinalBuenEstado() {
+    function mostrarDiagnosticoFinalBuenEstado() 
+    {
         const infoContainer = document.getElementById("infoReparacion");
         infoContainer.innerHTML += "<p>DIAGNOSTICO FINAL:</p>";
         // Aquí puedes mostrar los detalles del diagnóstico final en buen estado
         infoContainer.innerHTML += "<p>TODOS LOS COMPONENTES ESTAN EN BUEN ESTADO.</p>";
     }
 
-    function mostrarDiagnosticoFinalConFallas() {
+    function mostrarDiagnosticoFinalConFallas() 
+    {
         const infoContainer = document.getElementById("infoReparacion");
         infoContainer.innerHTML += `<p>DIAGNOSTICO FINAL:</p> 
                                     <p>Diagnostico 1 : COMPLETADO</p>
@@ -302,34 +355,43 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    function elegirTecnico(marca) {
+    function elegirTecnico(marca) 
+    {
         const tecnicosDisponibles = marca === "iOS" ? tecnicosIOS : tecnicosAndroid;
         return tecnicosDisponibles[Math.floor(Math.random() * tecnicosDisponibles.length)];
     }
 
 });
 
+
+
+
+
 // Diagnósticos para Android
-const AnalisisdeFallaAndroid = [
+const AnalisisdeFallaAndroid = 
+[
     new FalloHardware("BATERIA = Buen estado", "PANTALLA = En revisión", "BOTONES LATERALES = En revisión", "CAMARA = Buen estado", 4),
     new FalloHardware("BATERIA = En revisión", "PANTALLA = Buen estado", "BOTONES LATERALES = Buen estado", "CAMARA = En revisión", 16),
 ];
 
 // Diagnósticos para iOS
-const AnalisisdeFallaIOS = [
+const AnalisisdeFallaIOS =
+ [
     new FalloHardware("BATERIA = Buen estado", "PANTALLA = En revisión", "BOTONES LATERALES = Buen estado", "CAMARA = En revisión", 8),
     new FalloHardware("BATERIA = En revisión", "PANTALLA = Buen estado", "BOTONES LATERALES = En revisión", "CAMARA = Buen estado", 12),
 ];
 
 
 // Tecnicos especializados
-const tecnicosAndroid = [
+const tecnicosAndroid =
+[
     new Tecnico("Técnico Carlos (especialista en android)", ["Android"]),
     new Tecnico("Técnico Javier (especialista en android)", ["Android"]),
     new Tecnico("Técnico Alex (especialista en android)", ["Android"]),
 ];
 
-const tecnicosIOS = [
+const tecnicosIOS = 
+[
     new Tecnico("Técnico Marco (especialista en ios)", ["iOS"]),
     new Tecnico("Técnico Joaquin (especialista en ios)", ["iOS"]),
     new Tecnico("Técnico Dylan (especialista en ios)", ["iOS"]),
@@ -338,9 +400,9 @@ const tecnicosIOS = [
 
 
 const NuevasFallas = 
-                     [
-                        new NuevosFallosHardware("Altavoz dañado", "Microfono no funciona", "Puerto de carga defectuoso", "Problemas con el puerto SIM", "Problemas con el puerto auxiliar"),
-                        new NuevosFallosHardware("Altavoz funciona intermitentemente", "Microfono con interferencias", "Puerto de carga no reconoce el cable", "Problemas con la tarjeta SIM", "Puerto auxiliar no responde"),
-                        new NuevosFallosHardware("Altavoz produce sonido distorsionado", "Microfono demasiado bajo", "Problemas de conexión en el puerto de carga", "No detecta la tarjeta SIM", "Puerto auxiliar no detecta dispositivos"),
+        [
+        new NuevosFallosHardware("Altavoz dañado", "Microfono no funciona", "Puerto de carga defectuoso", "Problemas con el puerto SIM", "Problemas con el puerto auxiliar"),
+        new NuevosFallosHardware("Altavoz funciona intermitentemente", "Microfono con interferencias", "Puerto de carga no reconoce el cable", "Problemas con la tarjeta SIM", "Puerto auxiliar no responde"),
+        new NuevosFallosHardware("Altavoz produce sonido distorsionado", "Microfono demasiado bajo", "Problemas de conexión en el puerto de carga", "No detecta la tarjeta SIM", "Puerto auxiliar no detecta dispositivos"),
                         
-                     ]
+        ];
