@@ -1,84 +1,346 @@
 class Telefono {
-    constructor(numeroSerie, IMEI) {
-      this.numeroSerie = numeroSerie;
-      this.IMEI = IMEI;
-      this.reportado = false;
+    constructor(imei, marca) {
+        this.imei = imei;
+        this.marca = marca;
+        this.reportado = false;
     }
-  
-    verificarReporte() {
-      // Simulación de la lógica para verificar si el teléfono está reportado
-      // En una implementación real, esta lógica debería ser más robusta
-      return !this.reportado;
-    }
-  }
-  
-  class Usuario {
-    constructor(nombre) {
-      this.nombre = nombre;
-    }
-  }
-  
-  class Reparacion {
-    constructor(telefono, tecnico, repuestos) {
-      this.telefono = telefono;
-      this.tecnico = tecnico;
-      this.repuestos = repuestos;
-      this.diagnostico = null;
-      this.autorizacion = false;
-      this.abono = 0;
-    }
-  
-    realizarRevision(diagnostico) {
-      // Lógica para realizar la revisión del teléfono
-      this.diagnostico = diagnostico;
-    }
-  
-    obtenerAutorizacion(abono) {
-      // Lógica para obtener la autorización del usuario y el abono del 50%
-      this.autorizacion = true;
-      this.abono = abono;
-    }
-  }
-  
-  class Tecnico {
+}
+
+class Tecnico {
     constructor(nombre, skills) {
-      this.nombre = nombre;
-      this.skills = skills;
+        this.nombre = nombre;
+        this.skills = skills;
     }
-  
-    tieneSkills(telefono) {
-      // Lógica para verificar si el técnico tiene las habilidades necesarias
-      return this.skills.includes(telefono.marca);
+}
+
+class FalloHardware {
+    constructor(bateria, pantalla, botoneslaterales, camara, ram) {
+        this.bateria = bateria;
+        this.pantalla = pantalla;
+        this.botoneslaterales = botoneslaterales;
+        this.camara = camara;
+        this.ram = ram;
     }
-  }
-  
-  function iniciarReparacion() {
-    const numeroSerie = prompt('Ingrese el número de serie del teléfono:');
-    const IMEI = prompt('Ingrese el IMEI del teléfono:');
-    const nombreUsuario = prompt('Ingrese su nombre:');
-  
-    const telefono = new Telefono(numeroSerie, IMEI);
-    const usuario = new Usuario(nombreUsuario);
-    const tecnico = new Tecnico('Técnico 1', ['Samsung', 'iPhone']);
-    const repuestos = ['Pantalla', 'Batería'];
-  
-    const reparacion = new Reparacion(telefono, tecnico, repuestos);
-  
-    if (telefono.verificarReporte()) {
-      const diagnostico = prompt('Realice la revisión y escriba el diagnóstico:');
-      reparacion.realizarRevision(diagnostico);
-  
-      const abono = parseFloat(prompt('Ingrese el abono (50% de la reparación):'));
-      reparacion.obtenerAutorizacion(abono);
-  
-      // Mostrar el estado del equipo en diferentes estaciones de trabajo
-      document.getElementById('output').innerHTML = '<h2>Estado del equipo:</h2><pre>' + JSON.stringify(reparacion, null, 2) + '</pre>';
-  
-      // Guardar en WebStorage (localStorage)
-      if (typeof localStorage !== 'undefined') {
-        localStorage.setItem('reparacion', JSON.stringify(reparacion));
-      }
-    } else {
-      alert('El teléfono está reportado y no puede acceder al servicio de reparación.');
+}
+
+class NuevosFallosHardware {
+    constructor(altavoz, microfono, puertodecarga, puertosim, puertoaux) {
+        this.altavoz = altavoz;
+        this.microfono = microfono;
+        this.puertodecarga = puertodecarga;
+        this.puertosim = puertosim;
+        this.puertoaux = puertoaux;
     }
-  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const iniciarReparacionButton = document.getElementById("iniciarReparacion");
+    const reiniciarSistemaButton = document.getElementById("reiniciarSistema");
+
+    iniciarReparacionButton.addEventListener("click", iniciarReparacion);
+    
+    reiniciarSistemaButton.addEventListener("click", reiniciarSistema);
+
+    const telefonos = [];
+
+    function desactivarBoton(boton) {
+        boton.disabled = true;
+    }
+
+    async function iniciarReparacion() {
+        // Solicitar el número de IMEI al usuario a través de un cuadro de diálogo
+        const imei = prompt("Ingrese el número de IMEI:");
+
+        if (!imei) {
+            alert("El IMEI es obligatorio. No se puede proceder con la reparación.");
+            return;
+        }
+
+        // Crear un nuevo objeto Telefono con el IMEI ingresado
+        const telefonoNuevo = new Telefono(imei, "");
+
+        // Agregar el nuevo teléfono al arreglo de telefonos
+        telefonos.push(telefonoNuevo);
+
+        const infoContainer = document.getElementById("infoReparacion");
+
+        // Preguntar al usuario si el teléfono está reportado a través de un cuadro de diálogo
+        telefonoNuevo.reportado = await confirmDialog("¿El teléfono está reportado?", "Sí", "No");
+
+        if (telefonoNuevo.reportado) {
+            alert("Lo sentimos, no se puede reparar un teléfono reportado.");
+            return;
+        }
+
+        // Preguntar la marca del teléfono a través de un cuadro de diálogo
+        const esIOS = await confirmDialog("¿Qué tipo de marca es tu celular: Android o iOS?", "Android", "iOS");
+        telefonoNuevo.marca = esIOS ? "Android" : "iOS";
+
+        // Elegir un técnico aleatorio en función de la marca del teléfono
+        const tecnicoAsignado = elegirTecnico(telefonoNuevo.marca);
+
+        // Mostrar información final sin eliminar lo ya escrito
+        infoContainer.innerHTML = `<p>IMEI: ${telefonoNuevo.imei}</p>
+                                  <p>Marca: ${telefonoNuevo.marca}</p>
+                                  <p>Reportado: ${telefonoNuevo.reportado ? "Sí" : "No"}</p>
+                                  <p>Técnico Asignado: ${tecnicoAsignado.nombre}</p>`;
+
+        // Mostrar alerta de ejecución del diagnóstico 1 después de 3 segundos
+        setTimeout(async () => {
+            alert("Ejecutando Diagnóstico 1...");
+            // Aquí puedes llamar a la función para mostrar los fallos de hardware
+            await mostrarDiagnosticoHardware(telefonoNuevo.marca);
+
+            // Preguntar si desea iniciar la reparación
+            const iniciarReparacion = await confirmDialog("¿Quieres iniciar con la reparación del celular?", "Sí", "No");
+
+            if (iniciarReparacion) {
+                let abonoNum;
+                do {
+                    const abono = prompt("Total aproximado $300. Ingrese el abono del 50% de la reparación ($150):");
+                    abonoNum = parseFloat(abono);
+
+                    if (abonoNum !== 150) {
+                        alert("Debe ingresar exactamente $150 para continuar con la reparación.");
+                    }
+                } while (abonoNum !== 150);
+
+                alert("La reparación se está ejecutando.");
+
+                // Mostrar diagnóstico 2 con nuevos fallos de hardware
+                await mostrarDiagnosticoNuevasFallas();
+
+                // Realizar reparación de las nuevas fallas
+                await realizarReparacionNuevasFallas();
+            } else {
+                alert("No se procedió con la reparación.");
+            }
+        }, 1000);
+
+            
+
+        guardarEnAlmacenamiento("IMEI", telefonoNuevo.imei);
+        guardarEnAlmacenamiento("Marca", telefonoNuevo.marca);
+        guardarEnAlmacenamiento("Reportado", telefonoNuevo.reportado ? "Sí" : "No");
+        guardarEnAlmacenamiento("TecnicoAsignado", tecnicoAsignado.nombre);
+
+         // Almacenar diagnóstico 1 en el almacenamiento web
+         const diagnostico1 = await obtenerDiagnosticoHardware(telefonoNuevo.marca);
+        guardarEnAlmacenamiento("Diagnostico1", diagnostico1);
+
+
+    }
+
+    function reiniciarSistema() {
+        location.reload(); // Recargar la página para reiniciar el sistema
+    }
+
+    async function confirmDialog(message, btnTrue, btnFalse) {
+        const dialog = document.createElement("div");
+        dialog.style.position = "fixed";
+        dialog.style.top = "50%";
+        dialog.style.left = "50%";
+        dialog.style.transform = "translate(-50%, -50%)";
+        dialog.style.padding = "20px";
+        dialog.style.backgroundColor = "white";
+        dialog.style.border = "1px solid #ccc";
+        dialog.style.borderRadius = "8px";
+        dialog.style.zIndex = "1000";
+
+        const texto = document.createElement("p");
+        texto.textContent = message;
+        dialog.appendChild(texto);
+
+        const botonSi = document.createElement("button");
+        botonSi.textContent = btnTrue;
+        botonSi.addEventListener("click", () => {
+            dialog.returnValue = true;
+            cerrarCuadroDialogo(dialog); // Cerrar el cuadro de diálogo actual
+        });
+        dialog.appendChild(botonSi);
+
+        const botonNo = document.createElement("button");
+        botonNo.textContent = btnFalse;
+        botonNo.addEventListener("click", () => {
+            dialog.returnValue = false;
+            cerrarCuadroDialogo(dialog); // Cerrar el cuadro de diálogo actual
+        });
+        dialog.appendChild(botonNo);
+
+        document.body.appendChild(dialog);
+
+        // Esperar hasta que el cuadro de diálogo se cierre
+        return new Promise(resolve => {
+            const interval = setInterval(() => {
+                if (dialog.returnValue !== undefined) {
+                    resolve(dialog.returnValue);
+                    clearInterval(interval);
+                }
+            }, 100);
+        });
+    }
+
+    function cerrarCuadroDialogo(dialog) {
+        if (dialog) {
+            dialog.parentNode.removeChild(dialog);
+        }
+    }
+
+    async function mostrarDiagnosticoHardware(marca) {
+        // Aquí puedes implementar la lógica para mostrar los fallos de hardware
+        // Puedes utilizar la variable 'marca' para determinar si es Android o iOS
+        const analisisFalla = marca === "Android" ? AnalisisdeFallaAndroid : AnalisisdeFallaIOS;
+        const diagnosticoAleatorio = analisisFalla[Math.floor(Math.random() * analisisFalla.length)];
+
+        const infoContainer = document.getElementById("infoReparacion");
+        infoContainer.innerHTML += `<p>Diagnostico 1:</p>
+                                    <p>${diagnosticoAleatorio.bateria}</p>
+                                    <p>${diagnosticoAleatorio.pantalla}</p>
+                                    <p>${diagnosticoAleatorio.botoneslaterales}</p>
+                                    <p>${diagnosticoAleatorio.camara}</p>
+                                    <p>${diagnosticoAleatorio.ram}</p>`;
+
+
+        
+    }
+
+    async function mostrarDiagnosticoNuevasFallas() {
+        const infoContainer = document.getElementById("infoReparacion");
+        infoContainer.innerHTML += "<p>Diagnóstico 2:</p>";
+    
+        const fallosAleatorios = NuevasFallas[Math.floor(Math.random() * NuevasFallas.length)];
+    
+        // Almacenar diagnóstico 2 en el almacenamiento web
+        const diagnostico2 = await obtenerDiagnosticoNuevasFallas(fallosAleatorios);
+        guardarEnAlmacenamiento("Diagnostico2", diagnostico2);
+    
+        for (const fallo in fallosAleatorios) {
+            infoContainer.innerHTML += `<p>${fallo}: ${fallosAleatorios[fallo]}</p>`;
+        }
+    }
+    
+    async function obtenerDiagnosticoNuevasFallas(fallos) {
+        let diagnostico = "Diagnóstico 2:";
+        for (const fallo in fallos) {
+            diagnostico += `${fallo}: ${fallos[fallo]}`;
+        }
+        return diagnostico;
+    }
+    async function realizarReparacionNuevasFallas() 
+    {
+        const reparacionNuevasFallas = await confirmDialog("¿Desea realizar la reparación de las nuevas fallas?", "Sí", "No");
+
+        if (reparacionNuevasFallas) {
+            let abonoNum;
+            do {
+                const abono = prompt("Inserte los $450 faltantes para culminar la operación:");
+                abonoNum = parseFloat(abono);
+
+                if (abonoNum !== 450) {
+                    alert("Debe ingresar exactamente $450 para continuar con la reparación.");
+                }
+            } while (abonoNum !== 450);
+
+            mostrarDiagnosticoFinalBuenEstado();
+            // Almacenar información en el almacenamiento web
+            guardarEnAlmacenamiento("DiagnosticoFinal", "Todos los componentes están en buen estado.");
+        
+        } 
+        else 
+        {
+            do {
+                const abono = prompt("Inserte los $150 faltantes para culminar la operación:");
+                abonoNum = parseFloat(abono);
+
+                if (abonoNum !== 150) {
+                    alert("Debe ingresar exactamente $150 para continuar con la reparación.");
+                }
+            } while (abonoNum !== 150);
+
+            alert("Gracias por preferirnos.");
+            // Mostrar en la página web el diagnóstico final con fallas
+          mostrarDiagnosticoFinalConFallas();
+          // Almacenar información en el almacenamiento web
+          guardarEnAlmacenamiento("DiagnosticoFinal", "Diagnóstico 1: Completado, Diagnóstico 2: Fallando");
+      
+        
+        }
+
+    }
+        async function obtenerDiagnosticoHardware(marca) 
+        {
+        const analisisFalla = marca === "Android" ? AnalisisdeFallaAndroid : AnalisisdeFallaIOS;
+        const diagnosticoAleatorio = analisisFalla[Math.floor(Math.random() * analisisFalla.length)];
+
+        return `Batería: ${diagnosticoAleatorio.bateria}, Pantalla: ${diagnosticoAleatorio.pantalla}, Botones Laterales: ${diagnosticoAleatorio.botoneslaterales}, Cámara: ${diagnosticoAleatorio.camara}, RAM: ${diagnosticoAleatorio.ram}`;
+        }
+
+
+        function guardarEnAlmacenamiento(clave, valor)
+        {  
+        // Seleccionar el tipo de almacenamiento web (LocalStorage o SessionStorage)
+        const storage = window.localStorage || window.sessionStorage;
+
+        // Guardar la clave y el valor en el almacenamiento web
+        storage.setItem(clave, valor);
+    }
+
+    function mostrarDiagnosticoFinalBuenEstado() {
+        const infoContainer = document.getElementById("infoReparacion");
+        infoContainer.innerHTML += "<p>DIAGNOSTICO FINAL:</p>";
+        // Aquí puedes mostrar los detalles del diagnóstico final en buen estado
+        infoContainer.innerHTML += "<p>TODOS LOS COMPONENTES ESTAN EN BUEN ESTADO.</p>";
+    }
+
+    function mostrarDiagnosticoFinalConFallas() {
+        const infoContainer = document.getElementById("infoReparacion");
+        infoContainer.innerHTML += `<p>DIAGNOSTICO FINAL:</p> 
+                                    <p>Diagnostico 1 : COMPLETADO</p>
+                                    <p>Diagnostico 2: FALLANDO</p>`;
+    
+       
+    }
+
+
+    function elegirTecnico(marca) {
+        const tecnicosDisponibles = marca === "iOS" ? tecnicosIOS : tecnicosAndroid;
+        return tecnicosDisponibles[Math.floor(Math.random() * tecnicosDisponibles.length)];
+    }
+
+});
+
+// Diagnósticos para Android
+const AnalisisdeFallaAndroid = [
+    new FalloHardware("BATERIA = Buen estado", "PANTALLA = En revisión", "BOTONES LATERALES = En revisión", "CAMARA = Buen estado", 4),
+    new FalloHardware("BATERIA = En revisión", "PANTALLA = Buen estado", "BOTONES LATERALES = Buen estado", "CAMARA = En revisión", 16),
+];
+
+// Diagnósticos para iOS
+const AnalisisdeFallaIOS = [
+    new FalloHardware("BATERIA = Buen estado", "PANTALLA = En revisión", "BOTONES LATERALES = Buen estado", "CAMARA = En revisión", 8),
+    new FalloHardware("BATERIA = En revisión", "PANTALLA = Buen estado", "BOTONES LATERALES = En revisión", "CAMARA = Buen estado", 12),
+];
+
+
+// Tecnicos especializados
+const tecnicosAndroid = [
+    new Tecnico("Técnico Carlos (especialista en android)", ["Android"]),
+    new Tecnico("Técnico Javier (especialista en android)", ["Android"]),
+    new Tecnico("Técnico Alex (especialista en android)", ["Android"]),
+];
+
+const tecnicosIOS = [
+    new Tecnico("Técnico Marco (especialista en ios)", ["iOS"]),
+    new Tecnico("Técnico Joaquin (especialista en ios)", ["iOS"]),
+    new Tecnico("Técnico Dylan (especialista en ios)", ["iOS"]),
+];
+
+
+
+const NuevasFallas = 
+                     [
+                        new NuevosFallosHardware("Altavoz dañado", "Microfono no funciona", "Puerto de carga defectuoso", "Problemas con el puerto SIM", "Problemas con el puerto auxiliar"),
+                        new NuevosFallosHardware("Altavoz funciona intermitentemente", "Microfono con interferencias", "Puerto de carga no reconoce el cable", "Problemas con la tarjeta SIM", "Puerto auxiliar no responde"),
+                        new NuevosFallosHardware("Altavoz produce sonido distorsionado", "Microfono demasiado bajo", "Problemas de conexión en el puerto de carga", "No detecta la tarjeta SIM", "Puerto auxiliar no detecta dispositivos"),
+                        
+                     ]
