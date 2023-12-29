@@ -54,16 +54,12 @@ document.addEventListener("DOMContentLoaded", () =>
 
     const telefonos = [];
 
-    function desactivarBoton(boton) 
-    {
-        boton.disabled = true;
-    }
+    
 
-
-
+     //PROCEDIMIENTO 1
     async function iniciarReparacion()
      {
-        // Solicitar el número de IMEI al usuario a través de un cuadro de diálogo
+        // Solicitar el número de IMEI a través de un cuadro de diálogo
         const imei = prompt("Ingrese el número de IMEI:");
 
         if (!imei) 
@@ -80,7 +76,9 @@ document.addEventListener("DOMContentLoaded", () =>
 
         const infoContainer = document.getElementById("infoReparacion");
 
-        // Preguntar al usuario si el teléfono está reportado a través de un cuadro de diálogo
+
+
+        // Preguntar  si el teléfono está reportado a través de un cuadro de diálogo
         telefonoNuevo.reportado = await confirmDialog("¿El teléfono está reportado?", "Sí", "No");
 
         if (telefonoNuevo.reportado) 
@@ -96,17 +94,21 @@ document.addEventListener("DOMContentLoaded", () =>
         // Elegir un técnico aleatorio en función de la marca del teléfono
         const tecnicoAsignado = elegirTecnico(telefonoNuevo.marca);
 
-        // Mostrar información final sin eliminar lo ya escrito
+        // Mostrar la primera información final 
         infoContainer.innerHTML = `<p>IMEI: ${telefonoNuevo.imei}</p>
                                   <p>Marca: ${telefonoNuevo.marca}</p>
                                   <p>Reportado: ${telefonoNuevo.reportado ? "Sí" : "No"}</p>
                                   <p>Técnico Asignado: ${tecnicoAsignado.nombre}</p>`;
 
-        // Mostrar alerta de ejecución del diagnóstico 1 después de 3 segundos
+
+
+        // Mostrar alerta de ejecución del diagnóstico 1 después de 1 segundo
         setTimeout(async () =>
          {
             alert("Ejecutando Diagnóstico 1...");
-            // Aquí puedes llamar a la función para mostrar los fallos de hardware
+
+
+            // MOSTRAR DIAGNOSTICO1
             await mostrarDiagnosticoHardware(telefonoNuevo.marca);
 
             // Preguntar si desea iniciar la reparación
@@ -128,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () =>
 
                 alert("La reparación se está ejecutando.");
 
-                // Mostrar diagnóstico 2 con nuevos fallos de hardware
+                // MOSTRAR DIAGNOSTICO 2 NUEVAS FALLAS
                 await mostrarDiagnosticoNuevasFallas();
 
                 // Realizar reparación de las nuevas fallas
@@ -141,13 +143,13 @@ document.addEventListener("DOMContentLoaded", () =>
         }, 1000);
 
             
-
+          // Almacenar diagnóstico 1 en el almacenamiento web
         guardarEnAlmacenamiento("IMEI", telefonoNuevo.imei);
         guardarEnAlmacenamiento("Marca", telefonoNuevo.marca);
         guardarEnAlmacenamiento("Reportado", telefonoNuevo.reportado ? "Sí" : "No");
         guardarEnAlmacenamiento("TecnicoAsignado", tecnicoAsignado.nombre);
 
-         // Almacenar diagnóstico 1 en el almacenamiento web
+        
          const diagnostico1 = await obtenerDiagnosticoHardware(telefonoNuevo.marca);
         guardarEnAlmacenamiento("Diagnostico1", diagnostico1);
 
@@ -155,10 +157,188 @@ document.addEventListener("DOMContentLoaded", () =>
     }
 
 
+     
 
+     //DIAGNOSTICO 1
+    async function mostrarDiagnosticoHardware(marca)
+    {
+        const analisisFalla = marca === "Android" ? AnalisisdeFallaAndroid : AnalisisdeFallaIOS;
+        const diagnosticoAleatorio = analisisFalla[Math.floor(Math.random() * analisisFalla.length)];
+    
+        const infoContainer = document.getElementById("infoReparacion");
+        const diagnosticoContainer = document.createElement("div");
+        diagnosticoContainer.classList.add("info-container");
+    
+        diagnosticoContainer.innerHTML = `<p>Diagnóstico 1:</p>
+                                          <p>${diagnosticoAleatorio.bateria}</p>
+                                          <p>${diagnosticoAleatorio.pantalla}</p>
+                                          <p>${diagnosticoAleatorio.botoneslaterales}</p>
+                                          <p>${diagnosticoAleatorio.camara}</p>
+                                          <p>${diagnosticoAleatorio.ram}</p>`;
+    
+        infoContainer.appendChild(diagnosticoContainer);
+    }
+
+    // DAIGNOSTICO 1
+     async function obtenerDiagnosticoHardware(marca) 
+     {
+     const analisisFalla = marca === "Android" ? AnalisisdeFallaAndroid : AnalisisdeFallaIOS;
+     const diagnosticoAleatorio = analisisFalla[Math.floor(Math.random() * analisisFalla.length)];
+
+      return `Batería: ${diagnosticoAleatorio.bateria}, 
+     Pantalla: ${diagnosticoAleatorio.pantalla}, Botones Laterales: ${diagnosticoAleatorio.botoneslaterales}, 
+     Cámara: ${diagnosticoAleatorio.camara}, RAM: ${diagnosticoAleatorio.ram}`;
+
+
+
+
+
+}
+    //DIAGNOSTICO 2
+
+    async function mostrarDiagnosticoNuevasFallas() 
+    {
+        const infoContainer = document.getElementById("infoReparacion");
+        infoContainer.innerHTML += "<p>Diagnóstico 2:</p>";
+    
+        const fallosAleatorios = NuevasFallas[Math.floor(Math.random() * NuevasFallas.length)];
+    
+        // Almacenar diagnóstico 2 en el almacenamiento web
+        const diagnostico2 = await obtenerDiagnosticoNuevasFallas(fallosAleatorios);
+        guardarEnAlmacenamiento("Diagnostico2", diagnostico2);
+    
+        for (const fallo in fallosAleatorios) 
+        {
+            infoContainer.innerHTML += `<p>${fallo}: ${fallosAleatorios[fallo]}</p>`;
+        }
+    }
+    
+
+    //DIAGNOSTICO 2
+    async function obtenerDiagnosticoNuevasFallas(fallos) 
+    {
+        let diagnostico = "Diagnóstico 2:";
+        for (const fallo in fallos) {
+
+            diagnostico += `${fallo}: ${fallos[fallo]}`;
+        }
+        return diagnostico;
+    }
+
+    //PROCEDIMIENTO 2
+    async function realizarReparacionNuevasFallas() 
+    {
+        const reparacionNuevasFallas = await confirmDialog("¿Desea realizar la reparación de las nuevas fallas?", "Sí", "No");
+
+        if (reparacionNuevasFallas) 
+        {
+            let abonoNum;
+            do
+             {
+                const abono = prompt("Inserte los $450 faltantes para culminar la operación:");
+                abonoNum = parseFloat(abono);
+
+                if (abonoNum !== 450) 
+                {
+                    alert("Debe ingresar exactamente $450 para continuar con la reparación.");
+                }
+            } 
+            while (abonoNum !== 450);
+
+            mostrarDiagnosticoFinalBuenEstado();
+
+            alert("Gracias por preferirnos.");
+
+            // Almacenar información en el almacenamiento web
+            guardarEnAlmacenamiento("DiagnosticoFinal", "Todos los componentes están en buen estado.");
+        
+        } 
+        else 
+        {
+            do 
+            {
+                const abono = prompt("Inserte los $150 faltantes para culminar la operación:");
+                abonoNum = parseFloat(abono);
+
+                if (abonoNum !== 150)
+                 {
+                    alert("Debe ingresar exactamente $150 para continuar con la reparación.");
+                }
+            } while (abonoNum !== 150);
+
+            alert("Gracias por preferirnos.");
+            // Mostrar en la página web el diagnóstico final con fallas
+          mostrarDiagnosticoFinalConFallas();
+          // Almacenar información en el almacenamiento web
+          guardarEnAlmacenamiento("DiagnosticoFinal", "Diagnóstico 1: Completado, Diagnóstico 2: Fallando");
+      
+        
+        }
+
+
+
+
+
+          //DIAGNOSTICO FINAL BUENO
+         function mostrarDiagnosticoFinalBuenEstado() 
+         {
+           const infoContainer = document.getElementById("infoReparacion");
+           infoContainer.innerHTML += "<p>DIAGNOSTICO FINAL:</p>";
+          // Aquí puedes mostrar los detalles del diagnóstico final en buen estado
+         infoContainer.innerHTML += "<p>TODOS LOS COMPONENTES ESTAN EN BUEN ESTADO.</p>";
+         }
+
+
+          //DIAGNOSTICO FINAL MALO
+
+          function mostrarDiagnosticoFinalConFallas() 
+         {
+          const infoContainer = document.getElementById("infoReparacion");
+          infoContainer.innerHTML += `<p>DIAGNOSTICO FINAL:</p> 
+                                 <p>Diagnostico 1 : COMPLETADO</p>
+                                 <p>Diagnostico 2: FALLANDO</p>`;
+ 
+    
+         }
+
+
+
+
+
+
+
+
+    }
+        
+
+        
+        function guardarEnAlmacenamiento(clave, valor)
+        {
+        // Seleccionar el tipo de almacenamiento web (LocalStorage o SessionStorage)
+        const storage =  window.sessionStorage;
+
+        // Guardar la clave y el valor en el almacenamiento web
+        storage.setItem(clave, valor);
+    }
+
+
+   
+
+
+
+    function elegirTecnico(marca) 
+    {
+        const tecnicosDisponibles = marca === "iOS" ? tecnicosIOS : tecnicosAndroid;
+        return tecnicosDisponibles[Math.floor(Math.random() * tecnicosDisponibles.length)];
+    }
+
+
+
+
+    // Recargar la página para reiniciar el sistema
     function reiniciarSistema() 
     {
-        location.reload(); // Recargar la página para reiniciar el sistema
+        location.reload(); 
     }
 
 
@@ -224,142 +404,10 @@ document.addEventListener("DOMContentLoaded", () =>
 
 
 
-    async function mostrarDiagnosticoHardware(marca)
-    {
-        const analisisFalla = marca === "Android" ? AnalisisdeFallaAndroid : AnalisisdeFallaIOS;
-        const diagnosticoAleatorio = analisisFalla[Math.floor(Math.random() * analisisFalla.length)];
-    
-        const infoContainer = document.getElementById("infoReparacion");
-        const diagnosticoContainer = document.createElement("div");
-        diagnosticoContainer.classList.add("info-container");
-    
-        diagnosticoContainer.innerHTML = `<p>Diagnóstico 1:</p>
-                                          <p>${diagnosticoAleatorio.bateria}</p>
-                                          <p>${diagnosticoAleatorio.pantalla}</p>
-                                          <p>${diagnosticoAleatorio.botoneslaterales}</p>
-                                          <p>${diagnosticoAleatorio.camara}</p>
-                                          <p>${diagnosticoAleatorio.ram}</p>`;
-    
-        infoContainer.appendChild(diagnosticoContainer);
-    }
-
-    async function mostrarDiagnosticoNuevasFallas() 
-    {
-        const infoContainer = document.getElementById("infoReparacion");
-        infoContainer.innerHTML += "<p>Diagnóstico 2:</p>";
-    
-        const fallosAleatorios = NuevasFallas[Math.floor(Math.random() * NuevasFallas.length)];
-    
-        // Almacenar diagnóstico 2 en el almacenamiento web
-        const diagnostico2 = await obtenerDiagnosticoNuevasFallas(fallosAleatorios);
-        guardarEnAlmacenamiento("Diagnostico2", diagnostico2);
-    
-        for (const fallo in fallosAleatorios) 
-        {
-            infoContainer.innerHTML += `<p>${fallo}: ${fallosAleatorios[fallo]}</p>`;
-        }
-    }
-    
-    async function obtenerDiagnosticoNuevasFallas(fallos) 
-    {
-        let diagnostico = "Diagnóstico 2:";
-        for (const fallo in fallos) {
-
-            diagnostico += `${fallo}: ${fallos[fallo]}`;
-        }
-        return diagnostico;
-    }
-
-    
-    async function realizarReparacionNuevasFallas() 
-    {
-        const reparacionNuevasFallas = await confirmDialog("¿Desea realizar la reparación de las nuevas fallas?", "Sí", "No");
-
-        if (reparacionNuevasFallas) 
-        {
-            let abonoNum;
-            do
-             {
-                const abono = prompt("Inserte los $450 faltantes para culminar la operación:");
-                abonoNum = parseFloat(abono);
-
-                if (abonoNum !== 450) 
-                {
-                    alert("Debe ingresar exactamente $450 para continuar con la reparación.");
-                }
-            } 
-            while (abonoNum !== 450);
-
-            mostrarDiagnosticoFinalBuenEstado();
-            // Almacenar información en el almacenamiento web
-            guardarEnAlmacenamiento("DiagnosticoFinal", "Todos los componentes están en buen estado.");
-        
-        } 
-        else 
-        {
-            do 
-            {
-                const abono = prompt("Inserte los $150 faltantes para culminar la operación:");
-                abonoNum = parseFloat(abono);
-
-                if (abonoNum !== 150)
-                 {
-                    alert("Debe ingresar exactamente $150 para continuar con la reparación.");
-                }
-            } while (abonoNum !== 150);
-
-            alert("Gracias por preferirnos.");
-            // Mostrar en la página web el diagnóstico final con fallas
-          mostrarDiagnosticoFinalConFallas();
-          // Almacenar información en el almacenamiento web
-          guardarEnAlmacenamiento("DiagnosticoFinal", "Diagnóstico 1: Completado, Diagnóstico 2: Fallando");
-      
-        
-        }
-
-    }
-        async function obtenerDiagnosticoHardware(marca) 
-        {
-        const analisisFalla = marca === "Android" ? AnalisisdeFallaAndroid : AnalisisdeFallaIOS;
-        const diagnosticoAleatorio = analisisFalla[Math.floor(Math.random() * analisisFalla.length)];
-
-        return `Batería: ${diagnosticoAleatorio.bateria}, Pantalla: ${diagnosticoAleatorio.pantalla}, Botones Laterales: ${diagnosticoAleatorio.botoneslaterales}, Cámara: ${diagnosticoAleatorio.camara}, RAM: ${diagnosticoAleatorio.ram}`;
-        }
 
 
-        function guardarEnAlmacenamiento(clave, valor)
-        {  
-        // Seleccionar el tipo de almacenamiento web (LocalStorage o SessionStorage)
-        const storage = window.localStorage || window.sessionStorage;
-
-        // Guardar la clave y el valor en el almacenamiento web
-        storage.setItem(clave, valor);
-    }
-
-    function mostrarDiagnosticoFinalBuenEstado() 
-    {
-        const infoContainer = document.getElementById("infoReparacion");
-        infoContainer.innerHTML += "<p>DIAGNOSTICO FINAL:</p>";
-        // Aquí puedes mostrar los detalles del diagnóstico final en buen estado
-        infoContainer.innerHTML += "<p>TODOS LOS COMPONENTES ESTAN EN BUEN ESTADO.</p>";
-    }
-
-    function mostrarDiagnosticoFinalConFallas() 
-    {
-        const infoContainer = document.getElementById("infoReparacion");
-        infoContainer.innerHTML += `<p>DIAGNOSTICO FINAL:</p> 
-                                    <p>Diagnostico 1 : COMPLETADO</p>
-                                    <p>Diagnostico 2: FALLANDO</p>`;
-    
-       
-    }
 
 
-    function elegirTecnico(marca) 
-    {
-        const tecnicosDisponibles = marca === "iOS" ? tecnicosIOS : tecnicosAndroid;
-        return tecnicosDisponibles[Math.floor(Math.random() * tecnicosDisponibles.length)];
-    }
 
 });
 
