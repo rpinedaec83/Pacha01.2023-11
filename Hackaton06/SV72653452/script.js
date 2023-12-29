@@ -231,32 +231,32 @@ document.addEventListener("DOMContentLoaded", () =>
         const reparacionNuevasFallas = await confirmDialog("¿Desea realizar la reparación de las nuevas fallas?", "Sí", "No");
 
         if (reparacionNuevasFallas) 
-        {
-            let abonoNum;
-            do
-             {
-                const abono = prompt("Inserte los $450 faltantes para culminar la operación:");
-                abonoNum = parseFloat(abono);
+           {
+             let abonoNum;
+              do
+                 {
+                 const abono = prompt("Inserte los $450 faltantes para culminar la operación:");
+                 abonoNum = parseFloat(abono);
+ 
+                 if (abonoNum !== 450) 
+                    {
+                     alert("Debe ingresar exactamente $450 para continuar con la reparación.");
+                    }
+                } 
+             while (abonoNum !== 450);
 
-                if (abonoNum !== 450) 
-                {
-                    alert("Debe ingresar exactamente $450 para continuar con la reparación.");
-                }
-            } 
-            while (abonoNum !== 450);
+             mostrarDiagnosticoFinalBuenEstado();
 
-            mostrarDiagnosticoFinalBuenEstado();
+             alert("Gracias por preferirnos.");
 
-            alert("Gracias por preferirnos.");
-
-            // Almacenar información en el almacenamiento web
-            guardarEnAlmacenamiento("DiagnosticoFinal", "Todos los componentes están en buen estado.");
+             // Almacenar información en el almacenamiento web
+             guardarEnAlmacenamiento("DiagnosticoFinal", "Todos los componentes están en buen estado.");
         
-        } 
-        else 
-        {
-            do 
+            } 
+           else 
             {
+             do 
+              {
                 const abono = prompt("Inserte los $150 faltantes para culminar la operación:");
                 abonoNum = parseFloat(abono);
 
@@ -264,16 +264,16 @@ document.addEventListener("DOMContentLoaded", () =>
                  {
                     alert("Debe ingresar exactamente $150 para continuar con la reparación.");
                 }
-            } while (abonoNum !== 150);
+              } while (abonoNum !== 150);
 
-            alert("Gracias por preferirnos.");
-            // Mostrar en la página web el diagnóstico final con fallas
-          mostrarDiagnosticoFinalConFallas();
-          // Almacenar información en el almacenamiento web
-          guardarEnAlmacenamiento("DiagnosticoFinal", "Diagnóstico 1: Completado, Diagnóstico 2: Fallando");
+             alert("Gracias por preferirnos.");
+             // Mostrar en la página web el diagnóstico final con fallas
+             mostrarDiagnosticoFinalConFallas();
+             // Almacenar información en el almacenamiento web
+             guardarEnAlmacenamiento("DiagnosticoFinal", "Diagnóstico 1: Completado, Diagnóstico 2: Fallando");
       
         
-        }
+             }
 
 
 
@@ -281,25 +281,25 @@ document.addEventListener("DOMContentLoaded", () =>
 
           //DIAGNOSTICO FINAL BUENO
          function mostrarDiagnosticoFinalBuenEstado() 
-         {
-           const infoContainer = document.getElementById("infoReparacion");
-           infoContainer.innerHTML += "<p>DIAGNOSTICO FINAL:</p>";
-          // Aquí puedes mostrar los detalles del diagnóstico final en buen estado
-         infoContainer.innerHTML += "<p>TODOS LOS COMPONENTES ESTAN EN BUEN ESTADO.</p>";
-         }
+            {
+             const infoContainer = document.getElementById("infoReparacion");
+             infoContainer.innerHTML += "<p>DIAGNOSTICO FINAL:</p>";
+             // Aquí puedes mostrar los detalles del diagnóstico final en buen estado
+             infoContainer.innerHTML += "<p>TODOS LOS COMPONENTES ESTAN EN BUEN ESTADO.</p>";
+            }
 
 
-          //DIAGNOSTICO FINAL MALO
-
-          function mostrarDiagnosticoFinalConFallas() 
-         {
-          const infoContainer = document.getElementById("infoReparacion");
-          infoContainer.innerHTML += `<p>DIAGNOSTICO FINAL:</p> 
+        //DIAGNOSTICO FINAL MALO
+  
+            function mostrarDiagnosticoFinalConFallas() 
+           {
+             const infoContainer = document.getElementById("infoReparacion");
+             infoContainer.innerHTML += `<p>DIAGNOSTICO FINAL:</p> 
                                  <p>Diagnostico 1 : COMPLETADO</p>
                                  <p>Diagnostico 2: FALLANDO</p>`;
  
     
-         }
+            }
 
 
 
@@ -314,12 +314,12 @@ document.addEventListener("DOMContentLoaded", () =>
         
         function guardarEnAlmacenamiento(clave, valor)
         {
-        // Seleccionar el tipo de almacenamiento web (LocalStorage o SessionStorage)
-        const storage =  window.sessionStorage;
+         // Seleccionar el tipo de almacenamiento web (LocalStorage o SessionStorage)
+         const storage =  window.sessionStorage;
 
-        // Guardar la clave y el valor en el almacenamiento web
-        storage.setItem(clave, valor);
-    }
+         // Guardar la clave y el valor en el almacenamiento web
+         storage.setItem(clave, valor);
+        }
 
 
    
@@ -357,12 +357,14 @@ document.addEventListener("DOMContentLoaded", () =>
         const botonSi = document.createElement("button");
         botonSi.textContent = btnTrue;
         botonSi.addEventListener("click", () => 
-        {
+        {  
             dialog.returnValue = true;
             cerrarCuadroDialogo(dialog);
         });
         dialog.appendChild(botonSi);
     
+
+
         const botonNo = document.createElement("button");
         botonNo.textContent = btnFalse;
         botonNo.addEventListener("click", () => 
