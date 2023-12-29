@@ -310,7 +310,7 @@ document.addEventListener("DOMContentLoaded", () =>
 
     }
         
-
+        //ALMACENAMIENTO
         
         function guardarEnAlmacenamiento(clave, valor)
         {
