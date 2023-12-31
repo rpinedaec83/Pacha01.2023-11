@@ -4,17 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-
     <button id="ingresoTelefono">Ingresar Telefono</button>
     <button id="diagnostico" disabled>Diagnoticar</button>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <button id="autorizacion" disabled>Autorización</button>
+    <button id="finalizado" disabled>Finalizado</button>
+
+<p>Autorización del usuario y abono del 50%:</p>
+<label for="myCheck">Abono del 50%:</label> 
+<input type="checkbox" id="myCheck"disabled>
+<p id="text" style="display:none">Click en Autorización</p>
+
+    <p>Seleccione la marca de su equipo:</p>
+    <select id="mySelect" disabled onchange="seleccionMarca()">
+      <option>Samsung</option>
+      <option>Apple</option>
+      <option>Xiaomi</option>
+      <option>Oppo</option>
+      <option>Motorola</option>
+      <option>Huawei</option>
+      <option>Realme</option>
+      <option>Honor</option>
+    </select>
+    <p id="tecnico"></p>
+    <p> ESTADO DE LA REPARACIÓN:</p>
+    <h1 id="estado"></h1>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
     <script src="script.js"></script>
     <script>
         Reparaciones.init({
-            Nombre:"Reparaciones Pepito",
+            Nombre:"Reparaciones de Celulares",
             Ubicacion: "Lima"
         });
     </script>
