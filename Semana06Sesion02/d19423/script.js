@@ -17,12 +17,12 @@
 //   document.getElementById("result").innerHTML = localStorage.getItem("lastname")
 //   document.getElementById("nombre").innerHTML = sessionStorage.getItem("nombre")
 
-
-
+let arrCarrito = [];
+let arrProductos=[];
 const Carrito = function () {
     let Nombre;
     let Ubicacion;
-    let arrProductos=[];
+    
     function cargarProductos(){
         arrProductos = [
             {
@@ -79,7 +79,7 @@ const Carrito = function () {
                     <ul class="social">
                         <li><a href="" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
                         <li><a href="" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
-                        <li><a href="" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                        <li><a onclick="agregarCarrito('${element.nombre}')" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
                     </ul>
                     <span class="product-new-label">Sale</span>
                     <span class="product-discount-label">20%</span>
@@ -105,13 +105,56 @@ const Carrito = function () {
         let divProductos = document.getElementById("productos");
         divProductos.innerHTML=strHtml;
     }
+    function cargarCarrito(){
+        arrCarrito = JSON.parse(localStorage.getItem("carrito"))
+        let strHtml = "";
+        let total = 0
+        arrCarrito.forEach(element =>{
+            strHtml += `<li class="list-group-item d-flex justify-content-between align-items-center">
+            ${element.nombre}
+            <span class="badge badge-primary badge-pill">${element.precio}</span>
+            </li>`
+    
+            total += element.precio
+        });
+        let lstCarrito = document.getElementById("lstCarrito");
+        lstCarrito.innerHTML = strHtml
+        document.getElementById("total").innerText =  `Total : ${total}`
+    }
+
+    
     return {
         init: function (parametros) {
             Nombre = parametros.Nombre;
             Ubicacion = parametros.Ubicacion;
             cargarProductos();
             dibujarProductos();
+            cargarCarrito();
             // eventos();
         },
     };
 }();
+
+function agregarCarrito(nombre){
+    arrProductos.forEach((element) =>{
+        if(element.nombre === nombre){
+            arrCarrito.push(element)
+        }
+    });
+    let strHtml = "";
+    let total = 0
+    arrCarrito.forEach(element =>{
+        strHtml += `<li class="list-group-item d-flex justify-content-between align-items-center">
+        ${element.nombre}
+        <span class="badge badge-primary badge-pill">${element.precio}</span>
+        </li>`
+
+        total += element.precio
+    });
+    let lstCarrito = document.getElementById("lstCarrito");
+    lstCarrito.innerHTML = strHtml
+    document.getElementById("total").innerText =  `Total : ${total}`
+    console.log(arrCarrito)
+    localStorage.setItem("carrito", JSON.stringify(arrCarrito));
+}
+
