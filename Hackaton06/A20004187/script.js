@@ -14,7 +14,8 @@ const Reparaciones = function () {
         let IMEI = prompt("Ingresa el IMEI");
         let nuevoTelefono = new Telefono(IMEI);
         nuevoTelefono.verificarIMEI();
-        
+        document.getElementById("imei1").innerHTML = "El imei ingresado es:";
+        document.getElementById("imei2").innerHTML = IMEI;
         document.getElementById("estado").innerHTML = "Inicio";
     }
    return {
@@ -24,6 +25,7 @@ const Reparaciones = function () {
             eventos();
         },
     };
+   
 }();
 
 class Telefono {
@@ -53,27 +55,6 @@ class Telefono {
     }
 }
 
-function confirmacion() {
-        Swal.fire({
-            title: "La reparación esta por empezar",
-            showDenyButton: true,
-            showCancelButton: true,
-            confirmButtonText: "SI",
-            denyButtonText: `NO`
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire("Saved!", "", "success");
-                arrTelefonos.push(this);
-                console.log(arrTelefonos)
-                document.getElementById("finalizado").disabled=false;
-                document.getElementById("estado").innerHTML = "Empezando";
-            } else if (result.isDenied) {
-                Swal.fire("En caso cambie de opinion, lo esperamos", "", "info");
-                document.getElementById("estado").innerHTML = "Rechazado";
-            }
-        });
-}
-
 function diagnostico(){
     diagN=`DIAGNOSTICO: Se encontró dañado la unidad de carga, por lo que el costo seria 150 soles`;
     alert(diagN)
@@ -95,11 +76,11 @@ function Abono() {
         }
       }
       
-      
-
+   
 function seleccionMarca() {
-    var marca = document.getElementById("mySelect").value;
     var tecn;
+    var marca = document.getElementById("mySelect").value;
+
 switch(marca){
     case "Samsung":
         tecn="Jose Lopez"
@@ -127,8 +108,46 @@ switch(marca){
         break;
 }  
 
-  document.getElementById("tecnico").innerHTML = "El técnico especialista es: " + tecn;
+  return tecn;
 }
 function terminado(){
     document.getElementById("estado").innerHTML = "Terminado";
+}
+function confirmacion() {
+
+    Swal.fire({
+        title: "La reparación esta por empezar",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "SI",
+        denyButtonText: `NO`
+        }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire("Saved!", "", "success");
+            arrTelefonos.push(this);
+            console.log(arrTelefonos)
+            document.getElementById("finalizado").disabled=false;
+            document.getElementById("estado").innerHTML = "Empezando";
+        } else if (result.isDenied) {
+            Swal.fire("En caso cambie de opinion, lo esperamos", "", "info");
+            document.getElementById("estado").innerHTML = "Rechazado";
+        }
+    });
+    guardarInfo();
+
+}
+
+function guardarInfo(){
+
+if (typeof(Storage) !== "undefined") {
+    
+    sessionStorage.setItem("tecn",seleccionMarca());
+
+  } else {
+    console.log("Sorry, your browser does not support");
+  }
+  
+  document.getElementById("tec1").innerHTML = "El tecnico asignado es: "
+  document.getElementById("tec2").innerHTML = sessionStorage.getItem("tecn");
+
 }

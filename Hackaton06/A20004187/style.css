@@ -4,6 +4,9 @@ body {
   h1 {
     color: green;
   }
+  h2 {
+    color: purple;
+  }
   p {
     color: blue;
   }
