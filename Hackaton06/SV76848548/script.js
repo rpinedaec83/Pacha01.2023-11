@@ -78,4 +78,9 @@ class Telefono {
     
     document.getElementById('message').innerHTML = '<h2>Estado del equipo:</h2><pre>' + JSON.stringify(reparacion, null, 2) + '</pre>'
 
+    // Guardar en WebStorage
+    if (typeof localStorage !== 'undefined') { 
+        localStorage.setItem('dispositivo', JSON.stringify(reparacion));
+    }
+
   }
