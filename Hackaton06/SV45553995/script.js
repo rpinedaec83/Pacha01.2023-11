@@ -112,6 +112,7 @@ function guardarDiagnostico(marca, numeroSerie, imei, nombreCliente, nombre_tecn
   )
   diagnisticos.push(diagnistico);
 
+  localStorage.setItem(idDiagnotico,JSON.stringify(diagnistico))
 }
 
 function atenderDiagnostico(idEncontrar){
@@ -156,6 +157,7 @@ function actualizarStockRepuesto(nombre){
   }
 }
 
+console.log("Obteniendo valores del local storage"+localStorage.getItem("diagnosticos-ids"))
 
   const agregarBtn = document.getElementById('validarCelular');
   const tabla = document.getElementById('tablaDiagnoticosHtml');
