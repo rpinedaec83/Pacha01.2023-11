@@ -17,6 +17,7 @@
 //   document.getElementById("result").innerHTML = localStorage.getItem("lastname")
 //   document.getElementById("nombre").innerHTML = sessionStorage.getItem("nombre")
 
+
 let arrCarrito= [];
 let arrProductos=[];
 const Carrito = function () {
@@ -106,6 +107,25 @@ const Carrito = function () {
         divProductos.innerHTML=strHtml;
     }
     function cargarCarrito(){
+
+        arrCarrito = JSON.parse(localStorage.getItem("carrito"))
+        let strHtml = "";
+        let total = 0
+        arrCarrito.forEach(element =>{
+            strHtml += `<li class="list-group-item d-flex justify-content-between align-items-center">
+            ${element.nombre}
+            <span class="badge badge-primary badge-pill">${element.precio}</span>
+            </li>`
+    
+            total += element.precio
+        });
+        let lstCarrito = document.getElementById("lstCarrito");
+        lstCarrito.innerHTML = strHtml
+        document.getElementById("total").innerText =  `Total : ${total}`
+    }
+
+    
+
         let strHtml ="";
         let total = 0;
         arrCarrito =JSON.parse( localStorage.getItem("carrito"))
@@ -133,6 +153,7 @@ const Carrito = function () {
     };
 }();
 
+
 function agregarCarrito(nombre){
     arrProductos.forEach(element => {
         if(element.nombre === nombre){
@@ -152,5 +173,5 @@ function agregarCarrito(nombre){
     lstCarrito.innerHTML = strHtml;
     document.getElementById("total").innerText = `Total: $${total}`
     console.log(arrCarrito)
-    localStorage.setItem("carrito", JSON.stringify(arrCarrito));
+        localStorage.setItem("carrito", JSON.stringify(arrCarrito));
 }
