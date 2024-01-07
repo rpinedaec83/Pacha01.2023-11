@@ -8,7 +8,7 @@ const port = process.env.PORT || 8000;
 
 
 // Ruta principal para la página de inicio
-app.get('/', (req, res) => {
+app.get('/', (req, res) => { 
   // HTML básico con enlaces a las rutas de las APIs
   const paginaInicioHTML = `
     <html>
