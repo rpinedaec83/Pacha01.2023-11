@@ -1,40 +1,21 @@
-Proceso Calculadora
+Proceso Suma 
+<<<<<<< HEAD
+	primerNumero = 1
+	segundoNumero = 2
+=======
 	
-	escribir("Escribe el primer numero")
-	Leer primerNumero
-	Escribir("Escribe el Segundo numero")
-	Leer segundoNumero
+	primerNumero = 4 
+	segundoNumero = 8
 	
-	escribir("Presiona 1 para sumar, presiona 2 para restar, presiona 3 para multiplicar o presiona 4 para dividir")
-	Leer operacion
+>>>>>>> fuentes/main
 	resultado = 0
 	
-	si operacion = "1" Entonces
-		resultado = primerNumero + segundoNumero
-	SiNo
-		si operacion = "2" Entonces
-			resultado = primerNumero - segundoNumero
-		SiNo
-			si operacion = "3" Entonces
-				resultado = primerNumero * segundoNumero
-			SiNo
-				si operacion = "4" Entonces
-					resultado = primerNumero / segundoNumero
-				FinSi
-				
-
-			FinSi
-			
-		FinSi
-	FinSi
+	resultado = primerNumero + segundoNumero
 	
-//	si operacion = "2" Entonces
-//		resultado = primerNumero - segundoNumero
-//	FinSi
+<<<<<<< HEAD
+	Escribir  resultado
+=======
+	escribir resultado
 	
-	
-	escribir "el resultado es ", resultado
-	
-	
-	
+>>>>>>> fuentes/main
 FinProceso
