@@ -1,0 +1,248 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    text-align: center;
+  }
+  .header {
+    background-color: #004d99;
+    color: white;
+    padding: 20px 0;
+  }
+  .header h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 36px;
+  }
+  .form-container,
+  #informacionAdicional,
+  #seccionCostos {
+    background-color: white;
+    margin: 30px auto;
+    padding: 20px;
+    width: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  form,
+  #informacionForm {
+    margin-top: 20px;
+  }
+  input[type="text"],
+  input[type="submit"],
+  button {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  input[type="submit"],
+  button {
+    background-color: #004d99;
+    color: white;
+    cursor: pointer;
+  }
+  input[type="submit"]:hover,
+  button:hover {
+    background-color: #003366;
+  }
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;  
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;  
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  .modal-content button {
+    background-color: #004d99;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 15px auto;
+  }
+  .modal-content button:hover {
+    background-color: #003366;
+  }
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .modal-red .modal-content,
+  .modal-green .modal-content {
+    background-color: #ffcccc;
+  }
+  .modal-green .modal-content {
+    background-color: #ccffcc;
+  }
+  #informacionAdicional label,
+  #seccionCostos label {
+    display: block;
+    text-align: left;
+    margin-left: 10%;
+  }
+  #seccionCostos h2 {
+    text-align: center;
+  }
+  #seccionCostos {
+    background-color: white;
+    color: #333;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px auto;
+    width: 51%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2em;
+    display: none;
+  }
+  #seccionCostos p {
+    background-color: #b7d4f5;
+    margin: 10px auto;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 93%;
+}
+  #diagnosticoCelular {
+    background-color: #fffbea;
+    color: #333;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px auto;
+    width: 80%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2em;
+    display: none;
+  }
+  #diagnosticarBtn {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+    width: 300px;
+  }
+  #diagnosticarBtn:hover {
+    background-color: #218838;
+  }
+  #autorizacion {
+    text-align: left;
+    margin: 20px auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 50%;
+  }
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+  }
+
+  #autorizacion input[type="checkbox"] {
+    margin-right: 2px; 
+    transform: scale(1.2);
+  }
+
+  #autorizacion label {
+    font-weight: bold;
+    color: #333;
+    margin-left: 5px;
+  }
+  #btnComenzarReparacion {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+    font-size: 1.1em;
+    width: 400px;
+  }
+  #btnComenzarReparacion:hover {
+    background-color: #218838;
+  }
+  #seccionProgresoReparacion {
+    margin: 20px auto;
+    padding: 20px;
+    width: 60%;
+    text-align: center;
+  }
+  .etapa {
+    margin: 20px 0;
+  }
+  .barra-progreso {
+    width: 80%;
+    background-color: #ddd;
+    margin: 10px auto;
+    border-radius: 5px;
+    height: 20px;
+  }
+  .progreso {
+    height: 100%;
+    background-color: #4CAF50;
+    text-align: right;
+    border-radius: 5px;
+    width: 0%;
+  }
+  #seccionProgresoReparacion h2 {
+    color: #333;
+    margin-bottom: 30px;
+  }
+  .etapa p {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  .barra-progreso {
+    height: 25px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  .progreso {
+    background-color: #4CAF50;
+  }
+  .modal-content {
+    background-color: #fefefe;
+  }
+  .modal-content button {
+    background-color: #004d99;
+  }
+  .modal-content button:hover {
+    background-color: #003366;
+  }
+  
+  
