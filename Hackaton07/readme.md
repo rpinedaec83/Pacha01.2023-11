@@ -23,11 +23,11 @@ Utilizar Javascript para definir algoritmos mediante el uso de clases y objetos
 EL PROBLEMA: 
 Se necesita programar un **API Gateway**, es decir un programa que devuelva la consulta centralizada de conexiones API de otras aplicaciones, por lo tanto vamos a realizar una pagina web en NodeJS que nos ayude a consultar la siguiente lista de API's:
 
-- Consultar los datos de GitHub de un usuario especifico
-- Consultar el Clima de una ciudad o ubicacion especifica
+- Consultar los datos de GitHub de un usuario especifico     YALA
+- Consultar el Clima de una ciudad o ubicacion especifica    YALA
 - Consultar el tipo de cambio del dolar en Peru
-- Consultar la lista de Pokemones actual
-- Consultar los poderes de un pokemon especifico
+- Consultar la lista de Pokemones actual                     YALA
+- Consultar los poderes de un pokemon especifico             YALA
 - Consultar los principales personajes de Rick and Morty
 - Consultar el detalle de cada personaje de Rick and Morty
 - Consultar el top 10 de bebidas y cocteles

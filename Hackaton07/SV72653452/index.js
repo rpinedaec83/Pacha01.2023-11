@@ -172,7 +172,32 @@ class GithubApi extends Api {
 
 
 
+// Clase específica para la API de Tipo de Cambio
+class TipoCambioApi extends Api {
+  constructor() {
+    super('Tipo de Cambio');
+    this.baseURL = 'https://www.frankfurter.app/latest';
+  }
 
+  async consultar(parametros) {
+    try {
+      const respuesta = await axios.get(`${this.baseURL}?from=USD&to=PEN`);
+      const tipoCambio = respuesta.data.rates.PEN;
+      return `Tipo de cambio del dólar a soles (PEN): ${tipoCambio}`;
+    } catch (error) {
+      return `Error al consultar el tipo de cambio: ${error.message}`;
+    }
+  }
+}
+
+// Agregar instancia de la clase TipoCambioApi al gateway
+apiGateway.agregarApi(new TipoCambioApi());
+
+// Ruta para la consulta del tipo de cambio en la página web
+app.get('/tipo-cambio', async (req, res) => {
+  const resultadoConsultaTipoCambio = await apiGateway.consultarApi('Tipo de Cambio', {});
+  res.send(resultadoConsultaTipoCambio);
+});
 
 
 
