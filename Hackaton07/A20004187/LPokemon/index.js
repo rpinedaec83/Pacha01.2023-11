@@ -1,24 +1,22 @@
-//metoodos pa ra usar
 const express = require('express')
 require('dotenv').config()
 
 const axios = require('axios');
-/////////////////
+
 
 const app = express()
 const port = process.env.PORT
-//ejemplo
+
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.send('Hola. Esto es una lista de Pokemon /pokemon')
 })
-//uso
-app.get("/clima", (req,res)=>{
-    let ubicacion = req.query.ubicacion;
-    //console.log(ubicacion);
+
+app.get("/Pokemon", (req,res)=>{
+
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: 'https://api.tomorrow.io/v4/weather/forecast?location='+ubicacion+'&apikey='+process.env.APIKEY,
+        url: 'https://pokeapi.co/api/v2/pokemon/?limit=100',
         headers: { }
       };
       
@@ -31,7 +29,6 @@ app.get("/clima", (req,res)=>{
       });
       
 });
-//para llamar al puerto
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })

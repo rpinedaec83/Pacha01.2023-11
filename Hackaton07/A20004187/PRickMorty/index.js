@@ -1,24 +1,21 @@
-//metoodos pa ra usar
 const express = require('express')
 require('dotenv').config()
 
 const axios = require('axios');
-/////////////////
+
 
 const app = express()
 const port = process.env.PORT
-//ejemplo
+
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.send('Hola. Estos son personajes de Rick and Morty /RickMorty')
 })
-//uso
-app.get("/clima", (req,res)=>{
-    let ubicacion = req.query.ubicacion;
-    //console.log(ubicacion);
+
+app.get("/RickMorty", (req,res)=>{
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: 'https://api.tomorrow.io/v4/weather/forecast?location='+ubicacion+'&apikey='+process.env.APIKEY,
+        url: 'https://rickandmortyapi.com/api/character?limit=10',
         headers: { }
       };
       
@@ -31,7 +28,6 @@ app.get("/clima", (req,res)=>{
       });
       
 });
-//para llamar al puerto
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
