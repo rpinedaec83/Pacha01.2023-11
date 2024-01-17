@@ -65,8 +65,10 @@ insert into usuarios(username, password, email, usuarioCreacion)
 values('rpineda', '1234567890', 'rpineda@x-codec.net',1);
 
 select * from usuarios;
+
 update usuarios set 
 activo = 1, 
 usuarioModificacion = 1,
 fechaModificacion = now()
 where id = 1;
+
