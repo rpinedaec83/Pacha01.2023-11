@@ -265,3 +265,14 @@ values(1, 1,1),
 (1,2,1);
 
 select * from MascotaVacunas;
+
+select 
+MV.idMascota,
+M.Nombre,
+MV.idVacuna,
+V.detalle,
+M.edad
+ from MascotaVacunas MV inner join Mascotas M on MV.idMascota = M.id
+inner join Vacunas V on MV.idVacuna = V.id;
+
+
