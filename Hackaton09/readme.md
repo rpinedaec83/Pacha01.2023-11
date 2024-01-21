@@ -40,7 +40,7 @@
 16.	Mostrar el número de la orden, fecha, código del producto, precio, código del empleado y su nombre completo. 
  
  
-        17.	Mostrar los 10 productos con menor stock 
+17.	Mostrar los 10 productos con menor stock 
  
 18.	Mostrar los 10 productos con mayor stock 
  
