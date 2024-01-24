@@ -65,6 +65,7 @@ insert into usuarios(username, password, email, usuarioCreacion)
 values('rpineda', '1234567890', 'rpineda@x-codec.net',1);
 
 select * from usuarios;
+
 update usuarios set 
 activo = 1, 
 usuarioModificacion = 1,
@@ -84,7 +85,7 @@ create table especies(
     FOREIGN KEY (usuarioCreacion) REFERENCES usuarios(id),
     FOREIGN KEY (usuarioModificacion) REFERENCES usuarios(id)
 );
-drop table especies;
+--drop table especies;
 insert into especies(detalle, usuariocreacion)
 values('Gato',1),
 ('Perro', 1);

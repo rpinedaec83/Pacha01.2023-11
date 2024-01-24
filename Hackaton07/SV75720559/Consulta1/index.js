@@ -1,5 +1,5 @@
 //metodos para usar
-const UserModel = require('./models/UserModel');
+//const UserModel = require('./models/UserModel');
 const express = require('express')
 require('dotenv').config()
 
