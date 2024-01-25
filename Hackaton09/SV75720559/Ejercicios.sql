@@ -369,8 +369,8 @@
         left join Products p on p.ProductID = od.ProductID
         left join Suppliers s on p.SupplierID = s.SupplierID;   
 
---26. Seleccionar el nombre de la compañía del cliente, nombre del contacto, el código de la orden de compra, la fecha de la orden de compra, el código del producto,cantidad pedida del producto, nombre del producto y el nombre de la compañía proveedora, usas JOIN.Solamente las compañías proveedoras que comienzan con la letra de la A hasta la letra G,además la cantidad pedida del producto debe estar entre 23 y 187. 
- 
+--26. Seleccionar el nombre de la compañía del cliente, nombre del contacto, el código de la orden de compra, la fecha de la orden de compra, el código del producto,cantidad pedida del producto, nombre del producto y el nombre de la compañía proveedora, usas JOIN.Solamente las compañías proveedoras que comienzan con la letra de la 
+-- hasta la letra G,además la cantidad pedida del producto debe estar entre 23 y 187. 
  	select 
 	c.CustomerName,
 	c.ContactName,
