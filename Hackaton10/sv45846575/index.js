@@ -1,4 +1,4 @@
-console.log("Hackaton09")
+console.log("Hackaton10")
 const { MongoClient } = require('mongodb');
 const uri = "mongodb://localhost:27017";
 const client = new MongoClient(uri);
@@ -7,8 +7,8 @@ const client = new MongoClient(uri);
 async function run() {
     try {
         await client.connect();
-        const db = client.db('sample_mflix');
-        const collection = db.collection('movies');
+        const db = client.db('Veterinaria');
+        const collection = db.collection('Mascotas');
 
         // Find the first document in the collection
         const first = await collection.findOne();
@@ -95,198 +95,214 @@ async function crud(base, coleccion, accion, filtro = null, data = null) {
     }
 }
 
-//let res = crud("sample_mflix", "movies", "leerUno").then((res)=>{
-//    console.log(res);
-//});
+let res = crud("Veterinaria", "Mascotas", "leerUno").then((res)=>{
+   console.log(res);
+});
 
-let opciones = { year: 2000 };
-// let res2 = crud("sample_mflix", "movies", "leerTodos", opciones).then((res) => {
-//     console.log(res)
-// });
+let opciones = { edad: 2 };
+ let res2 = crud("Veterinaria", "Mascotas", "leerTodos", opciones).then((res) => {
+console.log(res)
+});
 let strIngresar = `{
-    "plot": "In Paris a wild girl becomes possessed by the soul of her twin who died to save her life.",
-    "genres": [
-      "Drama"
-    ],
-    "runtime": 82,
-    "cast": [
-      "Betty Compson",
-      "Clive Brook",
-      "Henry Victor",
-      "A.B. Imeson"
-    ],
-    "title": "White Shadows",
-    "fullplot": "In Paris a wild girl becomes possessed by the soul of her twin who died to save her life.",
-    "languages": [
-      "English"
-    ],
-    "released": {
-      "$date": {
-        "$numberLong": "-1440892800000"
+    
+    "_id": {
+      "$oid": "65b44c790e911ffa27acb42b"
+    },
+    "nombre": "Michi",
+    "especie": "Gato",
+    "raza": "Mestizo",
+    "sexo": "Hembra",
+    "color": "Blanco",
+    "edad": 1,
+    "propietario": {
+      "tipoIdentificacion": "CE",
+      "nombre": "Rosa",
+      "apellido": "Nieves",
+      "direccion": "Lima",
+      "telefono": "5189515453"
+    },
+    "vacunas": [
+      "TripleFelina",
+      "Antirabica"
+    ]
+  }
+  _id":{"$oid":"65b44c660e911ffa27acb429"},
+    "nombre": "Pancho",
+    "especie": "Gato",
+    "raza": "Mestizo",
+    "sexo": "Macho",
+    "color": "Atigrado",
+    "edad": 1.5,
+    "propietario": {
+      "tipoIdentificacion": "CE",
+      "nombre": "Roberto",
+      "apellido": "Pineda",
+      "direccion": "Lima",
+      "telefono": "916730940"
+    },
+    "vacunas": [
+      "TripleFelina",
+      "Antirabica"
+    }
+    {
+        "_id": {
+          "$oid": "65b44cbb0e911ffa27acb433"
+        },
+        "nombre": "Flor",
+        "especie": "Gato",
+        "raza": "Mestizo",
+        "sexo": "Hembra",
+        "color": "Atigrado",
+        "edad": 1,
+        "propietario": {
+          "tipoIdentificacion": "CE",
+          "nombre": "Cris",
+          "apellido": "Valencia",
+          "direccion": "Lima",
+          "telefono": "988730940"
+        },
+        "vacunas": [
+          "TripleFelina",
+          "Antirabica"
+        ]
       }
-    },
-    "directors": [
-      "Graham Cutts"
-    ],
-    "writers": [
-      "Alfred Hitchcock",
-      "Michael Morton (novel)"
-    ],
-    "awards": {
-      "wins": 1,
-      "nominations": 0,
-      "text": "1 win."
-    },
-    "lastupdated": "2015-05-10 00:19:38.277000000",
-    "year": 1924,
-    "imdb": {
-      "rating": 6.5,
-      "votes": 156,
-      "id": 15493
-    },
-    "countries": [
-      "UK"
-    ],
-    "type": "movie",
-    "tomatoes": {
-      "viewer": {
-        "rating": 2.8,
-        "numReviews": 11
+      {
+        "_id": {
+          "$oid": "65b44cd10e911ffa27acb437"
+        },
+        "nombre": "Panchita",
+        "especie": "Gato",
+        "raza": "Mestizo",
+        "sexo": "Hembra",
+        "color": "Blanco",
+        "edad": 3,
+        "propietario": {
+          "tipoIdentificacion": "CE",
+          "nombre": "Nancy",
+          "apellido": "Ayala",
+          "direccion": "Lima",
+          "telefono": "922730940"
+        },
+        "vacunas": [
+          "TripleFelina",
+          "Antirabica"
+        ]
       }
-      
-    },
-    "num_mflix_comments": 0
+    ]
   }`;
 
-let objIngreso = JSON.parse(strIngresar);
-//console.log(objIngreso)
-// res2 =  crud("sample_mflix", "movies", "agregarUno",objIngreso).then((res)=>{
-//     console.log(res)
-// });
 
-let strIngresarMuchos = `[{
-    "plot": "In Paris a wild girl becomes possessed by the soul of her twin who died to save her life.",
-    "genres": [
-      "Drama"
-    ],
-    "runtime": 82,
-    "cast": [
-      "Betty Compson",
-      "Clive Brook",
-      "Henry Victor",
-      "A.B. Imeson"
-    ],
-    "title": "White Shadows",
-    "fullplot": "In Paris a wild girl becomes possessed by the soul of her twin who died to save her life.",
-    "languages": [
-      "English"
-    ],
-    "released": {
-      "$date": {
-        "$numberLong": "-1440892800000"
+let objIngreso = JSON.parse(strIngresar);
+console.log(objIngreso)
+res2 =  crud("Veterinaria", "Mascotas", "agregarUno",objIngreso).then((res)=>{
+ console.log(res)
+});
+
+let strIngresarMuchos = `{
+    
+    "_id": {
+      "$oid": "65b44c790e911ffa27acb42b"
+    },
+    "nombre": "Michi",
+    "especie": "Gato",
+    "raza": "Mestizo",
+    "sexo": "Hembra",
+    "color": "Blanco",
+    "edad": 1,
+    "propietario": {
+      "tipoIdentificacion": "CE",
+      "nombre": "Rosa",
+      "apellido": "Nieves",
+      "direccion": "Lima",
+      "telefono": "5189515453"
+    },
+    "vacunas": [
+      "TripleFelina",
+      "Antirabica"
+    ]
+  }
+  _id":{"$oid":"65b44c660e911ffa27acb429"},
+    "nombre": "Pancho",
+    "especie": "Gato",
+    "raza": "Mestizo",
+    "sexo": "Macho",
+    "color": "Atigrado",
+    "edad": 1.5,
+    "propietario": {
+      "tipoIdentificacion": "CE",
+      "nombre": "Roberto",
+      "apellido": "Pineda",
+      "direccion": "Lima",
+      "telefono": "916730940"
+    },
+    "vacunas": [
+      "TripleFelina",
+      "Antirabica"
+    }
+    {
+        "_id": {
+          "$oid": "65b44cbb0e911ffa27acb433"
+        },
+        "nombre": "Flor",
+        "especie": "Gato",
+        "raza": "Mestizo",
+        "sexo": "Hembra",
+        "color": "Atigrado",
+        "edad": 1,
+        "propietario": {
+          "tipoIdentificacion": "CE",
+          "nombre": "Cris",
+          "apellido": "Valencia",
+          "direccion": "Lima",
+          "telefono": "988730940"
+        },
+        "vacunas": [
+          "TripleFelina",
+          "Antirabica"
+        ]
       }
-    },
-    "directors": [
-      "Graham Cutts"
-    ],
-    "writers": [
-      "Alfred Hitchcock",
-      "Michael Morton (novel)"
-    ],
-    "awards": {
-      "wins": 1,
-      "nominations": 0,
-      "text": "1 win."
-    },
-    "lastupdated": "2015-05-10 00:19:38.277000000",
-    "year": 1924,
-    "imdb": {
-      "rating": 6.5,
-      "votes": 156,
-      "id": 15493
-    },
-    "countries": [
-      "UK"
-    ],
-    "type": "movie",
-    "tomatoes": {
-      "viewer": {
-        "rating": 2.8,
-        "numReviews": 11
+      {
+        "_id": {
+          "$oid": "65b44cd10e911ffa27acb437"
+        },
+        "nombre": "Panchita",
+        "especie": "Gato",
+        "raza": "Mestizo",
+        "sexo": "Hembra",
+        "color": "Blanco",
+        "edad": 3,
+        "propietario": {
+          "tipoIdentificacion": "CE",
+          "nombre": "Nancy",
+          "apellido": "Ayala",
+          "direccion": "Lima",
+          "telefono": "922730940"
+        },
+        "vacunas": [
+          "TripleFelina",
+          "Antirabica"
+        ]
       }
-      
-    },
-    "num_mflix_comments": 0
-  },{
-    "plot": "In Paris a wild girl becomes possessed by the soul of her twin who died to save her life.",
-    "genres": [
-      "Drama"
-    ],
-    "runtime": 82,
-    "cast": [
-      "Betty Compson",
-      "Clive Brook",
-      "Henry Victor",
-      "A.B. Imeson"
-    ],
-    "title": "White Shadows",
-    "fullplot": "In Paris a wild girl becomes possessed by the soul of her twin who died to save her life.",
-    "languages": [
-      "English"
-    ],
-    "released": {
-      "$date": {
-        "$numberLong": "-1440892800000"
-      }
-    },
-    "directors": [
-      "Graham Cutts"
-    ],
-    "writers": [
-      "Alfred Hitchcock",
-      "Michael Morton (novel)"
-    ],
-    "awards": {
-      "wins": 1,
-      "nominations": 0,
-      "text": "1 win."
-    },
-    "lastupdated": "2015-05-10 00:19:38.277000000",
-    "year": 1924,
-    "imdb": {
-      "rating": 6.5,
-      "votes": 156,
-      "id": 15493
-    },
-    "countries": [
-      "UK"
-    ],
-    "type": "movie",
-    "tomatoes": {
-      "viewer": {
-        "rating": 2.8,
-        "numReviews": 11
-      }
-      
-    },
-    "num_mflix_comments": 0
-  }]`;
+    ]
+  }`;
+
+
 
 let arrInsertar = JSON.parse(strIngresarMuchos);
-// crud("sample_mflix", "movies", "agregarVarios", arrInsertar).then((res) => {
-//     console.log(res)
-// });
+crud("Veterinaria", "Mascotas", "agregarVarios", arrInsertar).then((res) => {
+   console.log(res) });
 
-let filtro = { title: "White Shadows" }
-let data =  { $set: { year: 1925 } } 
-// crud("sample_mflix", "movies", "actualizarUno", filtro, data).then((res) => {
-//     console.log(res)
-// });
+let filtro = { especie: "Perro" }
+let data =  { $set: { edad: 1 } } 
+crud("Veterinaria", "Mascotas", "actualizarUno", filtro, data).then((res) => {
+  console.log(res)
+ });
 
-// crud("sample_mflix", "movies", "actualizarVarios", filtro, data).then((res) => {
-//     console.log(res)
-// });
+ crud("Veterinaria", "Mascotas", "actualizarVarios", filtro, data).then((res) => {
+   console.log(res)
+});
 
-crud("sample_mflix", "movies", "borrarVarios", filtro).then((res) => {
+crud("Veterinaria", "Mascotas", "borrarVarios", filtro).then((res) => {
     console.log(res)
+
 });
