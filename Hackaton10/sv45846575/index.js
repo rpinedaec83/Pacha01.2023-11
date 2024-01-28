@@ -1,5 +1,5 @@
-console.log("Hackaton10")
-const { MongoClient } = require('mongodb');
+console.log("sv45846575")
+const { MongoClient, ObjectId } = require('mongodb');
 const uri = "mongodb://localhost:27017";
 const client = new MongoClient(uri);
 
@@ -18,7 +18,7 @@ async function run() {
         await client.close();
     }
 }
-//run().catch(console.error);
+run().catch(console.error);
 async function crud(base, coleccion, accion, filtro = null, data = null) {
     try {
         await client.connect();
@@ -266,7 +266,7 @@ let strIngresarMuchos = `{
           "$oid": "65b44cd10e911ffa27acb437"
         },
         "nombre": "Panchita",
-        "especie": "Gato",
+        "especie": "Perro",
         "raza": "Mestizo",
         "sexo": "Hembra",
         "color": "Blanco",
@@ -302,7 +302,7 @@ crud("Veterinaria", "Mascotas", "actualizarUno", filtro, data).then((res) => {
    console.log(res)
 });
 
-crud("Veterinaria", "Mascotas", "borrarVarios", filtro).then((res) => {
+crud("Veterinaria", "Mascotas", "borrarUno", filtro).then((res) => {
     console.log(res)
 
 });
