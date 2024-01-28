@@ -1,20 +1,16 @@
 {
-    "nombre":"Pancho",
-    "especie":"Gato",
-    "raza":"Mestizo",
-    "sexo":"Macho",
-    "color":"Atigrado",
-    "edad":1.5,
-    "propietario":{
-        "tipoIdentificacion":"CE",
-        "nombre":"Roberto",
-        "apellido":"Pineda",
-        "direccion":"Lima",
-        "telefono":"916730940"
+    "name": "d19423",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "dev": "nodemon index.js",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      
+      "nodemon": "^3.0.3"
     }
-    ,
-    "vacunas":[
-        "TripleFelina",
-        "Antirabica"
-    ]
-}
+  }
