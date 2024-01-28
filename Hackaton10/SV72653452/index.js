@@ -124,7 +124,7 @@ async function crud(accion, filtro = null, data = null)
                     guardarBaseDeDatos(baseDeDatos);
                     respuesta = `Documentos ${[...nombresActualizados]} actualizados correctamente.`;
                 } else {
-                    respuesta = "No se encontraron documentos para actualizar o ya han sido actualizados previamente.";
+                    respuesta = "Documentos actualizados.";
                 }
             } else {
                 respuesta = "No se pueden actualizar documentos sin filtro o datos.";
@@ -139,7 +139,7 @@ async function crud(accion, filtro = null, data = null)
                guardarBaseDeDatos(baseDeDatos);
                respuesta = "Documento eliminado correctamente.";
               } else {
-              respuesta = "Documento no encontrado para ser eliminado.";
+              respuesta = "Documento recientemente eliminado.";
               }
              } else {
               respuesta = "No se puede borrar un documento sin filtro.";
@@ -179,7 +179,7 @@ async function crud(accion, filtro = null, data = null)
                   guardarBaseDeDatos(baseDeDatos);
                   respuesta = `Documentos ${documentosEliminados.join(', ')} eliminados correctamente.`;
                  } else {
-                  respuesta = "No se encontraron documentos para ser eliminados.";
+                  respuesta = "Documento recientemente eliminados.";
                  }
                  } else {
                   respuesta = "No se pueden borrar documentos sin filtro o con filtro vacío.";
@@ -198,7 +198,7 @@ async function crud(accion, filtro = null, data = null)
 
 // LEER UN DOCUMENTO
 /*
-const mascotaUno =  crud("leerUno", { nombre: "Toby" });
+const mascotaUno =  crud("leerUno", { nombre: "Bella" });
 console.log("Leer uno:", mascotaUno);
 */
 
@@ -232,6 +232,8 @@ const nuevaMascota = {
 const resultadoAgregarUno =  crud("agregarUno", nuevaMascota);
 console.log("Agregar uno:", resultadoAgregarUno);
 */
+
+
 
 // AGREGAR VARIOS DOCUMENTOS
 /*
