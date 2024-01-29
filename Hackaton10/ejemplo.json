@@ -1,0 +1,20 @@
+{
+    "nombre":"Pancho",
+    "especie":"Gato",
+    "raza":"Mestizo",
+    "sexo":"Macho",
+    "color":"Atigrado",
+    "edad":1.5,
+    "propietario":{
+        "tipoIdentificacion":"CE",
+        "nombre":"Roberto",
+        "apellido":"Pineda",
+        "direccion":"Lima",
+        "telefono":"916730940"
+    }
+    ,
+    "vacunas":[
+        "TripleFelina",
+        "Antirabica"
+    ]
+}
