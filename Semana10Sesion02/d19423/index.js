@@ -17,6 +17,7 @@ async function run() {
         // Close the database connection when finished or an error occurs
         await client.close();
     }
+<<<<<<< HEAD
 }
 //run().catch(console.error);
 async function crud(base, coleccion, accion, filtro = null, data = null) {
@@ -291,3 +292,7 @@ let data =  { $set: { year: 1925 } }
 crud("sample_mflix", "movies", "borrarVarios", filtro).then((res) => {
     console.log(res)
 });
+=======
+  }
+  run().catch(console.error);
+>>>>>>> 3fa9efc8ce6a6a117cf7c3df241f5fbe9934dfab
