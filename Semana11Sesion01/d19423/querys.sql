@@ -53,3 +53,16 @@ BEGIN
 	SELECT *  FROM products where ProductID = id;
 END$$
 DELIMITER ;
+
+DELIMITER $$
+CREATE  PROCEDURE `GetOrdersByEmploye`(IN id INT)
+BEGIN
+	select 
+o.OrderID,
+o.OrderDate,
+E.FirstName,
+E.LastName
+ from Orders o inner join Employees E on o.EmployeeID = E.EmployeeID
+ where E.EmployeeID = id;
+END$$
+
