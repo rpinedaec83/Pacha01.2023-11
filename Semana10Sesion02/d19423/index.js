@@ -1,4 +1,4 @@
-console.log("Funcionando con nodemon")
+console.log("Funcionando con nodemon ")
 const { MongoClient } = require('mongodb');
 const uri = "mongodb://localhost:27017";
 const client = new MongoClient(uri);
@@ -96,14 +96,15 @@ async function crud(base, coleccion, accion, filtro = null, data = null) {
 }
 
 //let res = crud("sample_mflix", "movies", "leerUno").then((res)=>{
-//    console.log(res);
+    //console.log(res);
 //});
 
-let opciones = { year: 2000 };
-// let res2 = crud("sample_mflix", "movies", "leerTodos", opciones).then((res) => {
-//     console.log(res)
-// });
-let strIngresar = `{
+//let opciones = { year: 2000 };
+ //let res2 = crud("sample_mflix", "movies", "leerTodos", opciones).then((res) => {
+    //console.log(res2)
+//});
+let strIngresar = 
+`{
     "plot": "In Paris a wild girl becomes possessed by the soul of her twin who died to save her life.",
     "genres": [
       "Drama"
@@ -159,10 +160,10 @@ let strIngresar = `{
   }`;
 
 let objIngreso = JSON.parse(strIngresar);
-//console.log(objIngreso)
-// res2 =  crud("sample_mflix", "movies", "agregarUno",objIngreso).then((res)=>{
-//     console.log(res)
-// });
+console.log(objIngreso)
+ res2 =  crud("sample_mflix", "movies", "agregarUno",objIngreso).then((res)=>{
+     console.log(res)
+ });
 
 let strIngresarMuchos = `[{
     "plot": "In Paris a wild girl becomes possessed by the soul of her twin who died to save her life.",
@@ -273,8 +274,8 @@ let strIngresarMuchos = `[{
   }]`;
 
 let arrInsertar = JSON.parse(strIngresarMuchos);
-// crud("sample_mflix", "movies", "agregarVarios", arrInsertar).then((res) => {
-//     console.log(res)
+ //crud("sample_mflix", "movies", "agregarVarios", arrInsertar).then((res) => {
+    //console.log(res)
 // });
 
 let filtro = { title: "White Shadows" }
