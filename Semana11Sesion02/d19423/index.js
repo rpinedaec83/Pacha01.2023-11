@@ -1,22 +1,72 @@
-const express = require('express')
-var bodyParser = require('body-parser')
-const app = express()
+const express = require('express');
+const app = express();
+var cors = require('cors')
+app.use(cors())
+const bodyParser = require('body-parser')
 app.use(bodyParser.json())
+const connection = require("./db");
+var corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  }
+  
+
+
 const port = 8000
-app.get('/', (req, res) => {
-    res.send('Hola desde Express!')
-}) 
-app.post('/cliente',(req, res)=>{
+app.get('/especies',cors(corsOptions), async (req, res) => {
+    const [query] = await connection.execute('call sp_crud_especie(1,null,null,null,null);');
+    res.status(200).json(
+        query[0]
+    );
+
+})
+app.post('/especies',cors(corsOptions), async (req, res) => {
     let obj = req.body;
-    console.log(obj)
-    res.send("desde el post")
+    console.log(req.body);
+    let descripcion = obj.descripcion;
+    try {
+        const [query] = await connection.execute('call sp_crud_especie(2,?,null,null,1);', [descripcion]);
+        res.status(201).json(
+            { "message": "creado" }
+        );
+    } catch (error) {
+        console.error(error);
+        res.status(500);
+    }
 })
-app.put('/cliente',(req, res)=>{
-    res.send("desde el put")
+
+app.put('/especies',cors(corsOptions), async (req, res) => {
+    let obj = req.body;
+    console.log(req.body);
+    let descripcion = obj.descripcion;
+    let id = obj.id;
+    try {
+        const [query] = await connection.execute('call sp_crud_especie(3,?,null,?,1);', [descripcion,id]);
+        res.status(203).json(
+            { "message": "Modificado" }
+        );
+    } catch (error) {
+        console.error(error);
+        res.status(500);
+    }
 })
-app.delete('/cliente',(req, res)=>{
-    res.send("desde el delete")
+
+app.delete('/especies',cors(corsOptions), async (req, res) => {
+    let obj = req.body;
+    console.log(req.body);
+    let id = obj.id;
+    try {
+        const [query] = await connection.execute('call sp_crud_especie(4,null,null,?,1);', [id]);
+        res.status(203).json(
+            { "message": "Borrado" }
+        );
+    } catch (error) {
+        console.error(error);
+        res.status(500);
+    }
 })
+
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
