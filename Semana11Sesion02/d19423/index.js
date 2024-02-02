@@ -8,9 +8,7 @@ const connection = require("./db");
 var corsOptions = {
     origin: '*',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-  }
-  
-
+}
 
 const port = 8000
 app.get('/especies',cors(corsOptions), async (req, res) => {
@@ -18,7 +16,6 @@ app.get('/especies',cors(corsOptions), async (req, res) => {
     res.status(200).json(
         query[0]
     );
-
 })
 app.post('/especies',cors(corsOptions), async (req, res) => {
     let obj = req.body;
@@ -34,7 +31,6 @@ app.post('/especies',cors(corsOptions), async (req, res) => {
         res.status(500);
     }
 })
-
 app.put('/especies',cors(corsOptions), async (req, res) => {
     let obj = req.body;
     console.log(req.body);
@@ -50,7 +46,6 @@ app.put('/especies',cors(corsOptions), async (req, res) => {
         res.status(500);
     }
 })
-
 app.delete('/especies',cors(corsOptions), async (req, res) => {
     let obj = req.body;
     console.log(req.body);
