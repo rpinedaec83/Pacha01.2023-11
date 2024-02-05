@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+
+<body class="bg-gray-200">
+  <div class="w-full py-5 flex items-center justify-center gap-8">
+    <!-- "ciudad": "lima",
+    "pais": "peru update",
+    "temperatura": 11.5 -->
+    <input class="px-8 py-2 focus:outline-none rounded-3xl" placeholder="Ingrese la ciudad" id="ciudad" />
+    <input class="px-8 py-2 focus:outline-none rounded-3xl" placeholder="Ingrese el pais" id="pais" />
+    <input class="px-8 py-2 focus:outline-none rounded-3xl" placeholder="Ingrese la temperatura" id="temperatura" />
+
+    <button class="shadow-2xl bg-blue-400 py-2 px-6 rounded-2xl uppercase text-white" id="crear_clima">Crear
+      Clima</button>
+  </div>
+  <table class="w-full text-center bg-white shadow-md rounded my-6">
+    <thead class="bg-gray-800 text-white">
+      <tr>
+        <th class="py-2">ID</th>
+        <th class="py-2">Ciudad</th>
+        <th class="py-2">Pais</th>
+        <th class="py-2">Temperatura</th>
+        <th class="py-2">Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="t-body">
+      <!-- Aquí se agregarán las filas dinámicamente -->
+    </tbody>
+  </table>
+</body>
+
+</html>
+<script>
+
+  const crearClima = document.getElementById('crear_clima');
+  const ciudad = document.getElementById('ciudad');
+  const temperatura = document.getElementById('temperatura');
+  const pais = document.getElementById('pais');
+
+  const url = 'http://localhost:3000/crear-clima';
+  
+  crearClima.addEventListener('click', () => {
+    const data = {
+      "ciudad": ciudad.value, // Usar `value` en lugar de `textContent`
+      "pais": pais.value, // Usar `value` en lugar de `textContent`
+      "temperatura": temperatura.value // Usar `value` en lugar de `textContent`
+    };
+  
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+        // Puedes agregar otras cabeceras si es necesario
+      },
+      body: JSON.stringify(data)
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error de red');
+        }
+
+        return response.json();
+      })
+      .then(responseData => {
+        alert('Clima creado correctamente.');
+        location.reload()
+      })
+      .catch(error => {
+        console.error('Error en la solicitud:', error);
+      });
+
+  });
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    selectData()
+  })
+
+  const tbody = document.getElementById('t-body');
+
+  // Función para agregar filas a la tabla
+  const agregarFila = (id, ciudad, pais, temperatura) => {
+    const newRow = tbody.insertRow();
+    newRow.insertCell().textContent = id;
+    newRow.insertCell().textContent = ciudad;
+    newRow.insertCell().textContent = pais;
+    newRow.insertCell().textContent = temperatura;
+
+    // Crear celda para acciones (botones)
+    const actionsCell = newRow.insertCell();
+
+    // Crear botón de eliminar
+    const deleteButton = document.createElement('button');
+    deleteButton.classList = 'bg-red-600 px-8 py-2 rounded-2xl text-white'
+    deleteButton.textContent = 'Eliminar';
+    deleteButton.addEventListener('click', function () {
+      eliminar_clima(id);
+    });
+
+    // Crear botón de actualizar
+    const updateButton = document.createElement('button');
+    updateButton.classList = 'bg-green-600 px-8 py-2 rounded-2xl text-white'
+    updateButton.textContent = 'Actualizar';
+    updateButton.addEventListener('click', function () {
+      // Lógica para actualizar la fila o realizar la acción deseada
+      // alert('Actualizar fila con ID: ' + id);
+
+      location.reload()
+    });
+
+    // Agregar botones a la celda de acciones
+    actionsCell.appendChild(deleteButton);
+    actionsCell.appendChild(updateButton);
+  }
+
+  function eliminar_clima(id) {
+    const url = `http://localhost:3000/delete-clima/${id}`;
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    };
+
+    fetch(url, options)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error en la solicitud DELETE');
+        }
+        return response.json();
+      })
+      .then(data => {
+        alert('Eliminacion exitosa: ' + id);
+        location.reload()
+      })
+      .catch(error => {
+        alert('Error al eliminar el: ' + id);
+      });
+  }
+
+  // Función para obtener datos desde el servidor
+  const selectData = () => {
+    fetch('http://localhost:3000')
+      .then(response => response.json())
+      .then(data => {
+        data.msg.map((element) => {
+          agregarFila(element.id, element.ciudad, element.pais, element.temperatura);
+        });
+      })
+      .catch(error => {
+        console.log('Error al obtener data.')
+      });
+  }
+</script>
