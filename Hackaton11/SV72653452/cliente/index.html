@@ -1,0 +1,944 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operaciones CRUD</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .table-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .table-box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Operaciones CRUD</h2>
+
+    <div class="table-container">
+        <!-- Tabla de Mascotas -->
+        <div class="table-box" id="mascotas">
+            <h3>Mascotas</h3>
+            <button onclick="getMascotas()">GET</button>
+            <button onclick="addMascota()">POST</button>
+            <button onclick="updateMascota()">PUT</button>
+            <button onclick="deleteMascota()">DELETE</button>
+        </div>
+
+
+        <!-- Tabla de Especie -->
+        <div class="table-box" id="mascotas">
+            <h3>Especies</h3>
+            <button onclick="getEspecies()">GET</button>
+            <button onclick="addEspecies()">POST</button>
+            <button onclick="updateEspecies()">PUT</button>
+            <button onclick="deleteEspecies()">DELETE</button>
+        </div>
+
+        <!-- Tabla de Nacionalidad -->
+        <div class="table-box" id="mascotas">
+            <h3>Nacionalidad</h3>
+            <button onclick="getNacionalidad()">GET</button>
+            <button onclick="addNacionalidad()">POST</button>
+            <button onclick="updateNacionalidad()">PUT</button>
+            <button onclick="deleteNacionalidad()">DELETE</button>
+        </div>
+
+
+
+        <!-- Tabla de Propietario -->
+        <div class="table-box" id="mascotas">
+            <h3>Propietario</h3>
+            <button onclick="getPropietario()">GET</button>
+            <button onclick="addPropietario()">POST</button>
+            <button onclick="updatePropietario()">PUT</button>
+            <button onclick="deletePropietario()">DELETE</button>
+        </div>
+
+
+
+
+        <!-- Tabla de Raza -->
+        <div class="table-box" id="mascotas">
+            <h3>Raza</h3>
+            <button onclick="getRAZA()">GET</button>
+            <button onclick="addRAZA()">POST</button>
+            <button onclick="updateRAZA()">PUT</button>
+            <button onclick="deleteRAZA()">DELETE</button>
+        </div>
+
+
+
+         <!-- Tabla de Sexo -->
+         <div class="table-box" id="mascotas">
+            <h3>Sexo</h3>
+            <button onclick="getSexo()">GET</button>
+            <button onclick="addSexo()">POST</button>
+            <button onclick="updateSexo()">PUT</button>
+            <button onclick="deleteSexo()">DELETE</button>
+        </div>
+
+
+         <!-- Tabla de Ubigeo -->
+         <div class="table-box" id="mascotas">
+            <h3>Ubigeo</h3>
+            <button onclick="getUbigeo()">GET</button>
+            <button onclick="addUbigeo()">POST</button>
+            <button onclick="updateUbigeo()">PUT</button>
+            <button onclick="deleteUbigeo()">DELETE</button>
+        </div>
+
+
+
+        <!-- Tabla de Usuario -->
+        <div class="table-box" id="mascotas">
+            <h3> Usuario</h3>
+            <button onclick="getUsuario()">GET</button>
+            <button onclick="addUsuario()">POST</button>
+            <button onclick="updateUsuario()">PUT</button>
+            <button onclick="deleteUsuario()">DELETE</button>
+        </div>
+
+
+        <!-- Tabla de Vacunas -->
+        <div class="table-box" id="mascotas">
+            <h3> Vacunas</h3>
+            <button onclick="getVacuna()">GET</button>
+            <button onclick="addVacuna()">POST</button>
+            <button onclick="updateVacuna()">PUT</button>
+            <button onclick="deleteVacuna()">DELETE</button>
+        </div>
+
+
+
+    </div>
+
+    <script>
+        //MASCOTAS
+        async function getMascotas() {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/mascotas');
+                const data = await response.json();
+                console.log('Mascotas:', data);
+            } catch (error) {
+                console.error('Error en la solicitud GET para mascotas:', error);
+            }
+        }
+
+        async function addMascota() {
+            const nuevaMascota = {
+                nombre: 'Firulais',
+                fechaNacimiento: '2020-01-01',
+                idEspecie: 1,
+                idRaza: 1,
+                idSexo: 1,
+                idPropietario: 1,
+                activo: true
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/mascotas', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(nuevaMascota)
+                });
+
+                const data = await response.json();
+                console.log('Nueva mascota creada:', data);
+            } catch (error) {
+                console.error('Error en la solicitud POST para mascotas:', error);
+            }
+        }
+
+        async function updateMascota() {
+            const mascotaActualizada = {
+                id: 8,
+                nombre: 'Firulais Actualizado',
+                fechaNacimiento: '2021-01-01',
+                idEspecie: 2,
+                idRaza: 2,
+                idSexo: 2,
+                idPropietario: 2,
+                activo: true
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/mascotas', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(mascotaActualizada)
+                });
+
+                const data = await response.json();
+                console.log('Mascota actualizada:', data);
+            } catch (error) {
+                console.error('Error en la solicitud PUT para mascotas:', error);
+            }
+        }
+
+        async function deleteMascota() {
+            const mascotaAEliminar = {
+                id: 8
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/mascotas', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(mascotaAEliminar)
+                });
+
+                const data = await response.json();
+                console.log('Mascota eliminada:', data);
+            } catch (error) {
+                console.error('Error en la solicitud DELETE para mascotas:', error);
+            }
+        }
+
+   
+
+       //ESPECIES
+       async function getEspecies() {
+        try {
+                const response = await fetch('http://127.0.0.1:8000/especies');
+                const data = await response.json();
+                console.log('Especies:', data);
+            } catch (error) {
+                console.error('Error en la solicitud GET para especies:', error);
+            }
+        }
+
+        async function addEspecies() {
+            const nuevaEspecie = {
+                descripcion: 'Nueva Especie'
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/especies', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(nuevaEspecie)
+                });
+
+                const data = await response.json();
+                console.log('Nueva especie creada:', data);
+            } catch (error) {
+                console.error('Error en la solicitud POST para especies:', error);
+            }
+        }
+
+        async function updateEspecies() {
+            const especieActualizada = {
+                id: 21,
+                descripcion: 'Especie Actualizada'
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/especies', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(especieActualizada)
+                });
+
+                const data = await response.json();
+                console.log('Especie actualizada:', data);
+            } catch (error) {
+                console.error('Error en la solicitud PUT para especies:', error);
+            }
+        }
+
+        async function deleteEspecies() {
+            const especieAEliminar = {
+                id: 21
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/especies', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(especieAEliminar)
+                });
+
+                const data = await response.json();
+                console.log('Especie eliminada:', data);
+            } catch (error) {
+                console.error('Error en la solicitud DELETE para especies:', error);
+            }
+        }
+
+
+
+        //NACIONALIDAD
+       async function getNacionalidad() {
+        try {
+                const response = await fetch('http://127.0.0.1:8000/nacionalidades');
+                const data = await response.json();
+                console.log('Nacionalidades:', data);
+            } catch (error) {
+                console.error('Error en la solicitud GET para nacionalidades:', error);
+            }
+        }
+
+        async function addNacionalidad() {
+            const nuevaNacionalidad = {
+                descripcion: 'Nueva Nacionalidad',
+                activo: 1
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/nacionalidades', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(nuevaNacionalidad)
+                });
+
+                const data = await response.json();
+                console.log('Nueva nacionalidad creada:', data);
+            } catch (error) {
+                console.error('Error en la solicitud POST para nacionalidades:', error);
+            }
+        }
+
+        async function updateNacionalidad() {
+            const nacionalidadActualizada = {
+                
+                descripcion: 'Nacionalidad Actualizada',
+                id: 6
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/nacionalidades', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(nacionalidadActualizada)
+                });
+
+                const data = await response.json();
+                console.log('Nacionalidad actualizada:', data);
+            } catch (error) {
+                console.error('Error en la solicitud PUT para nacionalidades:', error);
+            }
+        }
+
+        async function deleteNacionalidad() {
+            const nacionalidadAEliminar = {
+                id: 6
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/nacionalidades', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(nacionalidadAEliminar)
+                });
+
+                const data = await response.json();
+                console.log('Nacionalidad eliminada:', data);
+            } catch (error) {
+                console.error('Error en la solicitud DELETE para nacionalidades:', error);
+            }
+        }
+
+
+
+
+
+      //PROPIETARIO
+
+
+      async function getPropietario() {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/propietarios');
+                const data = await response.json();
+                
+                console.log('Propietarios:', data);
+            } catch (error) {
+                console.error('Error en la solicitud GET para propietarios:', error);
+            }
+        }
+
+        async function addPropietario() {
+            const nuevoPropietario = {
+                nombre: 'Juan' ,
+                apellido: 'Perez' ,
+                direccion:'Calle 123' ,
+                telefono: 987654321,
+                idNacionalidad: 1,
+                cedula:130115,
+                activo: true
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/propietarios', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(nuevoPropietario)
+                });
+
+                const data = await response.json();
+                console.log('Nuevo Propietario creado:', data);
+            } catch (error) {
+                console.error('Error en la solicitud POST para propietarios:', error);
+            }
+        }
+
+        async function updatePropietario() {
+            const propietarioActualizado = {
+                nombre: 'Marco' ,
+                apellido: 'Escabeche' ,
+                direccion:'Colon 57' ,
+                telefono: 983865987,
+                idNacionalidad: 2,
+                cedula:141133,
+                activo: true,
+                id: 13
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/propietarios', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(propietarioActualizado)
+                });
+
+                const data = await response.json();
+                console.log('Propietario Actualizado:', data);
+            } catch (error) {
+                console.error('Error en la solicitud PUT para propietarios:', error);
+            }
+        }
+
+        async function deletePropietario() {
+            const propietarioAEliminar = {
+                id: 13
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/propietarios', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(propietarioAEliminar)
+                });
+
+                const data = await response.json();
+                console.log('Propietario eliminado:', data);
+            } catch (error) {
+                console.error('Error en la solicitud DELETE para propietarios:', error);
+            }
+        }
+
+
+
+
+
+
+        //RAZA
+
+        
+       async function getRAZA() {
+        try {
+                const response = await fetch('http://127.0.0.1:8000/razas');
+                const data = await response.json();
+                console.log('Razas:', data);
+            } catch (error) {
+                console.error('Error en la solicitud GET para razas:', error);
+            }
+        }
+
+        async function addRAZA() {
+            const nuevaRaza = {
+                descripcion: 'Nueva Raza',
+                activo: 1
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/razas', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(nuevaRaza)
+                });
+
+                const data = await response.json();
+                console.log('Nueva raza creada:', data);
+            } catch (error) {
+                console.error('Error en la solicitud POST para razas:', error);
+            }
+        }
+
+        async function updateRAZA() {
+            const razaActualizada = {
+                
+                descripcion: 'Raza Actualizada',
+                activo:1,
+                id:5
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/razas', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(razaActualizada)
+                });
+
+                const data = await response.json();
+                console.log('Raza actualizada:', data);
+            } catch (error) {
+                console.error('Error en la solicitud PUT para razas:', error);
+            }
+        }
+
+        async function deleteRAZA() {
+            const razaAEliminar = {
+                id: 5
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/razas', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(razaAEliminar)
+                });
+
+                const data = await response.json();
+                console.log('Raza eliminada:', data);
+            } catch (error) {
+                console.error('Error en la solicitud DELETE para razas:', error);
+            }
+        }
+
+
+
+        //SEXO
+
+        
+       async function getSexo() {
+        try {
+                const response = await fetch('http://127.0.0.1:8000/sexos');
+                const data = await response.json();
+                console.log('Sexos:', data);
+            } catch (error) {
+                console.error('Error en la solicitud GET para sexos:', error);
+            }
+        }
+
+        async function addSexo() {
+            const nuevaSexo = {
+                descripcion: 'Nuevo Sexo',
+                activo: 1
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/sexos', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(nuevaSexo)
+                });
+
+                const data = await response.json();
+                console.log('Nuevo sexo creado:', data);
+            } catch (error) {
+                console.error('Error en la solicitud POST para sexos:', error);
+            }
+        }
+
+        async function updateSexo() {
+            const sexoActualizada = {
+                
+                descripcion: 'Sexo Actualizado',
+                activo:1,
+                id:4
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/sexos', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(sexoActualizada)
+                });
+
+                const data = await response.json();
+                console.log('Sexo actualizado:', data);
+            } catch (error) {
+                console.error('Error en la solicitud PUT para sexos:', error);
+            }
+        }
+
+        async function deleteSexo() {
+            const sexoAEliminar = {
+                id: 4
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/sexos', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(sexoAEliminar)
+                });
+
+                const data = await response.json();
+                console.log('Sexo eliminado:', data);
+            } catch (error) {
+                console.error('Error en la solicitud DELETE para sexos:', error);
+            }
+        }
+
+
+
+
+
+
+        //UBIGEO
+
+        
+       async function getUbigeo() {
+        try {
+                const response = await fetch('http://127.0.0.1:8000/ubigeos');
+                const data = await response.json();
+                console.log('Ubigeos:', data);
+            } catch (error) {
+                console.error('Error en la solicitud GET para ubigeos:', error);
+            }
+        }
+
+        async function addUbigeo() {
+            const nuevoUbigeo = {
+                ubigeo:'6',
+                ubicacion:'Lurin',
+                activo:true,
+                usuario:'1',
+                
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/ubigeos', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(nuevoUbigeo)
+                });
+
+                const data = await response.json();
+                console.log('Nuevo ubigeo creado:', data);
+            } catch (error) {
+                console.error('Error en la solicitud POST para ubigeos:', error);
+            }
+        }
+
+        async function updateUbigeo() {
+            const ubigeoActualizada = {
+                
+                ubigeo:'6',
+                ubicacion:'Mancora',
+                activo:true,
+                usuario:'1',
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/ubigeos', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(ubigeoActualizada)
+                });
+
+                const data = await response.json();
+                console.log('Ubigeo actualizado:', data);
+            } catch (error) {
+                console.error('Error en la solicitud PUT para ubigeos:', error);
+            }
+        }
+
+        async function deleteUbigeo() {
+            const ubigeoAEliminar = {
+                ubigeo: 6
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/ubigeos', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(ubigeoAEliminar)
+                });
+
+                const data = await response.json();
+                console.log('Ubigeo eliminado:', data);
+            } catch (error) {
+                console.error('Error en la solicitud DELETE para ubigeos:', error);
+            }
+        }
+
+
+
+
+        //USUARIO
+
+        
+       async function getUsuario() {
+        try {
+                const response = await fetch('http://127.0.0.1:8000/usuarios');
+                const data = await response.json();
+                console.log('Usuarios:', data);
+            } catch (error) {
+                console.error('Error en la solicitud GET para usuarios:', error);
+            }
+        }
+
+        async function addUsuario() {
+            const nuevoUsuario = {
+                username:'gerp',
+                email: 'Gerp.doe@example.com',
+                nombre:'Gerard' ,
+                apellido:'Pique'  ,
+                edad:32,
+                id: 1
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/usuarios', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(nuevoUsuario)
+                });
+
+                const data = await response.json();
+                console.log('Nuevo usuario creado:', data);
+            } catch (error) {
+                console.error('Error en la solicitud POST para usuarios:', error);
+            }
+        }
+
+        async function updateUsuario() {
+            const usuarioActualizado = {
+                
+                username:'REMP',
+                email: 'Remp.doe@example.com',
+                nombre:'Remus' ,
+                apellido:'Lumis'  ,
+                edad:340,
+                id: 3
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/usuarios', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(usuarioActualizado)
+                });
+
+                const data = await response.json();
+                console.log('Usuario actualizado:', data);
+            } catch (error) {
+                console.error('Error en la solicitud PUT para usuarios:', error);
+            }
+        }
+
+        async function deleteUsuario() {
+            const usuarioAEliminar = {
+                id: 7,
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/usuarios', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(usuarioAEliminar)
+                });
+
+                const data = await response.json();
+                console.log('Usuario eliminado:', data);
+            } catch (error) {
+                console.error('Error en la solicitud DELETE para usuarios:', error);
+            }
+        }
+
+
+
+
+
+        //VACUNAS
+
+        
+       async function getVacuna() {
+        try {
+                const response = await fetch('http://127.0.0.1:8000/vacunas');
+                const data = await response.json();
+                console.log('Vacunas:', data);
+            } catch (error) {
+                console.error('Error en la solicitud GET para vacunas:', error);
+            }
+        }
+
+        async function addVacuna() {
+            const nuevaVacuna = {
+                descripcion: 'HEPATITIS',
+                activo: true
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/vacunas', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(nuevaVacuna)
+                });
+
+                const data = await response.json();
+                console.log('Nueva vacuna creada:', data);
+            } catch (error) {
+                console.error('Error en la solicitud POST para vacunas:', error);
+            }
+        }
+
+        async function updateVacuna() {
+            const vacunaActualizada = {
+                id:16,
+                descripcion: 'Vacuna Nueva',
+                activo: true
+                
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/vacunas', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(vacunaActualizada)
+                });
+
+                const data = await response.json();
+                console.log('Vacuna actualizada:', data);
+            } catch (error) {
+                console.error('Error en la solicitud PUT para vacunas:', error);
+            }
+        }
+
+        async function deleteVacuna() {
+            const vacunaAEliminar = {
+                id: 16
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/vacunas', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(vacunaAEliminar)
+                });
+
+                const data = await response.json();
+                console.log('Vacuna eliminada:', data);
+            } catch (error) {
+                console.error('Error en la solicitud DELETE para vacunas:', error);
+            }
+        }
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
