@@ -11,13 +11,13 @@ var corsOptions = {
 }
 
 const port = 8000
-app.get('/especies',cors(corsOptions), async (req, res) => {
+app.get('/especies/ubicaciones',cors(corsOptions), async (req, res) => {
     const [query] = await connection.execute('call sp_crud_especie(1,null,null,null,null);');
     res.status(200).json(
         query[0]
     );
 })
-app.post('/especies',cors(corsOptions), async (req, res) => {
+app.post('/especies/crear',cors(corsOptions), async (req, res) => {
     let obj = req.body;
     console.log(req.body);
     let descripcion = obj.descripcion;
@@ -31,7 +31,7 @@ app.post('/especies',cors(corsOptions), async (req, res) => {
         res.status(500);
     }
 })
-app.put('/especies',cors(corsOptions), async (req, res) => {
+app.put('/especies/actualizar',cors(corsOptions), async (req, res) => {
     let obj = req.body;
     console.log(req.body);
     let descripcion = obj.descripcion;

@@ -1,44 +1,180 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CRUD de Especies</title>
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        #container {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        #formulario {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #tabla {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+    </style>
 </head>
-
 <body>
+    <div id="container">
+        <div id="formulario">
+            <h2>Manejo de Especies</h2>
+            <label for="idInput">ID:</label>
+            <input type="text" id="idInput" disabled>
+            <label for="descripcionInput">Descripción:</label>
+            <input type="text" id="descripcionInput" required>
+            <button onclick="guardarEspecie()">Guardar</button>
+        </div>
 
+        <div id="tabla">
+            <h1>CRUD de Especies</h1>
 
-    <button id="post-btn">I'm a button</button>
-
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="especiesTableBody"></tbody>
+            </table>
+        </div>
+    </div>
 
     <script>
-        const button = document.getElementById('post-btn');
+        async function cargarEspecies() {
+            const response = await fetch('http://localhost:8000/especies/ubicaciones');
+            const data = await response.json();
+            
+            const tableBody = document.getElementById('especiesTableBody');
+            tableBody.innerHTML = '';
 
-        button.addEventListener('click', async _ => {
-            try {
-                var options = {
+            data.forEach(especie => {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td>${especie.id}</td><td>${especie.descripcion}</td><td><button onclick="llenarFormulario(${especie.id}, '${especie.descripcion}')">Editar</button><button onclick="eliminarEspecie(${especie.id})">Eliminar</button></td>`;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function llenarFormulario(id, descripcion) {
+            document.getElementById('idInput').value = id;
+            document.getElementById('descripcionInput').value = descripcion;
+        }
+
+        async function guardarEspecie() {
+            const id = document.getElementById('idInput').value;
+            const descripcion = document.getElementById('descripcionInput').value;
+
+            if (id) {
+                // Si hay un ID, actualizamos
+                await fetch('http://localhost:8000/especies/actualizar', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ id, descripcion }),
+                });
+            } else {
+                // Si no hay ID, creamos una nueva especie
+                await fetch('http://localhost:8000/especies/crear', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': "application/json",
-                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ descripcion: "Patos" })
-                }
-
-                fetch('http://127.0.0.1:8000/especies', options).then(response => response.json()).then(data => {
-                    console.log(data)
-                }).catch(error => {
-                    console.log('error en la peticion', error)
-                })
-
-                console.log('Completed!', response);
-            } catch (err) {
-                console.error(`Error: ${err}`);
+                    body: JSON.stringify({ descripcion }),
+                });
             }
-        });
+
+            cargarEspecies();
+            limpiarCampos();
+        }
+
+        async function eliminarEspecie(id) {
+            await fetch('http://localhost:8000/especies', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id }),
+            });
+
+            cargarEspecies();
+            limpiarCampos();
+        }
+
+        function limpiarCampos() {
+            document.getElementById('idInput').value = '';
+            document.getElementById('descripcionInput').value = '';
+        }
+
+        cargarEspecies();
     </script>
 </body>
-
 </html>
