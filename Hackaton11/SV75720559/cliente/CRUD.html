@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal de CRUD</title>
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        #container {
+            text-align: center;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 8px;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>SELECCIONA UN CRUD</h1>
+        <button onclick="irACRUD('especie')">CRUD Especie</button>
+        <button onclick="irACRUD('bckubigeo')">CRUD bckubigeo</button>
+
+        <!-- Agrega más botones según tus CRUDs -->
+    </div>
+
+    <script>
+        function irACRUD(especie) {
+            // Redirige a la página correspondiente al CRUD seleccionado
+            window.location.href = `${especie}.html`;
+        }
+        function irACRUD(bckubigeo) {
+            // Redirige a la página correspondiente al CRUD seleccionado
+            window.location.href = `${bckubigeo}.html`;
+        }
+
+    </script>
+</body>
+</html>
