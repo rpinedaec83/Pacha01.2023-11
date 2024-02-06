@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+
+    form {
+      margin-bottom: 20px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .container-update {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .delete-section {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .list-elements {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-delete {
+      background-color: coral;
+      padding: 8px;
+      color: white;
+      font-size: 18px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+    }
+
+    .btn-delete:hover {
+      background-color: tomato;
+    }
+
+    h1 {
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+
+  <form>
+    <input type="text" placeholder="Ingrese nombre" name="name" id="name">
+    <input type="text" placeholder="Ingrese apellido" name="lastname" id="lastname">
+    <input type="text" placeholder="Ingrese email" name="email" id="email">
+    <button type="submit" id="btn-send">Crear usuario</button>
+  </form>
+  <br><br>
+  <div class="container-update">
+
+    <h1>ACTUALIZAR USUARIO </h1>
+    <div>
+      <input placeholder="Ingrese el usuario a buscar" name="id" id="id" />
+      <button id="btn-id-send">Send</button>
+    </div>
+
+    <div class="list-elements" id="update-list">
+      <input type="text" placeholder="Ingrese nombre" name="update-name" id="update-name">
+      <input type="text" placeholder="Ingrese apellido" name="update-lastname" id="update-lastname">
+      <input type="text" placeholder="Ingrese email" name="update-email" id="update-email">
+      <button class="" id="btn-update-save">Send Update</button>
+    </div>
+
+  </div>
+
+  <div class="delete-section">
+
+    <br><h1>Eliminar los elementos haciendo click</h1></div><br>
+    <div class="list-elements" id="delete-list">
+
+    </div>
+  </div>
+
+</body>
+
+</html>
+<script>
+  const btnSend = document.getElementById('btn-id-send')
+  const id = document.getElementById('id')
+  const updatename = document.getElementById('update-name')
+  const updatelastname = document.getElementById('update-lastname')
+  const updateemail = document.getElementById('update-email')
+  const btnUpdateSave = document.getElementById('btn-update-save')
+
+  // const updateData =
+    btnUpdateSave.addEventListener('click', async () => {
+      await fetch(`http://localhost:3000/actualizar-usuario/${id.value}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({            name: updatename.value,
+            lastname: updatelastname.value,
+            email: updateemail.value
+          })
+        }).then(resposne => resposne.json()).then(data => { console.log(data) }).catch(error => {
+          console.log(error)
+        })
+    })
+
+  btnSend.addEventListener('click', async () => {
+
+    await fetch(`http://localhost:3000/obtener-usuario/${id.value}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then(response => response.json()).then(data => {
+      console.log(data.results.name)
+      updatename.value = data.results.name;
+      updatelastname.value = data.results.lastname;
+      updateemail.value = data.results.email;
+
+    }).catch(error => console.log(error))
+  })
+</script>
+<script>
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const listUsers = document.getElementById('delete-list')
+
+    fetch('http://localhost:3000/obtener-usuarios').then(
+      response => response.json()
+    ).then(data => {
+      const dataList = data.results
+      // console.log(dataList)
+      dataList.forEach(element => {
+        const buttonUser = document.createElement('button')
+        buttonUser.classList.add('btn-delete')
+        buttonUser.textContent = element._id + ' - ' + element.name
+
+        buttonUser.addEventListener('click', function () {
+          handleDeleteElement(element._id)
+        })
+
+        listUsers.appendChild(buttonUser)
+      });
+
+    }).catch(error => console.log('Error al obtener lista.'))
+  })
+
+
+  const handleDeleteElement = async (id) => {
+    await fetch(`http://localhost:3000/eliminar-usuario/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error('error al eliminar')
+      }
+      return response.json()
+    }).then(data => {
+      console.log('Error => ', data)
+    })
+  }
+</script>
+<script>
+  const name = document.getElementById('name');
+  const lastname = document.getElementById('lastname');
+  const email = document.getElementById('email');
+  const btn_send = document.getElementById('btn-send')
+
+  // console.log(name)
+
+  btn_send.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    const nameValue = name.value
+    const lastValue = lastname.value
+    const emailValue = email.value
+    var options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': "application/json"
+      },
+      body: JSON.stringify({ name: nameValue, lastname: lastValue, email: emailValue })
+    }
+
+    fetch('http://localhost:3000/agregar-usuario', options).then(response => response.json()).then(data => {
+      console.log(data)
+    }).catch(error => {
+      console.log('error en la peticion', error)
+    })
+  })
+</script>

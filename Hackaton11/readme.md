@@ -1,6 +1,6 @@
 # HACKATHON SEMANAL
 
-## LOGRO: Utilizar NodeJS y MongoDB. 
+## LOGRO: Utilizar MySQL y NodeJS. 
 
 ### I.	Es hora de demostrar lo aprendido:
 Demostrarás todo lo aprendido en este reto que se basará en las clases dictadas durante la semana.
@@ -18,14 +18,13 @@ Demostrarás todo lo aprendido en este reto que se basará en las clases dictada
 
 ## Reto 1:
 
-### TÍTULO: BASE DE DATOS NO RELACIONALES
+### TÍTULO: Base de Datos
 
-Vamos a cear el CRUD de un sistema de veterinaria, de acuerdo al diseño adjunto
-
-se nececitan los procedimientos para Agregar, Actualizar, Listar y Borrar uno o varios documentos
-
-SUERTE!!!
-
+- Restaurar la base de datos de veterinaria (adjunto archivo sql)
+- Crear los SP's de CRUD de cada tabla
+- Crear una ruta por cada tabla
+- Crear una Query por cada tabla
+- Crear una API de CRUD por cada tabla
 
 ### V.	Solución del reto
 - Para que el reto esté cumplido al 100%, se deben haber resuelto el ejercicio propuesto

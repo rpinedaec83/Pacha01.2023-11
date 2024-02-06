@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+
+<body class="bg-black h-screen w-full grid place-items-center">
+  <div class="h-auto w-96 px-5 py-5 bg-white rounded-2xl grid place-items-center">
+
+    <div class="flex flex-row items-center justify-center gap-4">
+      <h1 id="temperatura" class="text-black text-6xl">19 C</h1>
+
+      <svg id="sun" class="hidden w-10 h-10 text-yellow-200 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+        viewBox="0 0 24 24">
+        <path fill-rule="evenodd"
+          d="M13 3a1 1 0 1 0-2 0v2a1 1 0 1 0 2 0V3ZM6.3 5A1 1 0 0 0 5 6.2l1.4 1.5a1 1 0 0 0 1.5-1.5L6.3 5Zm12.8 1.3A1 1 0 0 0 17.7 5l-1.5 1.4a1 1 0 0 0 1.5 1.5L19 6.3ZM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm-9 4a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H3Zm16 0a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2h-2ZM7.8 17.7a1 1 0 1 0-1.5-1.5L5 17.7A1 1 0 1 0 6.3 19l1.5-1.4Zm9.9-1.5a1 1 0 0 0-1.5 1.5l1.5 1.4a1 1 0 0 0 1.4-1.4l-1.4-1.5ZM13 19a1 1 0 1 0-2 0v2a1 1 0 1 0 2 0v-2Z"
+          clip-rule="evenodd" />
+
+      </svg>
+
+      <svg id="cloud" class="hidden w-10 h-10 text-blue-400 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 21 16">
+        <path d="M11 16a1 1 0 0 1-1-1v-1h2v1a1 1 0 0 1-1 1Z"/>
+        <path d="M17.989 6.124a6.5 6.5 0 0 0-12.495-2.1A5 5 0 0 0 6 14h4V8.414l-.293.293a1 1 0 0 1-1.414-1.414l2-2a1 1 0 0 1 1.414 0l2 2a1 1 0 1 1-1.414 1.414L12 8.414V14h5a4 4 0 0 0 .989-7.876Z"/>
+      </svg>
+    </div>
+
+    <h2 id="ciudad" class="uppercase font-bold">Ciudad de Lima</h2>
+    <div id="pais" class="w-full grid place-items-center uppercase font-extrabold text-6xl text-center">
+      <h2>Peru</h2>
+    </div>
+  </div>
+</body>
+
+<script>
+  const temperatura = document.getElementById('temperatura')
+  const ciudad = document.getElementById('ciudad')
+  const pais = document.getElementById('pais')
+  const rain = document.getElementById('rain')
+  const cloud = document.getElementById('cloud')
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const ciudad = prompt('Ingrese el nombre de la ciudad')
+    buscarDatos(ciudad)
+  })
+
+  function buscarDatos(ciudadName) {
+    // URL del servidor o API que proporciona los datos (ajusta según tus necesidades)
+    var apiUrl = `http://localhost:3000/${ciudadName}`;
+
+    // Realizar la solicitud fetch
+    fetch(apiUrl)
+      .then(response => {
+        // Verificar si la respuesta es exitosa (código de estado 200)
+        if (!response.ok) {
+          throw new Error('Error en la solicitud: ' + response.status);
+        }
+
+        // Parsear la respuesta JSON
+        return response.json();
+      })
+      .then(datos => {
+        // Manipular los datos recibidos (puedes mostrarlos en la consola, actualizar el DOM, etc.)
+        temperatura.textContent = `${datos.msg[0].temperatura} C`;
+       if(datos.msg[0].temperatura >= 20) {
+        sun.classList.remove('hidden')
+       } else {
+        cloud.classList.remove('hidden')
+       }
+        ciudad.textContent = `Ciudad de ${datos.msg[0].ciudad}`;
+        pais.textContent = datos.msg[0].pais 
+        // console.log('Datos recibidos:', datos.msg[0].id);
+      })
+      .catch(error => {
+        // Capturar y manejar errores
+        console.error('Error:', error);
+      });
+  }
+
+</script>
+
+</html>

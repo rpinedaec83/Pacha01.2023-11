@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackaton 11</title>
+</head>
+<body>
+    <h1>Veterinaria</h1>
+    <h3>CRUD Raza</h3>
+    <h4>Read Raza</h4>
+    <form method="GET" action="/raza_">
+        <label for="idRaza">id Raza:</label><br>
+        <input type="number" id="idRaza" name="idRaza"><br>
+        <button type="submit">Read raza</button>
+    </form>
+    <h4>Read Raza</h4>
+    <a href="/raza">Get All Razas</a>
+    <h4>Create Raza</h4>
+    <form method="POST" action="/raza">
+        <label for="descripcion">descripcion:</label><br>
+        <input type="text" id="descripcion" name="descripcion"><br>
+        <button type="submit">Create raza</button>
+    </form>
+    <h4>Update Raza</h4>
+    <form method="POST" action="/raza?_method=PUT">
+        <label for="idRaza">id Raza:</label><br>
+        <input type="text" id="idRaza" name="idRaza"><br>
+        <label for="descripcion">descripcion:</label><br>
+        <input type="text" id="descripcion" name="descripcion"><br>
+        <button type="submit">Update raza</button>
+    </form>
+    <h4>Delete Raza</h4>
+    <form method="POST" action="/raza?_method=DELETE">
+        <label for="idRaza">id Raza:</label><br>
+        <input type="text" id="idRaza" name="idRaza"><br>
+        <button type="submit">Delete raza</button>
+    </form>
+
+    <h3>CRUD Nacionalidad</h3>
+    <h4>Read Nacionalidad</h4>
+    <form method="GET" action="/nacionalidad_">
+        <label for="idNacionalidad">id Nacionalidad:</label><br>
+        <input type="number" id="idNacionalidad" name="idNacionalidad"><br>
+        <button type="submit">Read Nacionalidad</button>
+    </form>
+    <h4>Read Nacionalidad</h4>
+    <a href="/nacionalidad">Get All Nacionalidades</a>
+    <h4>Create Nacionalidad</h4>
+    <form method="POST" action="/nacionalidad">
+        <label for="descripcion">descripcion:</label><br>
+        <input type="text" id="descripcion" name="descripcion"><br>
+        <button type="submit">Create Nacionalidad</button>
+    </form>
+    <h4>Update Nacionalidad</h4>
+    <form method="POST" action="/nacionalidad?_method=PUT">
+        <label for="idNacionalidad">id Nacionalidad:</label><br>
+        <input type="text" id="idNacionalidad" name="idNacionalidad"><br>
+        <label for="descripcion">descripcion:</label><br>
+        <input type="text" id="descripcion" name="descripcion"><br>
+        <button type="submit">Update Nacionalidad</button>
+    </form>
+    <h4>Delete Nacionalidad</h4>
+    <form method="POST" action="/nacionalidad?_method=DELETE">
+        <label for="idNacionalidad">id Nacionalidad:</label><br>
+        <input type="text" id="idNacionalidad" name="idNacionalidad"><br>
+        <button type="submit">Delete Nacionalidad</button>
+    </form>
+</body>
+</html>
