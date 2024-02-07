@@ -146,35 +146,23 @@
                 await fetch('http://localhost:8000/especies/crear', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': "application/json",
+                        'Access-Control-Allow-Origin': '*',
                     },
-                    body: JSON.stringify({ descripcion }),
-                });
+                    body: JSON.stringify({ descripcion: "Patos" })
+                }
+
+                fetch('http://127.0.0.1:8000/especies', options).then(response => response.json()).then(data => {
+                    console.log(data)
+                }).catch(error => {
+                    console.log('error en la peticion', error)
+                })
+
+                console.log('Completed!', response);
+            } catch (err) {
+                console.error(`Error: ${err}`);
             }
-
-            cargarEspecies();
-            limpiarCampos();
-        }
-
-        async function eliminarEspecie(id) {
-            await fetch('http://localhost:8000/especies', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ id }),
-            });
-
-            cargarEspecies();
-            limpiarCampos();
-        }
-
-        function limpiarCampos() {
-            document.getElementById('idInput').value = '';
-            document.getElementById('descripcionInput').value = '';
-        }
-
-        cargarEspecies();
+        });
     </script>
 </body>
 </html>

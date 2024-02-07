@@ -1,0 +1,37 @@
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_crud_vacunas`(
+    IN opcion INT,
+    IN descrip varchar(255),
+    IN act bool,
+    IN id int,
+    IN usuario int
+)
+BEGIN
+    IF opcion = 1 THEN
+        -- Mostrar todas las vacunas
+        SELECT * FROM vacunas WHERE activo = 1;
+    ELSEIF opcion = 2 THEN
+        -- Insertar nueva vacuna
+        INSERT INTO vacunas(descripcion, activo, usuariocreacion)
+        VALUES(descrip, act, usuario);
+    ELSEIF opcion = 3 THEN
+        -- Modificar vacuna existente
+        UPDATE vacunas SET
+        descripcion = IFNULL(descrip, descripcion),
+        activo = IFNULL(act, activo),
+        usuarioModificacion = usuario,
+        fechaModificacion = CURRENT_TIMESTAMP
+        WHERE vacunas.id = id;
+    ELSEIF opcion = 4 THEN
+        -- Eliminar vacuna
+        UPDATE vacunas SET
+        activo = 0,
+        usuarioModificacion = usuario,
+        fechaModificacion = CURRENT_TIMESTAMP
+        WHERE vacunas.id = id;
+    ELSEIF opcion = 5 THEN
+        -- Mostrar vacuna por ID
+        SELECT * FROM vacunas WHERE activo = 1 AND vacunas.id = id;
+    END IF;
+END //
+DELIMITER ;
