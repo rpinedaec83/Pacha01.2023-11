@@ -200,7 +200,7 @@ async function guardarMascota() {
     const idraza = document.getElementById('idrazaInput').value;
     const idsexo = document.getElementById('idsexoInput').value;
     const idpropietario = document.getElementById('idpropietarioInput').value;
-    console.log(mascota);
+    
     const date = new Date(fnacimiento);
     const formattedFechaNacimiento = `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(-2)}`;
 
