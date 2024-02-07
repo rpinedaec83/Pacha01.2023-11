@@ -89,7 +89,7 @@ app.put('/bckubigeo/actualizar', cors(corsOptions), async (req, res) => {
     let ubigeo = obj.ubigeo;
     let ubicacion = obj.ubicacion;
     try {
-        const [query] = await connection.execute('call sp_crud_bckubigeo(3, ?, ?, 1, 1);', [ubigeo,ubicacion]);
+        const [query] = await connection.execute('call sp_crud_bckubigeo(3, ?, ?, 1, 1);', [ubigeo, ubicacion]);
         res.status(203).json(
             { "message": "Modificado" }
         );
@@ -113,19 +113,23 @@ app.delete('/bckubigeo/eliminar', cors(corsOptions), async (req, res) => {
     }
 })
 // CRUD mascota
-app.get('/bckubigeo/cargar', cors(corsOptions), async (req, res) => {
-    const [query] = await connection.execute('call sp_crud_bckubigeo(1, null, null, 1, null);');
+app.get('/mascota/cargar', cors(corsOptions), async (req, res) => {
+    const [query] = await connection.execute('call sp_crud_mascota(1, null, null, null, null, null, null, null, 1, null);');
     res.status(200).json(
         query[0]
     );
 })
-app.post('/bckubigeo/crear', cors(corsOptions), async (req, res) => {
+app.post('/mascota/crear', cors(corsOptions), async (req, res) => {
     let obj = req.body;
     console.log(req.body);
-    let ubigeo = obj.ubigeo;
-    let ubicacion = obj.ubicacion;
+    let nombre = obj.nombre;
+    let fechanacimiento = obj.fnacimiento;
+    let idespecie = obj.idespecie;
+    let idraza = obj.idraza;
+    let idsexo = obj.idsexo;
+    let idpropietario = obj.idpropietario;
     try {
-        const [query] = await connection.execute('call sp_crud_bckubigeo(2, ?, ?, 1, 1);', [ubigeo, ubicacion]);
+        const [query] = await connection.execute('call sp_crud_mascota(2, ?, ?, ?, ?, ?, ?, ?, 1, 1);', [nombre, fechanacimiento, idespecie, idraza, idsexo, idpropietario]);
         res.status(201).json(
             { "message": "creado" }
         );
@@ -135,13 +139,17 @@ app.post('/bckubigeo/crear', cors(corsOptions), async (req, res) => {
     }
 
 })
-app.put('/bckubigeo/actualizar', cors(corsOptions), async (req, res) => {
+app.put('/mascota/actualizar', cors(corsOptions), async (req, res) => {
     let obj = req.body;
     console.log(req.body);
-    let ubigeo = obj.ubigeo;
-    let ubicacion = obj.ubicacion;
+    let nombre = obj.nombre;
+    let fnacimiento = obj.fnacimiento;
+    let idespecie = obj.idespecie;
+    let ideraza = obj.idraza;
+    let idsexo = obj.idsexo;
+    let idpropietario = obj.idpropietario;
     try {
-        const [query] = await connection.execute('call sp_crud_bckubigeo(3, ?, ?, 1, 1);', [ubigeo,ubicacion]);
+        const [query] = await connection.execute('call sp_crud_mascota(3, ?, ?, ?, ?, ?, ?, 1, 1, 1);', [nombre, fnacimiento, idespecie, ideraza, idsexo, idpropietario]);
         res.status(203).json(
             { "message": "Modificado" }
         );
@@ -150,12 +158,12 @@ app.put('/bckubigeo/actualizar', cors(corsOptions), async (req, res) => {
         res.status(500);
     }
 })
-app.delete('/bckubigeo/eliminar', cors(corsOptions), async (req, res) => {
+app.delete('/mascota/eliminar', cors(corsOptions), async (req, res) => {
     let obj = req.body;
     console.log(req.body);
-    let ubigeo = obj.ubigeo;
+    let id = obj.id;
     try {
-        const [query] = await connection.execute('call sp_crud_bckubigeo(4, ?, null, null, null);', [ubigeo]);
+        const [query] = await connection.execute('call sp_crud_mascota(4, ?, null, null, null, null, null, null, null, null);', [id]);
         res.status(203).json(
             { "message": "Borrado" }
         );
