@@ -29,6 +29,7 @@ app.get("/", (req, res) => {
     res.json({ message: "Welcome to pachaqtec application." });
 });
 
+require("./app/routes/tutorial.routes")(app);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
