@@ -1,5 +1,6 @@
 const db = require("../models");
 const Tutorial = db.tutorials;
+const Comment = db.comments;
 const Op = db.Sequelize.Op;
 
 
@@ -28,8 +29,6 @@ exports.create = (req, res) => {
             });
         });
 };
-
-
 exports.findAll = (req, res) => {
     const title = req.query.title;
     console.log(title)
@@ -48,7 +47,6 @@ exports.findAll = (req, res) => {
             });
         });
 };
-
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
@@ -91,7 +89,6 @@ exports.update = (req, res) => {
             });
         });
 };
-
 exports.delete = (req, res) => {
     const id = req.params.id;
 
@@ -115,3 +112,53 @@ exports.delete = (req, res) => {
             });
         });
 };
+exports.deleteAll = (req, res) => {
+    Tutorial.destroy({
+      where: {},
+      truncate: false
+    })
+      .then(nums => {
+        res.send({ message: `${nums} Tutorials were deleted successfully!` });
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while removing all tutorials."
+        });
+      });
+};
+
+exports.findAllPublished = (req, res) => {
+    Tutorial.findAll({ where: { published: true } })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving tutorials."
+        });
+      });
+};
+
+exports.createComment = (req, res)=>{
+    const tutorialId = req.params.id;
+    const comment = {
+        name: req.body.name,
+        text: req.body.text
+      };
+    Comment.create({
+      name: comment.name,
+      text: comment.text,
+      tutorialId: tutorialId,
+    })
+    .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while creating the Tutorial."
+        });
+      });
+  };
