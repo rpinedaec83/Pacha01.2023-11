@@ -30,4 +30,4 @@ BEGIN
     ELSEIF opcion = 4 THEN
         DELETE FROM Propietario WHERE Propietario.id = id;
     END IF;
-END
+END 
