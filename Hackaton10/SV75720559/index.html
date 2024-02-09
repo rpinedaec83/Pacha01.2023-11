@@ -214,19 +214,19 @@
 
   // console.log(name)
 
-  btn_send.addEventListener('click', (e) => {
-    e.preventDefault();
+    btn_send.addEventListener('click', (e) => {
+      e.preventDefault();
 
-    const nameValue = name.value
-    const lastValue = lastname.value
-    const emailValue = email.value
-    var options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': "application/json"
-      },
-      body: JSON.stringify({ name: nameValue, lastname: lastValue, email: emailValue })
-    }
+      const nameValue = name.value
+      const lastValue = lastname.value
+      const emailValue = email.value
+      var options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': "application/json"
+        },
+        body: JSON.stringify({ name: nameValue, lastname: lastValue, email: emailValue })
+      }
 
     fetch('http://localhost:3000/agregar-usuario', options).then(response => response.json()).then(data => {
       console.log(data)
