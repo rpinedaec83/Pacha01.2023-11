@@ -1,8 +1,8 @@
 module.exports = (sequelize, DataTypes) => {
-    const Nacionalidad = sequelize.define("nacionalidade", {
+    const Vacuna = sequelize.define("vacuna", {
         descripcion: {
             type: DataTypes.STRING,
         },
     });
-    return Nacionalidad;
+    return Vacuna;
 };
