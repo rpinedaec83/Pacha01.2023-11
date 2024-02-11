@@ -30,6 +30,14 @@ app.get("/", (req, res) => {
 });
 
 require("./app/routes/sexo.routes")(app);
+require("./app/routes/especie.routes")(app);
+require("./app/routes/mascota.routes")(app);
+require("./app/routes/nacionalidad.routes")(app);
+require("./app/routes/propietario.routes")(app);
+require("./app/routes/raza.routes")(app);
+require("./app/routes/ubigeo.routes")(app);
+require("./app/routes/usuario.routes")(app);
+require("./app/routes/vacunas.routes")(app);
 
 
 const PORT = process.env.PORT || 8080;
