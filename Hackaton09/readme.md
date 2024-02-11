@@ -10,8 +10,7 @@
  
 5.	Seleccionar los productos con precio mayor o igual a 20 y menor o igual a 90 
  
-6.	Mostrar las órdenes de compra entre las fechas 01/01/1997 al 
-15/07/1997 
+6.	Mostrar las órdenes de compra entre las fechas 01/01/1997 al 15/07/1997 
  
 7.	Mostrar las órdenes de compra hechas en el año 1997, que pertenecen a los empleados con códigos 1 ,3 ,4 ,8 
  
