@@ -4,14 +4,20 @@ const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.descripcion) {
+    if (!req.body.nombre) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
         return;
     }
     const propietario = {
-        descripcion: req.body.descripcion
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
+        direccion: req.body.direccion,
+        telefono: req.body.telefono,
+        idNacionalidad: req.body.idNacionalidad,
+        ubigeo:req.body.ubigeo,
+        activo: req.body.activo,
     };
     Propietario.create(propietario)
         .then(data => {
@@ -25,9 +31,41 @@ exports.create = (req, res) => {
         });
 };
 exports.findAll = (req, res) => {
-    const descripcion = req.query.descripcion;
-    console.log(descripcion)
-    var condition = descripcion ? { descripcion: { [Op.like]: `%${descripcion}%` } } : null;
+    const nombre = req.query.nombre;
+    console.log(nombre)
+    var condition = nombre ? { nombre: { [Op.like]: `%${nombre}%` } } : null;
+
+
+    const apellido = req.query.apellido;
+    console.log(apellido)
+    var condition = apellido ? { apellido: { [Op.like]: `%${apellido}%` } } : null;
+
+
+    const direccion = req.query.direccion;
+    console.log(direccion)
+    var condition = direccion ? { direccion: { [Op.like]: `%${direccion}%` } } : null;
+
+
+    const telefono = req.query.telefono;
+    console.log(telefono)
+    var condition = telefono ? { telefono: { [Op.like]: `%${telefono}%` } } : null;
+
+
+
+    const idNacionalidad = req.query.idNacionalidad;
+    console.log(idNacionalidad)
+    var condition = idNacionalidad ? { idNacionalidad: { [Op.like]: `%${idNacionalidad}%` } } : null;
+
+
+    const ubigeo = req.query.ubigeo;
+    console.log(ubigeo)
+    var condition = ubigeo ? { ubigeo: { [Op.like]: `%${ubigeo}%` } } : null;
+
+
+
+    const activo = req.query.activo;
+    console.log(activo)
+    var condition = activo ? { activo: { [Op.like]: `%${activo}%` } } : null;
 
     Propietario.findAll( { where: condition })
         .then(data => {

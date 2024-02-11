@@ -6,6 +6,10 @@ module.exports = (sequelize, DataTypes) => {
         ubicacion: {
             type: DataTypes.STRING,
         },
+
+        activo: {
+            type: DataTypes.STRING,
+        },
     });
     return Ubigeo;
 };

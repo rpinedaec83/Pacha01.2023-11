@@ -4,14 +4,16 @@ const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.descripcion) {
+    if (!req.body.ubigeo) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
         return;
     }
     const ubigeo = {
-        descripcion: req.body.descripcion
+        ubigeo: req.body.ubigeo,
+        ubicacion: req.body.ubicacion,
+        activo: req.body.activo
     };
     Ubigeo.create(ubigeo)
         .then(data => {
@@ -25,9 +27,21 @@ exports.create = (req, res) => {
         });
 };
 exports.findAll = (req, res) => {
-    const descripcion = req.query.descripcion;
-    console.log(descripcion)
-    var condition = descripcion ? { descripcion: { [Op.like]: `%${descripcion}%` } } : null;
+    const ubigeo = req.query.ubigeo;
+    console.log(ubigeo)
+    var condition = ubigeo ? { ubigeo: { [Op.like]: `%${ubigeo}%` } } : null;
+
+    const ubicacion = req.query.ubicacion;
+    
+    console.log(ubicacion)
+    var condition = ubicacion ? {ubicacion: { [Op.like]: `%${ubicacion}%` } } : null;
+
+
+
+    const activo = req.query.activo;
+    
+    console.log(activo)
+    var condition = activo ? { activo: { [Op.like]: `%${activo}%` } } : null;
 
     Ubigeo.findAll( { where: condition })
         .then(data => {

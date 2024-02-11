@@ -11,7 +11,8 @@ exports.create = (req, res) => {
         return;
     }
     const vacunas = {
-        descripcion: req.body.descripcion
+        descripcion: req.body.descripcion,
+        activo: req.body.activo
     };
     Vacunas.create(vacunas)
         .then(data => {
@@ -28,6 +29,11 @@ exports.findAll = (req, res) => {
     const descripcion = req.query.descripcion;
     console.log(descripcion)
     var condition = descripcion ? { descripcion: { [Op.like]: `%${descripcion}%` } } : null;
+
+    const activo = req.query.activo;
+    
+    console.log(activo)
+    var condition = activo ? { activo: { [Op.like]: `%${activo}%` } } : null;
 
     Vacunas.findAll( { where: condition })
         .then(data => {

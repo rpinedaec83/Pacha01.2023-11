@@ -3,6 +3,9 @@ module.exports = (sequelize, DataTypes) => {
         descripcion: {
             type: DataTypes.STRING,
         },
+        activo: {
+            type: DataTypes.STRING,
+        },
     });
     return Vacuna;
 };

@@ -4,14 +4,20 @@ const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.descripcion) {
+    if (!req.body.username) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
         return;
     }
     const usuario = {
-        descripcion: req.body.descripcion
+        username: req.body.username,
+        email: req.body.email,
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
+        estadoCivil: req.body.estadoCivil,
+        edad: req.body.edad,
+        activo: req.body.activo,
     };
     Usuario.create(usuario)
         .then(data => {
@@ -25,9 +31,43 @@ exports.create = (req, res) => {
         });
 };
 exports.findAll = (req, res) => {
-    const descripcion = req.query.descripcion;
-    console.log(descripcion)
-    var condition = descripcion ? { descripcion: { [Op.like]: `%${descripcion}%` } } : null;
+    const username = req.query.username;
+    console.log(username)
+    var condition = username ? { username: { [Op.like]: `%${username}%` } } : null;
+
+
+    const email = req.query.email;
+    console.log(email)
+    var condition = email ? { email: { [Op.like]: `%${email}%` } } : null;
+
+
+    const nombre = req.query.nombre;
+    console.log(nombre)
+    var condition = nombre ? { nombre: { [Op.like]: `%${nombre}%` } } : null;
+
+
+    const apellido = req.query.apellido;
+    console.log(apellido)
+    var condition = apellido ? { apellido: { [Op.like]: `%${apellido}%` } } : null;
+
+
+
+    const estadoCivil = req.query.estadoCivil;
+    console.log(estadoCivil)
+    var condition = estadoCivil ? { estadoCivil: { [Op.like]: `%${estadoCivil}%` } } : null;
+
+
+
+    const edad = req.query.edad;
+    console.log(edad)
+    var condition = edad ? { edad: { [Op.like]: `%${edad}%` } } : null;
+
+
+
+    const activo = req.query.activo;
+    console.log(activo)
+    var condition = activo ? { activo: { [Op.like]: `%${activo}%` } } : null;
+
 
     Usuario.findAll( { where: condition })
         .then(data => {

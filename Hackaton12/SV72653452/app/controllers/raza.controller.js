@@ -11,7 +11,8 @@ exports.create = (req, res) => {
         return;
     }
     const raza = {
-        descripcion: req.body.descripcion
+        descripcion: req.body.descripcion,
+        activo: req.body.activo
     };
     Raza.create(raza)
         .then(data => {
@@ -28,6 +29,12 @@ exports.findAll = (req, res) => {
     const descripcion = req.query.descripcion;
     console.log(descripcion)
     var condition = descripcion ? { descripcion: { [Op.like]: `%${descripcion}%` } } : null;
+
+
+    const activo = req.query.activo;
+    
+    console.log(activo)
+    var condition = activo ? { activo: { [Op.like]: `%${activo}%` } } : null;
 
     Raza.findAll( { where: condition })
         .then(data => {
