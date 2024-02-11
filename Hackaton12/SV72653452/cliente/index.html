@@ -22,8 +22,8 @@
     <script>
         async function addSexo() {
             const nuevoSexo = {
-                id: 1, // Aquí puedes definir el ID
-                descripcion: "Masculino" // Aquí puedes definir la descripción
+                id: 1, 
+                descripcion: "Masculino" 
             };
 
             try {
@@ -63,25 +63,25 @@
 
 
         async function getSexoById() {
-            // ID proporcionado en la hoja de código
-            const id = 2; // Puedes cambiar esto según el ID que desees buscar
+           
+            const id = 2; 
 
             try {
                 const response = await fetch(`http://127.0.0.1:8080/api/sexo/${id}`);
                 const data = await response.json();
                 console.log('Sexo encontrado por ID:', data);
-                // Aquí puedes procesar los datos recibidos y mostrarlos según sea necesario
+               
             } catch (error) {
                 console.error('Error en la solicitud GET para sexo por ID:', error);
             }
         }
 
         async function updateSexoById() {
-            // ID y datos actualizados proporcionados en la hoja de código
-            const id = 1; // Puedes cambiar esto según el ID del sexo que desees actualizar
+           
+            const id = 1;
             const updatedSexo = {
-                descripcion: "Masculino2", // Puedes cambiar esto con la nueva descripción del sexo
-                // Puedes agregar más campos para actualizar si es necesario
+                descripcion: "Masculino2", 
+              
             };
 
             try {
@@ -94,7 +94,7 @@
                 });
                 const data = await response.json();
                 console.log('Sexo actualizado:', data);
-                // Aquí puedes procesar los datos recibidos y mostrarlos según sea necesario
+            
             } catch (error) {
                 console.error('Error en la solicitud PUT para actualizar sexo por ID:', error);
             }
@@ -103,8 +103,8 @@
 
 
         async function deleteSexoById() {
-            // ID proporcionado en la hoja de código
-            const id = 1; // Puedes cambiar esto según el ID del sexo que desees eliminar
+        
+            const id = 1; 
 
             try {
                 const response = await fetch(`http://127.0.0.1:8080/api/sexo/${id}`, {
@@ -112,7 +112,7 @@
                 });
                 const data = await response.json();
                 console.log('Sexo eliminado:', data);
-                // Aquí puedes procesar los datos recibidos y mostrarlos según sea necesario
+             
             } catch (error) {
                 console.error('Error en la solicitud DELETE para eliminar sexo por ID:', error);
             }
@@ -126,7 +126,7 @@
                 });
                 const data = await response.json();
                 console.log('Todos los sexos han sido eliminados:', data);
-                // Aquí puedes procesar los datos recibidos y mostrarlos según sea necesario
+              
             } catch (error) {
                 console.error('Error en la solicitud DELETE para eliminar todos los sexos:', error);
             }
