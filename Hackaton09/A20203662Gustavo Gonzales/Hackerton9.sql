@@ -126,3 +126,183 @@ ORDER BY
     o.OrderDate ASC;
 
 -- 6.	Visualizar el nombre de la categoria y el numero de productos que hay por cada categoria. 
+SELECT 
+    c.CategoryName AS NombreCategoria, 
+    COUNT(p.ProductID) AS NumeroProductos
+FROM 
+    Categories c
+    INNER JOIN Products p ON c.CategoryID = p.CategoryID
+GROUP BY 
+    c.CategoryName
+ORDER BY 
+    NumeroProductos DESC;
+
+-- 7.	Seleccionar los 5 productos mas vendidos 
+SELECT 
+    p.ProductName AS NombreProducto, 
+    SUM(od.Quantity) AS TotalVendido
+FROM 
+    OrderDetails od
+    INNER JOIN Products p ON od.ProductID = p.ProductID
+GROUP BY 
+    od.ProductID
+ORDER BY 
+    TotalVendido DESC
+LIMIT 5;
+
+-- 8.	Seleccionar los jefes de los empleados
+SELECT * FROM employees
+
+-- 9.	Obtener todos los productos cuyo nombre comienzan con M y tienen un precio comprendido entre 28 y 129 
+SELECT * FROM Products WHERE ProductName LIKE 'M%' AND Price BETWEEN 28 AND 129;
+
+-- 10.	Obtener todos los clientes del  Pais de USA,Francia y UK 
+SELECT * FROM Customers WHERE Country IN ('USA', 'France', 'UK');
+
+-- 11.	Obtener todos los productos descontinuados o con stock cero.
+SELECT * FROM products WHERE unit = 0
+
+-- 12.	Obtener todas las ordenes hechas por el empleado King Robert 
+SELECT o.OrderID, o.OrderDate, o.CustomerID
+FROM Orders o
+INNER JOIN Employees e ON o.EmployeeID = e.EmployeeID
+WHERE e.FirstName = 'Robert' AND e.LastName = 'King';
+
+-- 13.	Obtener todas las ordenes por el cliente cuya compania es "Que delicia" 
+SELECT o.OrderID, o.OrderDate, o.CustomerID
+FROM Orders o
+INNER JOIN Customers c ON o.CustomerID = c.CustomerID
+WHERE c.CustomerName = 'Que Delicia';
+
+-- 14.	Obtener todas las ordenes hechas por el empleado King Robert,Davolio Nancy y Fuller Andrew 
+SELECT o.OrderID, o.OrderDate, e.FirstName, e.LastName
+FROM Orders o
+INNER JOIN Employees e ON o.EmployeeID = e.EmployeeID
+WHERE (e.FirstName = 'Robert' AND e.LastName = 'King')
+   OR (e.FirstName = 'Nancy' AND e.LastName = 'Davolio')
+   OR (e.FirstName = 'Andrew' AND e.LastName = 'Fuller');
+
+-- 15.	Obtener todos los productos(codigo,nombre,precio,stock) de la orden 10257 
+SELECT 
+    p.ProductID AS Codigo, 
+    p.ProductName AS Nombre, 
+    p.Price AS Precio, 
+    od.Quantity AS Stock
+FROM 
+    OrderDetails od
+    INNER JOIN Products p ON od.ProductID = p.ProductID
+WHERE 
+    od.OrderID = 10257;
+
+-- 16.	Obtener todos los productos(codigo,nombre,precio,stock) de las ordenes hechas desde 1997 hasta la fecha de hoy. 
+SELECT 
+    p.ProductID AS Codigo, 
+    p.ProductName AS Nombre, 
+    p.Price AS Precio, 
+    p.Unit AS Stock
+FROM 
+    Orders o
+    INNER JOIN OrderDetails od ON o.OrderID = od.OrderID
+    INNER JOIN Products p ON od.ProductID = p.ProductID
+WHERE 
+    o.OrderDate >= '1997-01-01' AND o.OrderDate <= CURDATE()
+ORDER BY 
+    o.OrderDate;
+
+-- 17.	Calcular los 15 productos mas caros 
+SELECT ProductID AS Codigo, ProductName AS Nombre, Price AS Precio
+FROM Products
+ORDER BY Price DESC
+LIMIT 15;
+
+-- 18.	Calcular los 5 productos mas baratos 
+SELECT ProductID AS Codigo, ProductName AS Nombre, Price AS Precio
+FROM Products
+ORDER BY Price ASC
+LIMIT 5;
+
+-- 19.	Obtener el nombre de todas las categorias y los nombres de sus productos,precio y stock. 
+SELECT 
+    c.CategoryName AS NombreCategoria, 
+    p.ProductName AS NombreProducto, 
+    p.Price AS Precio, 
+    p.Unit AS Stock
+FROM 
+    Categories c
+    INNER JOIN Products p ON c.CategoryID = p.CategoryID
+ORDER BY 
+    c.CategoryName, p.Price DESC;
+
+-- 20.	Obtener el nombre de todas las categorias y los nombres de sus productos,solo los productos que su nombre no comience con la letra P 
+SELECT 
+    c.CategoryName AS NombreCategoria, 
+    p.ProductName AS NombreProducto,
+    p.Price AS Precio,
+    p.Unit AS Stock
+FROM 
+    Categories c
+    INNER JOIN Products p ON c.CategoryID = p.CategoryID
+WHERE 
+    p.ProductName NOT LIKE 'P%'
+ORDER BY 
+    c.CategoryName, p.ProductName;
+
+-- 21.	Calcular el stock de productos por cada categoria.Mostrar el nombre de la categoria y el stock por categoria. 
+SELECT 
+    c.CategoryName AS NombreCategoria, 
+    SUM(p.Unit) AS StockTotalPorCategoria
+FROM 
+    Categories c
+    INNER JOIN Products p ON c.CategoryID = p.CategoryID
+GROUP BY 
+    c.CategoryName
+ORDER BY 
+    c.CategoryName;
+
+-- 22.	Obtener el Nombre del cliente,Nombre del Proveedor,Nombre del empleado y el nombre de los productos que estan en la orden 10794 
+SELECT 
+    c.CustomerName AS NombreCliente,
+    s.SupplierName AS NombreProveedor,
+    e.FirstName AS NombreEmpleado,
+    p.ProductName AS NombreProducto
+FROM 
+    Orders o
+    INNER JOIN Customers c ON o.CustomerID = c.CustomerID
+    INNER JOIN Employees e ON o.EmployeeID = e.EmployeeID
+    INNER JOIN OrderDetails od ON o.OrderID = od.OrderID
+    INNER JOIN Products p ON od.ProductID = p.ProductID
+    INNER JOIN Suppliers s ON p.SupplierID = s.SupplierID
+WHERE 
+    o.OrderID = 10442;
+
+-- 23.	Mostrar el numero de ordenes de cada uno de los clientes por año,luego ordenar codigo del cliente y el año. 
+SELECT 
+    CustomerID AS CodigoCliente,
+    YEAR(OrderDate) AS Año,
+    COUNT(OrderID) AS NumeroDeOrdenes
+FROM 
+    Orders
+GROUP BY 
+    CustomerID, YEAR(OrderDate)
+ORDER BY 
+    CustomerID, YEAR(OrderDate);
+
+-- 24.	Contar el numero de ordenes que se han realizado por años y meses ,luego debe ser ordenado por año y por mes. 
+SELECT 
+    YEAR(OrderDate) AS Año,
+    MONTH(OrderDate) AS Mes,
+    COUNT(OrderID) AS NumeroDeOrdenes
+FROM 
+    Orders
+GROUP BY 
+    YEAR(OrderDate), MONTH(OrderDate)
+ORDER BY 
+    Año, Mes;
+
+
+
+
+
+
+
+
