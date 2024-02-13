@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD de Bckubigeo</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #4CAF50;
+            padding: 10px;
+            color: white;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #container {
+            display: flex;
+            align-items: flex-start;
+            width: 80%;
+            margin-top: 20px;
+        }
+
+        #formulario {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #tabla {
+            flex: 2;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-right: 5px;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        button[disabled] {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            width: calc(100% - 16px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>BCKUBIGEO</h1>
+    </header>
+
+    <div id="container">
+        <div id="formulario">
+            <h2>Manejo de Bckubigeo</h2>
+            <label for="ubigeoInput">Ubigeo:</label>
+            <input type="text" id="ubigeoInput" required>
+            <label for="ubicacionInput">Ubicación:</label>
+            <input type="text" id="ubicacionInput" required>
+            <button id="btnGuardar" onclick="guardarUbicacion()">Guardar</button>
+            <button id="btnActualizar" onclick="actualizarUbicacion()" disabled>Actualizar</button>
+            <button onclick="volver()">Volver</button>
+        </div>
+
+        <div id="tabla">
+            <h2>Lista de Bckubigeo</h2>
+
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Ubigeo</th>
+                        <th>Ubicación</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="ubicacionesTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function volver() {
+            window.history.back();
+        }
+
+        function habilitarActualizar() {
+            document.getElementById('btnActualizar').disabled = false;
+        }
+
+        async function cargarUbicaciones() {
+            const response = await fetch('http://localhost:8000/bckubigeo/cargar');
+            const data = await response.json();
+            
+            const tableBody = document.getElementById('ubicacionesTableBody');
+            tableBody.innerHTML = '';
+
+            data.forEach(ubicacion => {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td>${ubicacion.ubigeo}</td><td>${ubicacion.ubicacion}</td><td><button onclick="llenarFormulario('${ubicacion.ubigeo}', '${ubicacion.ubicacion}')">Editar</button><button onclick="eliminarUbicacion('${ubicacion.ubigeo}')">Eliminar</button></td>`;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function llenarFormulario(ubigeo, ubicacion) {
+            document.getElementById('ubigeoInput').value = ubigeo;
+            document.getElementById('ubicacionInput').value = ubicacion;
+            habilitarActualizar();
+        }
+
+        async function guardarUbicacion() {
+            const ubigeo = document.getElementById('ubigeoInput').value;
+            const ubicacion = document.getElementById('ubicacionInput').value;
+
+            await fetch('http://localhost:8000/bckubigeo/crear', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ubigeo, ubicacion }),
+            });
+
+            cargarUbicaciones();
+            limpiarCampos();
+        }
+
+        async function actualizarUbicacion() {
+            const ubigeo = document.getElementById('ubigeoInput').value;
+            const ubicacion = document.getElementById('ubicacionInput').value;
+
+            await fetch('http://localhost:8000/bckubigeo/actualizar', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ubigeo, ubicacion }),
+            });
+
+            cargarUbicaciones();
+            limpiarCampos();
+        }
+
+        async function eliminarUbicacion(ubigeo) {
+            await fetch('http://localhost:8000/bckubigeo/eliminar', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ubigeo }),
+            });
+
+            cargarUbicaciones();
+            limpiarCampos();
+        }
+
+        function limpiarCampos() {
+            document.getElementById('ubigeoInput').value = '';
+            document.getElementById('ubicacionInput').value = '';
+            document.getElementById('btnActualizar').disabled = true;
+        }
+
+        cargarUbicaciones();
+        
+    </script>
+
+</body>
+</html>

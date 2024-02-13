@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD de Mascotas</title>
+
+    <style>
+        /* Estilos similares a los anteriores, ajustar según necesidades */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MASCOTAS</h1>
+    </header>
+
+    <div id="container">
+        <div id="formulario">
+            <h2>Manejo de Mascotas</h2>
+            <label for="nombreInput">Nombre:</label>
+            <input type="text" id="nombreInput" required>
+            <label for="fnacimientoInput">Fecha de Nacimiento:</label>
+            <input type="date" id="fnacimientoInput" required>
+            <label for="especieInput">Especie:</label>
+            <input type="text" id="especieInput" required>
+            <label for="razaInput">Raza:</label>
+            <input type="text" id="razaInput" required>
+            <label for="sexoInput">Sexo:</label>
+            <input type="text" id="sexoInput" required>
+            <label for="propietarioInput">Propietario:</label>
+            <input type="text" id="propietarioInput" required>
+
+            <button id="btnGuardar" onclick="guardarMascota()">Guardar</button>
+            <button id="btnActualizar" onclick="actualizarMascota()" disabled>Actualizar</button>
+            <button onclick="volver()">Volver</button>
+        </div>
+
+        <div id="tabla">
+            <h2>Lista de Mascotas</h2>
+
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>Especie</th>
+                        <th>Raza</th>
+                        <th>Sexo</th>
+                        <th>Propietario</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="mascotasTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function volver() {
+            window.history.back();
+        }
+
+        function habilitarActualizar() {
+            document.getElementById('btnActualizar').disabled = false;
+        }
+
+        async function cargarMascotas() {
+            const response = await fetch('http://localhost:8000/mascota/cargar');
+            const data = await response.json();
+            
+            const tableBody = document.getElementById('mascotasTableBody');
+            tableBody.innerHTML = '';
+
+            data.forEach(mascota => {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td>${mascota.nombre}</td><td>${mascota.fnacimiento}</td><td>${mascota.especie}</td><td>${mascota.raza}</td><td>${mascota.sexo}</td><td>${mascota.propietario}</td><td><button onclick="llenarFormulario('${mascota.nombre}', '${mascota.fnacimiento}', '${mascota.especie}', '${mascota.raza}', '${mascota.sexo}', '${mascota.propietario}')">Editar</button><button onclick="eliminarMascota('${mascota.id}')">Eliminar</button></td>`;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function llenarFormulario(nombre, fnacimiento, especie, raza, sexo, propietario) {
+            document.getElementById('nombreInput').value = nombre;
+            document.getElementById('fnacimientoInput').value = fnacimiento;
+            document.getElementById('especieInput').value = especie;
+            document.getElementById('razaInput').value = raza;
+            document.getElementById('sexoInput').value = sexo;
+            document.getElementById('propietarioInput').value = propietario;
+            habilitarActualizar();
+        }
+
+        async function guardarMascota() {
+            console.log('Guardar mascota');
+
+            const nombre = document.getElementById('nombreInput').value;
+            const fnacimiento = document.getElementById('fnacimientoInput').value;
+            const especie = document.getElementById('especieInput').value;
+            const raza = document.getElementById('razaInput').value;
+            const sexo = document.getElementById('sexoInput').value;
+            const propietario = document.getElementById('propietarioInput').value;
+
+            await fetch('http://localhost:8000/mascota/crear', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ nombre, fnacimiento, especie, raza, sexo, propietario }),
+            });
+
+            cargarMascotas();
+            limpiarCampos();
+        }
+
+        async function actualizarMascota() {
+            console.log('Actualizar mascota');
+
+            const nombre = document.getElementById('nombreInput').value;
+            const fnacimiento = document.getElementById('fnacimientoInput').value;
+            const especie = document.getElementById('especieInput').value;
+            const raza = document.getElementById('razaInput').value;
+            const sexo = document.getElementById('sexoInput').value;
+            const propietario = document.getElementById('propietarioInput').value;
+
+            await fetch('http://localhost:8000/mascota/actualizar', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ nombre, fnacimiento, especie, raza, sexo, propietario }),
+            });
+
+            cargarMascotas();
+            limpiarCampos();
+        }
+
+        async function eliminarMascota(id) {
+            await fetch('http://localhost:8000/mascota/eliminar', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id }),
+            });
+
+            cargarMascotas();
+            limpiarCampos();
+        }
+
+        function limpiarCampos() {
+            document.getElementById('nombreInput').value = '';
+            document.getElementById('fnacimientoInput').value = '';
+            document.getElementById('especieInput').value = '';
+            document.getElementById('razaInput').value = '';
+            document.getElementById('sexoInput').value = '';
+            document.getElementById('propietarioInput').value = '';
+            document.getElementById('btnActualizar').disabled = true;
+        }
+
+        cargarMascotas();
+        
+    </script>
+
+</body>
+</html>

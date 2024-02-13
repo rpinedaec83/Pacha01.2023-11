@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,21 +7,32 @@
 
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
             font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #4CAF50;
+            padding: 10px;
+            color: white;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         #container {
             display: flex;
             align-items: flex-start;
+            width: 80%;
+            margin-top: 20px;
         }
 
         #formulario {
+            flex: 1;
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
@@ -30,7 +40,7 @@
         }
 
         #tabla {
-            flex-grow: 1;
+            flex: 2;
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
@@ -43,8 +53,7 @@
             margin-top: 20px;
         }
 
-        th,
-        td {
+        th, td {
             padding: 10px;
             text-align: left;
             border-bottom: 1px solid #ddd;
@@ -67,6 +76,7 @@
             cursor: pointer;
             border-radius: 4px;
             margin-right: 5px;
+            margin-bottom: 10px;
         }
 
         button:hover {
@@ -79,12 +89,15 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
-            width: 100%;
+            width: calc(100% - 16px);
         }
     </style>
 </head>
-
 <body>
+    <header>
+        <h1>ESPECIES</h1>
+    </header>
+
     <div id="container">
         <div id="formulario">
             <h2>Manejo de Especies</h2>
@@ -93,10 +106,11 @@
             <label for="descripcionInput">Descripción:</label>
             <input type="text" id="descripcionInput" required>
             <button onclick="guardarEspecie()">Guardar</button>
+            <button onclick="volver()">Volver</button>
         </div>
 
         <div id="tabla">
-            <h1>CRUD de Especies</h1>
+            <h2>Lista de Especies</h2>
 
             <table border="1">
                 <thead>
@@ -111,11 +125,15 @@
         </div>
     </div>
 
+
     <script>
+        function volver() {
+            window.history.back();
+        }
         async function cargarEspecies() {
             const response = await fetch('http://localhost:8000/especies/ubicaciones');
             const data = await response.json();
-
+            
             const tableBody = document.getElementById('especiesTableBody');
             tableBody.innerHTML = '';
 
@@ -149,24 +167,37 @@
                 await fetch('http://localhost:8000/especies/crear', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': "application/json",
-                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ descripcion: "Patos" })
-                }
-
-                fetch('http://127.0.0.1:8000/especies', options).then(response => response.json()).then(data => {
-                    console.log(data)
-                }).catch(error => {
-                    console.log('error en la peticion', error)
-                })
-
-                console.log('Completed!', response);
-            } catch (err) {
-                console.error(`Error: ${err}`);
+                    body: JSON.stringify({ descripcion }),
+                });
             }
-        });
-    </script>
-</body>
 
+            cargarEspecies();
+            limpiarCampos();
+        }
+
+        async function eliminarEspecie(id) {
+            await fetch('http://localhost:8000/especies', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id }),
+            });
+
+            cargarEspecies();
+            limpiarCampos();
+        }
+
+        function limpiarCampos() {
+            document.getElementById('idInput').value = '';
+            document.getElementById('descripcionInput').value = '';
+        }
+
+        cargarEspecies();
+        
+    </script>
+
+</body>
 </html>
