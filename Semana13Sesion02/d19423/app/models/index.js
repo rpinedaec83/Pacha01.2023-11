@@ -39,16 +39,42 @@ db.propietario = require("./propietario.model.js")(sequelize, Sequelize);
 
 
 
-db.doctor.hasMany(db.operacion, {as:"doctor"})
-db.enfermero.hasMany(db.operacion, {as:"operacion"})
+
+db.propietario.hasMany(db.mascota, {as:"mascota"})
+db.mascota.belongsTo(db.propietario, {
+  foreignKey: "propietarioId",
+  as: "propietario",
+});
+
+db.mascota.hasMany(db.historia, {as:"historia"})
+db.historia.belongsTo(db.mascota, {
+  foreignKey: "mascotaId",
+  as: "mascota",
+});
+
+db.procedimiento.hasMany(db.historia, {as:"historia"})
+db.historia.belongsTo(db.procedimiento, {
+  foreignKey: "procedimientoId",
+  as: "procedimiento",
+});
+
+db.operacion.hasMany(db.doctor, {as:"doctor"})
+db.doctor.belongsTo(db.operacion, {
+  foreignKey: "operacionId",
+  as: "operacionDoctor",
+});
 
 
-db.mascota.hasMany(db.propietario, {as:"propietarios"})
-db.historia.hasMany(db.mascota, {as:"mascota"})
-
-
-db.operacion.hasMany(db.procedimiento, {as:"procedimiento"})
-db.operacion.hasMany(db.mascota, {as:"mascota"})
+db.operacion.hasMany(db.enfermero, {as:"enfermero"})
+db.enfermero.belongsTo(db.operacion, {
+  foreignKey: "operacionId",
+  as: "operacionEnfermero",
+});
+db.operacion.hasMany(db.historia, {as:"historia"})
+db.historia.belongsTo(db.operacion, {
+  foreignKey: "operacionId",
+  as: "operacionHistoria",
+});
 
 
 

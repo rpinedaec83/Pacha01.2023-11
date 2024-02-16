@@ -20,6 +20,11 @@ app.get("/", (req, res) => {
 
 require("./app/routes/doctor.routes")(app);
 require("./app/routes/enfermero.routes")(app);
+require("./app/routes/propietario.routes")(app);
+require("./app/routes/mascota.routes")(app);
+require("./app/routes/procedimiento.routes")(app);
+require("./app/routes/historia.routes")(app);
+require("./app/routes/operacion.routes")(app);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
