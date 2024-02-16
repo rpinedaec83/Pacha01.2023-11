@@ -11,8 +11,11 @@ exports.create = (req, res) => {
         return;
     }
     const cursos = {
+        nombre: req.body.nombre,
         descripcion: req.body.descripcion,
-        activo: req.body.activo
+        imagen: req.body.imagen,
+        portada: req.body.portada,
+        valor: req.body.valor
     };
 
     
@@ -28,20 +31,38 @@ exports.create = (req, res) => {
         });
 };
 exports.findAll = (req, res) => {
+    const nombre = req.query.nombre;
+    
+    console.log(nombre)
+    var condition = nombre ? { nombre: { [Op.like]: `%${nombre}%` } } : null;
+
+
+
+
     const descripcion = req.query.descripcion;
     
     console.log(descripcion)
     var condition = descripcion ? { descripcion: { [Op.like]: `%${descripcion}%` } } : null;
 
 
-    const activo = req.query.activo;
+    const imagen = req.query.imagen;
     
-    console.log(activo)
-    var condition = activo ? { activo: { [Op.like]: `%${activo}%` } } : null;
+    console.log(imagen)
+    var condition = imagen ? { imagen: { [Op.like]: `%${imagen}%` } } : null;
 
 
 
+    const portada = req.query.portada;
+    
+    console.log(portada)
+    var condition = portada ? { portada: { [Op.like]: `%${portada}%` } } : null;
 
+
+
+    const valor = req.query.valor;
+    
+    console.log(valor)
+    var condition = valor ? { valor: { [Op.like]: `%${valor}%` } } : null;
 
 
 
