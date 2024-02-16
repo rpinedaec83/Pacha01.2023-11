@@ -37,12 +37,11 @@ exports.findAll = (req, res) => {
     var condition = nombre ? { nombre: { [Op.like]: `%${nombre}%` } } : null;
 
 
-
-
     const descripcion = req.query.descripcion;
     
     console.log(descripcion)
     var condition = descripcion ? { descripcion: { [Op.like]: `%${descripcion}%` } } : null;
+
 
 
     const imagen = req.query.imagen;
@@ -51,18 +50,20 @@ exports.findAll = (req, res) => {
     var condition = imagen ? { imagen: { [Op.like]: `%${imagen}%` } } : null;
 
 
-
     const portada = req.query.portada;
     
     console.log(portada)
     var condition = portada ? { portada: { [Op.like]: `%${portada}%` } } : null;
 
 
-
     const valor = req.query.valor;
     
     console.log(valor)
     var condition = valor ? { valor: { [Op.like]: `%${valor}%` } } : null;
+
+
+
+
 
 
 

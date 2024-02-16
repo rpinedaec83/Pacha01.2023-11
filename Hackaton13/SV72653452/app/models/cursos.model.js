@@ -4,15 +4,16 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
         },
 
+
         descripcion: {
             type: DataTypes.STRING,
         },
 
 
-
         imagen: {
             type: DataTypes.STRING,
         },
+
 
         portada: {
             type: DataTypes.STRING,

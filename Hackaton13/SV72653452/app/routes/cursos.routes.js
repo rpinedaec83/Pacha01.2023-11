@@ -1,3 +1,4 @@
+const { cursos } = require("../models/index.js");
 
 module.exports = app => {
     const cursos = require("../controllers/cursos.controller.js");
