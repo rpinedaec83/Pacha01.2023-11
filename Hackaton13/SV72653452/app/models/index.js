@@ -25,4 +25,18 @@ db.cursos = require("./cursos.model.js")(sequelize, Sequelize);
 
 db.usuarios = require("./usuarios.model.js")(sequelize, Sequelize);
 
+db.ordenCompra = require("./ordenCompra.model.js")(sequelize, Sequelize);
+
+
+
+
+db.usuarios.hasMany(db.ordenCompra, {as:"OrdenCompra"})
+db.ordenCompra.belongsTo(db.usuarios, {
+  foreignKey: "usuarioId",
+  as: "usuarios",
+});
+
+
+
+
 module.exports = db;
