@@ -13,11 +13,12 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             
         },
-        cupon: {
+        
+        usuarioId: {
             type: DataTypes.STRING,
             
         },
-        usuarioId: {
+        cuponesId: {
             type: DataTypes.STRING,
             
         },
