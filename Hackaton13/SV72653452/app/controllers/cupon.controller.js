@@ -1,21 +1,22 @@
 const db = require("../models");
-const Cupones = db.cupones;
+const Cupon = db.cupones;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.cuponesId) {
+    if (!req.body.diversoscupones) {
         res.status(400).send({
             message: "El usuario y la contraseña son obligatorios."
         });
         return;
     }
     const cupones = {
-        cuponesId: req.body.cuponesId
+        diversoscupones: req.body.diversoscupones,
+         
     };
 
     
-    Cupones.create(cupones)
+    Cupon.create(cupones)
         .then(data => {
             res.send(data);
         })
@@ -32,17 +33,13 @@ exports.create = (req, res) => {
         });
 };
 exports.findAll = (req, res) => {
-    const cuponesId = req.query.cuponesId;
+    const diversoscupones = req.query.diversoscupones;
     
-    console.log(cuponesId)
-    var condition = cuponesId ? { cuponesId: { [Op.like]: `%${cuponesId}%` } } : null;
+    console.log(diversoscupones)
+    var condition = diversoscupones ? { diversoscupones: { [Op.like]: `%${diversoscupones}%` } } : null;
 
 
-
-
-
-    
-    Cupones.findAll( { where: condition })
+    Cupon.findAll( { where: condition })
         .then(data => {
             res.send(data);
         })
@@ -56,7 +53,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Cupones.findByPk(id)
+    Cupon.findByPk(id)
         .then(data => {
             if (data) {
                 res.send(data);
@@ -75,7 +72,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Cupones.update(req.body, {
+    Cupon.update(req.body, {
         where: { id: id }
     })
         .then(num => {
@@ -98,7 +95,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Cupones.destroy({
+    Cupon.destroy({
         where: { id: id }
     })
         .then(num => {
@@ -119,7 +116,7 @@ exports.delete = (req, res) => {
         });
 };
 exports.deleteAll = (req, res) => {
-    Cupones.destroy({
+    Cupon.destroy({
       where: {},
       truncate: false
     })

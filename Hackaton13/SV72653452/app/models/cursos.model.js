@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
         valor: {
             type: DataTypes.STRING,
         },
+
+        usuarioId: {
+            type: DataTypes.STRING,
+        },
     });
     return Cursos;
 };

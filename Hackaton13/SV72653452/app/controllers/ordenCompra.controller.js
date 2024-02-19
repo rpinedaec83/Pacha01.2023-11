@@ -17,9 +17,10 @@ exports.create = (req, res) => {
         impuestos: req.body.impuestos,
         estado: req.body.estado,
         usuarioId: req.body.usuarioId,
-        cuponesId: req.body.cuponesId
+        cuponId: req.body.cuponId,
 
 
+        
     };
     OrdenCompra.create(ordenCompra)
         .then(data => {
@@ -38,7 +39,7 @@ exports.findAll = (req, res) => {
     var condition = fecha ? { fecha: { [Op.like]: `%${fecha}%` } } : null;
 
     OrdenCompra.findAll({
-        include: ["usuarios","cupones"],
+        include: ["usuarios","cupon"],
 
        
     }, { where: condition })

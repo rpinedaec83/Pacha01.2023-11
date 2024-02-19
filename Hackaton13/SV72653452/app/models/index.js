@@ -27,7 +27,8 @@ db.usuarios = require("./usuarios.model.js")(sequelize, Sequelize);
 
 db.ordenCompra = require("./ordenCompra.model.js")(sequelize, Sequelize);
 
-db.cupones = require("./cupones.model.js")(sequelize, Sequelize);
+db.cupones = require("./cupon.model.js")(sequelize, Sequelize);
+
 
 
 db.usuarios.hasMany(db.ordenCompra, {as:"OrdenCompra"})
@@ -36,11 +37,17 @@ db.ordenCompra.belongsTo(db.usuarios, {
   as: "usuarios",
 });
 
-
 db.cupones.hasMany(db.ordenCompra, {as:"OrdenCompra"})
 db.ordenCompra.belongsTo(db.cupones, {
-  foreignKey: "cuponesId",
-  as: "cupones",
+  foreignKey: "cuponId",
+  as: "cupon",
+});
+
+
+db.usuarios.hasMany(db.cursos, {as:"cursos"})
+db.cursos.belongsTo(db.usuarios, {
+  foreignKey: "usuarioId",
+  as: "usuarios",
 });
 
  

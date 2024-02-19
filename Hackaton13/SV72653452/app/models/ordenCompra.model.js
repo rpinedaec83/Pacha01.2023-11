@@ -18,10 +18,12 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             
         },
-        cuponesId: {
+
+        cuponId: {
             type: DataTypes.STRING,
             
         },
+       
     });
     return OrdenCompra;
 };

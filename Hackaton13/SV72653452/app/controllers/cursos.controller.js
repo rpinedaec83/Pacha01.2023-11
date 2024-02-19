@@ -4,7 +4,7 @@ const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.descripcion) {
+    if (!req.body.nombre) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
@@ -15,7 +15,8 @@ exports.create = (req, res) => {
         descripcion: req.body.descripcion,
         imagen: req.body.imagen,
         portada: req.body.portada,
-        valor: req.body.valor
+        valor: req.body.valor,
+        usuarioId: req.body.usuarioId
     };
 
     
@@ -37,46 +38,20 @@ exports.findAll = (req, res) => {
     var condition = nombre ? { nombre: { [Op.like]: `%${nombre}%` } } : null;
 
 
-    const descripcion = req.query.descripcion;
-    
-    console.log(descripcion)
-    var condition = descripcion ? { descripcion: { [Op.like]: `%${descripcion}%` } } : null;
-
-
-
-    const imagen = req.query.imagen;
-    
-    console.log(imagen)
-    var condition = imagen ? { imagen: { [Op.like]: `%${imagen}%` } } : null;
-
-
-    const portada = req.query.portada;
-    
-    console.log(portada)
-    var condition = portada ? { portada: { [Op.like]: `%${portada}%` } } : null;
-
-
-    const valor = req.query.valor;
-    
-    console.log(valor)
-    var condition = valor ? { valor: { [Op.like]: `%${valor}%` } } : null;
-
-
-
-
-
-
-
 
     
-    Cursos.findAll( { where: condition })
+    Cursos.findAll({
+        include: ["usuarios"],
+
+       
+    }, { where: condition })
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving sexos."
+                    err.message || "Some error occurred while retrieving tutorials."
             });
         });
 };

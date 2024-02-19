@@ -1,7 +1,7 @@
 const { cupones } = require("../models/index.js");
 
 module.exports = app => {
-    const cupones = require("../controllers/cupones.controller.js");
+    const cupones = require("../controllers/cupon.controller.js");
     var router = require("express").Router();
 
     router.post("/", cupones.create);
