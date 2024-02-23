@@ -24,6 +24,7 @@ function originIsAllowed(origin) {
         return true;
     }
     return false;
+
 }
 
 app.get('/pagina/', function(req, res) {
@@ -39,6 +40,52 @@ app.get('/pagina/', function(req, res) {
         tagline: tagline
     });
 });
+
+
+
+// Cuando llega un request por sockets validamos el origen
+// En caso de origen permitido, recibimos el mensaje y lo mandamos
+// de regreso al cliente
+wsServer.on("request", (request) =>{
+    if (!originIsAllowed(request.origin)) {
+        // Sólo se aceptan request de origenes permitidos
+        request.reject();
+        console.log((new Date()) + ' Conexión del origen ' +request.origin+ ' rechazada.');
+        return;
+      }
+    const connection=request.accept(null,request.origin);
+    // setTimeout(function(){
+
+    //     connection.sendUTF("Data: " +between(10,100).toString());
+
+    // },3000)
+    connection.on("message", (message) => {
+        if(message.utf8Data == "chat"){
+            console.log("Regresar llamada");
+        }
+        if(message.utf8Data == "reporte"){
+            let objReporte = {
+                nombre: "Roberto",
+                apellido: "Pineda"
+            }
+            connection.sendUTF(JSON.stringify( objReporte));
+        }
+        
+        console.log("Mensaje recibido: " +message.utf8Data);
+        connection.sendUTF("Recibido: " +message.utf8Data);
+
+    });
+    connection.on("close", (reasonCode, description) => {
+        console.log("El cliente se desconecto");
+    });
+});
+
+function between(min, max) {  
+    return Math.floor(
+      Math.random() * (max - min) + min
+    )
+  }
+
 
 
 server.listen(app.get('port'), () =>{
