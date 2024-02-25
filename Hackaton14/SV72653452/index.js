@@ -40,11 +40,17 @@ io.on('connection', (socket) => {
 
     socket.on('edit message', ({ username, oldText, newText }) => {
         io.emit('edit message', { username, oldText, newText });
-        updateMessageInDB(oldText, newText); // Actualizar el mensaje en la base de datos
+        updateMessageInDB(username, oldText, newText); // Actualizar el mensaje en la base de datos
     });
 
     socket.on('disconnect', () => {
         console.log('user disconnected');
+    });
+
+    // Manejar solicitud de limpiar el chat
+    socket.on('clear chat', () => {
+        clearChatFromDB();
+        io.emit('chat cleared'); // Emitir evento para notificar que el chat ha sido limpiado
     });
 });
 
@@ -59,11 +65,11 @@ function saveMessageToDB(msg) {
     });
 }
 
-function updateMessageInDB(oldText, newText) {
+function updateMessageInDB(username, oldText, newText) {
     console.log("Mensaje original:", oldText);
     console.log("Nuevo mensaje:", newText);
-    const sql = 'UPDATE conversaciones SET mensaje = ? WHERE TRIM(LOWER(mensaje)) = TRIM(LOWER(?))';
-    connection.query(sql, [newText, oldText], (err, result) => {
+    const sql = 'UPDATE conversaciones SET mensaje = ? WHERE TRIM(LOWER(mensaje)) = TRIM(LOWER(?)) AND TRIM(LOWER(usuario)) = TRIM(LOWER(?))'; // Asegurarse de que el nombre de usuario coincida
+    connection.query(sql, [newText, oldText, username], (err, result) => {
         if (err) {
             console.error('Error al actualizar mensaje en la base de datos: ' + err.message);
             return;
@@ -72,7 +78,16 @@ function updateMessageInDB(oldText, newText) {
     });
 }
 
-
+function clearChatFromDB() {
+    const sql = 'DELETE FROM conversaciones';
+    connection.query(sql, (err, result) => {
+        if (err) {
+            console.error('Error al limpiar el chat en la base de datos: ' + err.message);
+            return;
+        }
+        console.log('Chat limpiado en la base de datos. Número de filas eliminadas: ' + result.affectedRows);
+    });
+}
 
 server.listen(3000, () => {
     console.log('server running at http://localhost:3000');

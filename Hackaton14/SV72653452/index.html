@@ -48,6 +48,15 @@
             cursor: pointer;
         }
 
+        #clear-chat-button {
+            background-color: #ff0000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
         #messages {
             list-style-type: none;
             margin: 0;
@@ -75,6 +84,7 @@
             <input id="input" autocomplete="off" placeholder="Escribe tu mensaje aquí...">
             <button>Enviar</button>
         </form>
+        <button id="clear-chat-button">Limpiar Chat</button> <!-- Botón para limpiar el chat -->
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
@@ -83,6 +93,7 @@
         const form = document.getElementById('form');
         const input = document.getElementById('input');
         const messages = document.getElementById('messages');
+        const clearChatButton = document.getElementById('clear-chat-button'); // Obtener referencia al botón
         let username;
 
         function askUsername() {
@@ -105,7 +116,9 @@
 
         socket.on('chat message', (msg) => {
             const item = document.createElement('li');
+            const originalText = msg.substring(msg.indexOf(':') + 2); // Obtener el texto original sin el nombre de usuario
             item.textContent = msg;
+            item.dataset.originalText = originalText; // Almacenar el texto original como un atributo de datos
             messages.appendChild(item);
             window.scrollTo(0, document.body.scrollHeight);
             addEditButton(item); // Agregar botón de edición
@@ -115,14 +128,28 @@
             const editButton = document.createElement('button');
             editButton.textContent = 'Editar';
             editButton.onclick = () => {
-                const newText = prompt("Edita tu mensaje:", item.textContent);
-                if (newText !== null) {
-                    item.textContent = newText;
-                    socket.emit('edit message', { username, oldText: item.textContent, newText });
+                const sender = item.textContent.substring(0, item.textContent.indexOf(':')); // Extraer el remitente del mensaje
+                if (sender === username) { // Verificar si el usuario actual envió el mensaje
+                    const newText = prompt("Edita tu mensaje:", item.dataset.originalText); // Usar el texto original almacenado
+                    if (newText !== null) {
+                        item.textContent = `${username}: ${newText}`; // Actualizar el texto del mensaje en el cliente
+                        socket.emit('edit message', { username, oldText: item.dataset.originalText, newText }); // Enviar solicitud de edición al servidor
+                    }
+                } else {
+                    alert("Solo puedes editar tus propios mensajes.");
                 }
             };
             item.appendChild(editButton);
         }
+
+        // Manejar la acción de limpiar el chat
+        clearChatButton.addEventListener('click', () => {
+            const confirmation = confirm("¿Estás seguro de que deseas eliminar todo el chat?");
+            if (confirmation) {
+                // Enviar solicitud al servidor para eliminar el chat
+                socket.emit('clear chat');
+            }
+        });
     </script>
 </body>
 </html>
