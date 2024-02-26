@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.IO chat</title>
+    <style>
+        body {
+            margin: 0;
+            padding-bottom: 3rem;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #form {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        #input {
+            border: none;
+            padding: 10px;
+            flex-grow: 1;
+            border-radius: 20px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        #input:focus {
+            outline: none;
+        }
+
+        #form>button {
+            background: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            outline: none;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        #clear-chat-button {
+            background-color: #ff0000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        #messages {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow-y: auto;
+            max-height: 300px;
+        }
+
+        #messages>li {
+            padding: 10px;
+            margin-bottom: 5px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        #messages>li:nth-child(odd) {
+            background-color: #e9e9e9;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <ul id="messages"></ul>
+        <form id="form" action="">
+            <input id="input" autocomplete="off" placeholder="Escribe tu mensaje aquí...">
+            <button>Enviar</button>
+        </form>
+        <button id="clear-chat-button">Limpiar Chat</button> <!-- Botón para limpiar el chat -->
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const form = document.getElementById('form');
+        const input = document.getElementById('input');
+        const messages = document.getElementById('messages');
+        const clearChatButton = document.getElementById('clear-chat-button'); // Obtener referencia al botón
+        let username;
+
+        function askUsername() {
+            username = prompt("Por favor ingresa tu nombre de usuario:");
+            if (username === null || username.trim() === "") {
+                alert("El nombre de usuario es obligatorio. Por favor, ingresa un nombre de usuario válido.");
+                askUsername();
+            }
+        }
+
+        askUsername();
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (input.value) {
+                socket.emit('chat message', `${username}: ${input.value}`);
+                input.value = '';
+            }
+        });
+
+        socket.on('chat message', (msg) => {
+            const item = document.createElement('li');
+            const originalText = msg.substring(msg.indexOf(':') + 2); // Obtener el texto original sin el nombre de usuario
+            item.textContent = msg;
+            item.dataset.originalText = originalText; // Almacenar el texto original como un atributo de datos
+            messages.appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+            addEditButton(item); // Agregar botón de edición
+        });
+
+        function addEditButton(item) {
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Editar';
+            editButton.onclick = () => {
+                const sender = item.textContent.substring(0, item.textContent.indexOf(':')); // Extraer el remitente del mensaje
+                if (sender === username) { // Verificar si el usuario actual envió el mensaje
+                    const newText = prompt("Edita tu mensaje:", item.dataset.originalText); // Usar el texto original almacenado
+                    if (newText !== null) {
+                        item.textContent = `${username}: ${newText}`; // Actualizar el texto del mensaje en el cliente
+                        socket.emit('edit message', { username, oldText: item.dataset.originalText, newText }); // Enviar solicitud de edición al servidor
+                    }
+                } else {
+                    alert("Solo puedes editar tus propios mensajes.");
+                }
+            };
+            item.appendChild(editButton);
+        }
+
+        // Manejar la acción de limpiar el chat
+        clearChatButton.addEventListener('click', () => {
+            const confirmation = confirm("¿Estás seguro de que deseas eliminar todo el chat?");
+            if (confirmation) {
+                // Enviar solicitud al servidor para eliminar el chat
+                socket.emit('clear chat');
+            }
+        });
+    </script>
+</body>
+</html>
