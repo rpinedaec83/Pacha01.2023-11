@@ -19,7 +19,6 @@ exports.create = (req, res) => {
         usuarioId: req.body.usuarioId
     };
 
-    
     Cursos.create(cursos)
         .then(data => {
             res.send(data);
@@ -33,14 +32,14 @@ exports.create = (req, res) => {
 };
 exports.findAll = (req, res) => {
     const nombre = req.query.nombre;
-    
+
     console.log(nombre)
     var condition = nombre ? { nombre: { [Op.like]: `%${nombre}%` } } : null;
 
     Cursos.findAll({
         include: ["usuarios"],
 
-       
+
     }, { where: condition })
         .then(data => {
             res.send(data);
@@ -119,16 +118,16 @@ exports.delete = (req, res) => {
 };
 exports.deleteAll = (req, res) => {
     Cursos.destroy({
-      where: {},
-      truncate: false
+        where: {},
+        truncate: false
     })
-      .then(nums => {
-        res.send({ message: `${nums} sexos were deleted successfully!` });
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while removing all sexos."
+        .then(nums => {
+            res.send({ message: `${nums} sexos were deleted successfully!` });
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while removing all sexos."
+            });
         });
-      });
 };
