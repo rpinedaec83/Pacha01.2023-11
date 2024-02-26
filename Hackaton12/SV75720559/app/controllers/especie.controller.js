@@ -1,23 +1,19 @@
 const db = require("../models");
-const Mascota = db.mascota;
+const Especie = db.especie;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
     // Validate request
-
-
-    if (!req.body.nombres) {
+    if (!req.body.descripcion) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
         return;
     }
-    const mascota = {
-        nombres: req.body.nombres,
-        fechaNacimiento: req.body.fechaNacimiento,
-        propietarioId: req.body.propietarioId
+    const especie = {
+        descripcion: req.body.descripcion
     };
-    Mascota.create(mascota)
+    Especie.create(especie)
         .then(data => {
             res.send(data);
         })
@@ -28,14 +24,13 @@ exports.create = (req, res) => {
             });
         });
 };
-exports.findAll = (req, res) => {
-    const nombres = req.query.nombres;
-   
-    var condition = nombres ? { nombres: { [Op.like]: `%${nombres}%` } } : null;
 
-    Mascota.findAll({
-        include: ["propietarios"],
-    }, { where: condition })
+exports.findAll = (req, res) => {
+    const descripcion = req.query.descripcion;
+
+    var condition = descripcion ? { descripcion: { [Op.like]: `%${descripcion}%` } } : null;
+
+    Especie.findAll( { where: condition })
         .then(data => {
             res.send(data);
         })
@@ -46,10 +41,11 @@ exports.findAll = (req, res) => {
             });
         });
 };
+
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Mascota.findByPk(id)
+    Especie.findByPk(id)
         .then(data => {
             if (data) {
                 res.send(data);
@@ -68,7 +64,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Mascota.update(req.body, {
+    Especie.update(req.body, {
         where: { id: id }
     })
         .then(num => {
@@ -91,7 +87,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Mascota.destroy({
+    Especie.destroy({
         where: { id: id }
     })
         .then(num => {
@@ -112,7 +108,7 @@ exports.delete = (req, res) => {
         });
 };
 exports.deleteAll = (req, res) => {
-    Mascota.destroy({
+    Especie.destroy({
       where: {},
       truncate: false
     })
