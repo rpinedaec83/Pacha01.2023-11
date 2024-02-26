@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Reparación de Celulares</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<body>
+
+<h1>Sistema de Reparación de Celulares</h1>
+
+<!-- Formulario para ingresar información del teléfono -->
+<details>
+    <summary>Ingresar Telefono</summary>
+    <form id="phoneForm">
+        <p>
+            <label for="phoneNumber">Número de telefono:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" required>
+        </p>
+    
+        <p>
+            <label for="imei">IMEI:</label>
+            <input type="text" id="imei" name="imei" required>        
+        </p>
+    
+        <p>
+            <label for="brand">Marca:</label>
+            <input type="text" id="brand" name="brand">        
+        </p>
+    
+        <p>
+            <label for="model">Modelo:</label>
+            <input type="text" id="model" name="model">        
+        </p>
+    
+        <button type="button" onclick="submitPhoneForm()">Enviar</button>
+    </form>
+</details>
+
+<details>
+    <summary>Crear Tecnico</summary>
+    <form id="tecnicoForm">
+        <p>
+            <label for="tecnicoNombre">Nombre del tecnico:</label>
+            <input type="text" id="tecnicoNombre" name="tecnicoNombre" required>
+        </p>
+    
+        <p>
+            <label for="skillTecnico">Ingrese Skill:</label>
+            <textarea id="skillTecnico" name="skillTecnico" rows="4" cols="50" required></textarea>
+            &emsp; <button onclick="agregarSkill(event)">Agregar skill</button>
+        </p>
+        <ul id="skillsTecnico">
+
+        </ul>    
+        <button type="button" onclick="submitTecnico()">Registrar</button>
+    </form>
+</details>
+
+<details>
+    <summary>Realizar Revision</summary>
+    <p>
+        <label for="revisionTelefono">Seleccione el N° de telefono:</label>
+        <select name="revisionTelefono" id="revisionTelefono" onchange="loadPhoneInfo(event)"></select>
+    </p>
+    <!-- Información del teléfono -->
+    <div id="outputTelefono" style="display: none;">
+    </div>
+    <p>
+        <label for="revisionDiagnostico">Ingrese diagnostico:</label>
+        <textarea id="revisionDiagnostico" name="revisionDiagnostico" rows="4" cols="50">
+        </textarea>
+    </p>
+    <p>
+        <label for="revisionTecnico">seleccione un técnico:</label>
+        <select name="revisionTecnico" id="revisionTecnico" onchange="loadSkillsByTecnico(event)"></select>
+        <ul id="skillsTecnicoSeleccionado">
+
+        </ul>
+    </p>
+    
+    <p><button onclick="submitRevision()">Registrar revisión</button></p>
+</details>
+<script src="script.js"></script>
+</body>
+</html>
