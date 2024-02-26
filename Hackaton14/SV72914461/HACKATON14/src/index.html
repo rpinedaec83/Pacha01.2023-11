@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Socket IO</title>
+  <!-- Incluir Socket.IO -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
+  <!-- CORS -->
+  <meta http-equiv="Access-Control-Allow-Origin" content="*">
+  <!-- Incluir Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<style>
+  #graficoCircular {
+    height: 400px !important;
+    width: 400px !important;
+  }
+</style>
+
+<body>
+  <h1>Gráfico Circular</h1>
+  <canvas id="graficoCircular"></canvas>
+
+  <div id="contenedorBotones">
+      <div class="grupoBotones">
+          <h2>Grupo 1</h2>
+          <button id="btnGrupo1Menos">-</button>
+          <span id="grupo1Cantidad">10</span>
+          <button id="btnGrupo1Mas">+</button>
+      </div>
+      <div class="grupoBotones">
+          <h2>Grupo 2</h2>
+          <button id="btnGrupo2Menos">-</button>
+          <span id="grupo2Cantidad">10</span>
+          <button id="btnGrupo2Mas">+</button>
+      </div>
+      <div class="grupoBotones">
+          <h2>Grupo 3</h2>
+          <button id="btnGrupo3Menos">-</button>
+          <span id="grupo3Cantidad">10</span>
+          <button id="btnGrupo3Mas">+</button>
+      </div>
+      <div class="grupoBotones">
+          <h2>Grupo 4</h2>
+          <button id="btnGrupo4Menos">-</button>
+          <span id="grupo4Cantidad">10</span>
+          <button id="btnGrupo4Mas">+</button>
+      </div>
+  </div>
+</body>
+<script>
+  const socket = io('http://localhost:3000')
+
+  // Configurar el gráfico circular
+  const ctx = document.getElementById('graficoCircular').getContext('2d');
+  const chart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['Grupo 1', 'Grupo 2', 'Grupo 3', 'Grupo 4'],
+      datasets: [{
+        label: 'Datos',
+        data: [15, 20, 10, 5],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 206, 86, 0.5)',
+          'rgba(75, 192, 192, 0.5)',
+        ]
+      }]
+    }
+  });
+
+  //data que viene de la sala 
+  socket.on('datosIniciales', (inicialData) => {
+    // console.log(inicialData)
+    // console.log(chart.data.datasets[0].data)
+    chart.data.datasets[0].data = inicialData;
+    chart.update();
+    document.getElementById('grupo1Cantidad').textContent = inicialData[0]
+    document.getElementById('grupo2Cantidad').textContent = inicialData[1]
+    document.getElementById('grupo3Cantidad').textContent = inicialData[2]
+    document.getElementById('grupo4Cantidad').textContent = inicialData[3]
+  })
+  const arrrayNumbers = ['1','2','3','4']
+  arrrayNumbers.forEach((grupo) => {
+    document.getElementById(`btnGrupo${grupo}Menos`).addEventListener('click', () => {
+      // actualizarData
+      socket.emit('actualizarData', {grupo: grupo, cambio: -1});
+    })
+    document.getElementById(`btnGrupo${grupo}Mas`).addEventListener('click', () => {
+      // actualizarData
+      socket.emit('actualizarData', {grupo, cambio: +1});
+    })
+  });
+
+  // console.log(socket)
+</script>
+
+</html>
