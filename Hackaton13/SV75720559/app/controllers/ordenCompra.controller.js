@@ -14,11 +14,6 @@ exports.create = (req, res) => {
         fecha: req.body.fecha,
         impuestos: req.body.impuestos,
         estado: req.body.estado,
-        usuarioId: req.body.usuarioId,
-        cuponId: req.body.cuponId,
-
-
-
     };
     OrdenCompra.create(ordenCompra)
         .then(data => {
