@@ -1,32 +1,15 @@
-const express = require('express');
-const http = require('http');
-const socketIO = require('socket.io');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const taskRoutes = require('./routes');
+import { Server as WebSocketServer } from "socket.io";
+import http from "http";
+import Sockets from "./sockets";
+import app from "./app";
+import { connectDB } from "./db";
+import { PORT } from "./config";
 
-const app = express();
+connectDB();
 const server = http.createServer(app);
-const io = socketIO(server);
+const httpServer = server.listen(PORT);
+console.log("Servidor en http://localhost:", PORT);
 
-mongoose.connect('mongodb://localhost:27017/socketio-node-mongodb-crud', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+const io = new WebSocketServer(httpServer);
 
-app.use(bodyParser.json());
-app.use('/api', taskRoutes);
-
-const PORT = process.env.PORT || 3000;
-
-server.listen(PORT, () => {
-  console.log(`Servidor en tiempo real escuchando en http://localhost:${PORT}`);
-});
-
-io.on('connection', (socket) => {
-  console.log('Nuevo usuario conectado');
-
-  socket.on('disconnect', () => {
-    console.log('Usuario desconectado');
-  });
-});
+Sockets(io);
