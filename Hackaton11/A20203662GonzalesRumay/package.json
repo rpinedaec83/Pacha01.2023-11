@@ -1,20 +1,19 @@
 {
-  "name": "d19423",
+  "name": "a20203662gonzalesrumay",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "nodemon app.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.4.5",
+    "body-parser": "^1.20.2",
     "express": "^4.18.2",
-    "nodemon": "^3.1.0",
-    "openai": "^3.3.0",
-    "socket.io": "^4.7.4"
+    "mysql2": "^3.9.1",
+    "nodemon": "^3.1.0"
   }
 }
