@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>chatbot</title>
+</head>
+<body>
+  <h1>chatBot</h1>
+  <ul id="tasksList"></ul>
+  <form id="taskForm">
+    <input type="text" id="taskDescription" placeholder="Task description" required>
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+  <script>
+    const socket = io();
+
+    const tasksList = document.getElementById('tasksList');
+    const taskForm = document.getElementById('taskForm');
+    const taskDescriptionInput = document.getElementById('taskDescription');
+
+    taskForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const description = taskDescriptionInput.value;
+      if (description.trim() !== '') {
+        socket.emit('addTask', { description });
+        taskDescriptionInput.value = '';
+      }
+    });
+
+    socket.on('taskAdded', (task) => {
+      addTaskToList(task);
+    });
+
+    socket.on('taskUpdated', (task) => {
+      updateTaskInList(task);
+    });
+
+    socket.on('taskDeleted', (task) => {
+      removeTaskFromList(task);
+    });
+
+    function addTaskToList(task) {
+      const li = document.createElement('li');
+      li.textContent = task.description;
+      tasksList.appendChild(li);
+    }
+
+    function updateTaskInList(task) {
+      const existingTask = Array.from(tasksList.children).find(li => li.textContent === task.description);
+      if (existingTask) {
+
+      }
+    }
+
+    function removeTaskFromList(task) {
+      const existingTask = Array.from(tasksList.children).find(li => li.textContent === task.description);
+      if (existingTask) {
+        existingTask.remove();
+      }
+    }
+  </script>
+</body>
+</html>
