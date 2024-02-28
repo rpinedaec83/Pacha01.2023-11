@@ -1,23 +1,21 @@
 const db = require("../models");
-const Mascota = db.mascota;
+const OrdenCompra = db.ordenCompra;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
-    // Validate request
 
-
-    if (!req.body.nombres) {
+    if (!req.body.fecha) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
         return;
     }
-    const mascota = {
-        nombres: req.body.nombres,
-        fechaNacimiento: req.body.fechaNacimiento,
-        propietarioId: req.body.propietarioId
+    const ordenCompra = {
+        fecha: req.body.fecha,
+        impuestos: req.body.impuestos,
+        estado: req.body.estado,
     };
-    Mascota.create(mascota)
+    OrdenCompra.create(ordenCompra)
         .then(data => {
             res.send(data);
         })
@@ -29,12 +27,14 @@ exports.create = (req, res) => {
         });
 };
 exports.findAll = (req, res) => {
-    const nombres = req.query.nombres;
-   
-    var condition = nombres ? { nombres: { [Op.like]: `%${nombres}%` } } : null;
+    const fecha = req.query.fecha;
 
-    Mascota.findAll({
-        include: ["propietarios"],
+    var condition = fecha ? { fecha: { [Op.like]: `%${fecha}%` } } : null;
+
+    OrdenCompra.findAll({
+        include: ["usuarios", "cupon"],
+
+
     }, { where: condition })
         .then(data => {
             res.send(data);
@@ -49,7 +49,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Mascota.findByPk(id)
+    OrdenCompra.findByPk(id)
         .then(data => {
             if (data) {
                 res.send(data);
@@ -68,7 +68,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Mascota.update(req.body, {
+    OrdenCompra.update(req.body, {
         where: { id: id }
     })
         .then(num => {
@@ -91,7 +91,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Mascota.destroy({
+    OrdenCompra.destroy({
         where: { id: id }
     })
         .then(num => {
@@ -112,17 +112,17 @@ exports.delete = (req, res) => {
         });
 };
 exports.deleteAll = (req, res) => {
-    Mascota.destroy({
-      where: {},
-      truncate: false
+    OrdenCompra.destroy({
+        where: {},
+        truncate: false
     })
-      .then(nums => {
-        res.send({ message: `${nums} Tutorials were deleted successfully!` });
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while removing all tutorials."
+        .then(nums => {
+            res.send({ message: `${nums} Tutorials were deleted successfully!` });
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while removing all tutorials."
+            });
         });
-      });
 };

@@ -1,23 +1,20 @@
 const db = require("../models");
-const Mascota = db.mascota;
+const Ubigeo = db.ubigeo;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
     // Validate request
-
-
-    if (!req.body.nombres) {
+    if (!req.body.ubigeo || !req.body.ubicacion) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
         return;
     }
-    const mascota = {
-        nombres: req.body.nombres,
-        fechaNacimiento: req.body.fechaNacimiento,
-        propietarioId: req.body.propietarioId
+    const ubigeo = {
+        ubigeo: req.body.ubigeo,
+        ubicacion: req.body.ubicacion
     };
-    Mascota.create(mascota)
+    Ubigeo.create(ubigeo)
         .then(data => {
             res.send(data);
         })
@@ -28,14 +25,13 @@ exports.create = (req, res) => {
             });
         });
 };
-exports.findAll = (req, res) => {
-    const nombres = req.query.nombres;
-   
-    var condition = nombres ? { nombres: { [Op.like]: `%${nombres}%` } } : null;
 
-    Mascota.findAll({
-        include: ["propietarios"],
-    }, { where: condition })
+exports.findAll = (req, res) => {
+    const ubicacion = req.query.ubicacion;
+
+    var condition = ubicacion ? { ubicacion: { [Op.like]: `%${ubicacion}%` } } : null;
+
+    Ubigeo.findAll( { where: condition })
         .then(data => {
             res.send(data);
         })
@@ -46,10 +42,11 @@ exports.findAll = (req, res) => {
             });
         });
 };
+
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Mascota.findByPk(id)
+    Ubigeo.findByPk(id)
         .then(data => {
             if (data) {
                 res.send(data);
@@ -68,7 +65,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Mascota.update(req.body, {
+    Ubigeo.update(req.body, {
         where: { id: id }
     })
         .then(num => {
@@ -91,7 +88,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Mascota.destroy({
+    Ubigeo.destroy({
         where: { id: id }
     })
         .then(num => {
@@ -112,7 +109,7 @@ exports.delete = (req, res) => {
         });
 };
 exports.deleteAll = (req, res) => {
-    Mascota.destroy({
+    Ubigeo.destroy({
       where: {},
       truncate: false
     })

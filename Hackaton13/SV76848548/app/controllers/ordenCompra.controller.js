@@ -1,40 +1,40 @@
 const db = require("../models");
-const Mascota = db.mascota;
+const OrdenCompra = db.ordenCompra;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
-    // Validate request
-
-
-    if (!req.body.nombres) {
+    if (!req.body.fecha) {
         res.status(400).send({
-            message: "Content can not be empty!"
+            message: "Vacio!"
         });
         return;
     }
-    const mascota = {
-        nombres: req.body.nombres,
-        fechaNacimiento: req.body.fechaNacimiento,
-        propietarioId: req.body.propietarioId
+    const ordenCompra = {
+        fecha: req.body.fecha,
+        impuestos: req.body.impuestos,
+        estado: req.body.estado,
+        usuarioId: req.body.usuarioId,
+        cuponId: req.body.cuponId,
     };
-    Mascota.create(mascota)
+    OrdenCompra.create(ordenCompra)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Tutorial."
+                    err.message || "Some error"
             });
         });
 };
-exports.findAll = (req, res) => {
-    const nombres = req.query.nombres;
-   
-    var condition = nombres ? { nombres: { [Op.like]: `%${nombres}%` } } : null;
 
-    Mascota.findAll({
-        include: ["propietarios"],
+exports.findAll = (req, res) => {
+    const fecha = req.query.fecha;
+   
+    var condition = fecha ? { fecha: { [Op.like]: `%${fecha}%` } } : null;
+
+    OrdenCompra.findAll({
+        include: ["usuarios","cupon"],
     }, { where: condition })
         .then(data => {
             res.send(data);
@@ -42,87 +42,91 @@ exports.findAll = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving tutorials."
+                    err.message || "Some error "
             });
         });
 };
+
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Mascota.findByPk(id)
+    OrdenCompra.findByPk(id)
         .then(data => {
             if (data) {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find Tutorial with id=${id}.`
+                    message: "Cannot find id=" + id
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Tutorial with id=" + id
+                message: "Error retrieving id=" + id
             });
         });
 };
+
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Mascota.update(req.body, {
+    OrdenCompra.update(req.body, {
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Tutorial was updated successfully."
+                    message: "Actualizado"
                 });
             } else {
                 res.send({
-                    message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+                    message: "Cannot update id=" + id
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Tutorial with id=" + id
+                message: "Error updating id=" + id
             });
         });
 };
+
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Mascota.destroy({
+    OrdenCompra.destroy({
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Tutorial was deleted successfully!"
+                    message: "Eliminado"
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
+                    message: "Cannot delete id=" + id
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Tutorial with id=" + id
+                message: "Could not delete id=" + id
             });
         });
 };
+
 exports.deleteAll = (req, res) => {
-    Mascota.destroy({
+    OrdenCompra.destroy({
       where: {},
       truncate: false
     })
       .then(nums => {
-        res.send({ message: `${nums} Tutorials were deleted successfully!` });
+        res.send({ message: "Eliminados" });
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while removing all tutorials."
+            err.message || "Some error"
         });
       });
 };

@@ -1,128 +1,140 @@
 const db = require("../models");
-const Mascota = db.mascota;
+const Usuarios = db.usuarios;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
-    // Validate request
-
-
-    if (!req.body.nombres) {
+    if (!req.body.usuario) {
         res.status(400).send({
-            message: "Content can not be empty!"
+            message: "El usuario y la contraseña son obligatorios."
         });
         return;
     }
-    const mascota = {
-        nombres: req.body.nombres,
-        fechaNacimiento: req.body.fechaNacimiento,
-        propietarioId: req.body.propietarioId
+    const usuarios = {
+        usuario: req.body.usuario,
+        contraseña: req.body.contraseña 
     };
-    Mascota.create(mascota)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while creating the Tutorial."
-            });
-        });
-};
-exports.findAll = (req, res) => {
-    const nombres = req.query.nombres;
-   
-    var condition = nombres ? { nombres: { [Op.like]: `%${nombres}%` } } : null;
 
-    Mascota.findAll({
-        include: ["propietarios"],
-    }, { where: condition })
+    
+    Usuarios.create(usuarios)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            if (err.name === 'SequelizeUniqueConstraintError') {
+                res.status(400).send({
+                    message: "El usuario o la contraseña ya existen en la base de datos."
+                });
+            } else {
+                res.status(500).send({
+                    message: err.message || "Se produjo un error al crear el usuario."
+                });
+            }
+        });
+};
+
+exports.findAll = (req, res) => {
+    const usuario = req.query.usuario;
+    
+    console.log(usuario)
+    var condition = usuario ? { usuario: { [Op.like]: `%${usuario}%` } } : null;
+    //////////////////////
+    const contraseña = req.query.contraseña;
+    
+    console.log(contraseña)
+    var condition = contraseña ? { contraseña: { [Op.like]: `%${contraseña}%` } } : null;
+
+    Usuarios.findAll( { where: condition })
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving tutorials."
+                    err.message || "Some error"
             });
         });
 };
+
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Mascota.findByPk(id)
+    Usuarios.findByPk(id)
         .then(data => {
             if (data) {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find Tutorial with id=${id}.`
+                    message: "Cannot find id=" + id
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Tutorial with id=" + id
+                message: "Error retrieving id=" + id
             });
         });
 };
+
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Mascota.update(req.body, {
+    Usuarios.update(req.body, {
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Tutorial was updated successfully."
+                    message: "Actualizado"
                 });
             } else {
                 res.send({
-                    message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+                    message: "Cannot update id=" + id
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Tutorial with id=" + id
+                message: "Error updating id=" + id
             });
         });
 };
+
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Mascota.destroy({
+    Usuarios.destroy({
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Tutorial was deleted successfully!"
+                    message: "Eliminado"
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
+                    message: "Cannot delete id=" + id
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Tutorial with id=" + id
+                message: "Could not delete id=" + id
             });
         });
 };
+
 exports.deleteAll = (req, res) => {
-    Mascota.destroy({
+    Usuarios.destroy({
       where: {},
       truncate: false
     })
       .then(nums => {
-        res.send({ message: `${nums} Tutorials were deleted successfully!` });
+        res.send({ message: "Eliminados" });
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while removing all tutorials."
+            err.message || "Some error"
         });
       });
 };
