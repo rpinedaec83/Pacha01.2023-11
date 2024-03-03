@@ -46,12 +46,13 @@
         });
 
 
-        // Mostrar un cuadro de diálogo para solicitar el nombre de usuario al cargar la página
+        // Mostrar un cuadro de diálogo para solicitar el nombre de usuario y la ubicación de residencia al cargar la página
         window.onload = function() {
             var username = prompt("Please enter your username:");
+            var ubicacionResidencia = prompt("Please enter your location:");
             if (username !== null && username !== "") {
-                // Enviar el nombre de usuario al servidor
-                socket.emit('username', username);
+                // Enviar el nombre de usuario y la ubicación de residencia al servidor
+                socket.emit('userinfo', { username, ubicacionResidencia });
             }
         };
     </script>

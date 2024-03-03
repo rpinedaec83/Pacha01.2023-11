@@ -108,17 +108,17 @@ io.on('connection', (socket) => {
   console.log('Nuevo cliente conectado');
 
   // Manejar evento para recibir el nombre de usuario
-  socket.on('username', (username) => {
-    socket.username = username; // Almacenar el nombre de usuario en el objeto socket
+  socket.on('userinfo', (data) => {
+    const { username, ubicacionResidencia } = data;
 
-    // Guardar el nombre de usuario en la base de datos
-    db.query('INSERT INTO InformacionDeUsuario (nombreUsuario) VALUES (?)', [username], (err, result) => {
-        if (err) {
-            console.error('Error al guardar la información del usuario en la base de datos:', err);
-        } else {
-            console.log('Nombre de usuario guardado en la base de datos');
-        }
-    });
+    // Guardar el nombre de usuario y la ubicación de residencia en la base de datos
+    db.query('INSERT INTO InformacionDeUsuario (nombreUsuario, ubicacionResidencia) VALUES (?, ?)', [username, ubicacionResidencia], (err, result) => {
+      if (err) {
+          console.error('Error al guardar la información del usuario en la base de datos:', err);
+      } else {
+          console.log('Información del usuario guardada en la base de datos');
+      }
+  });
 
     
 });
