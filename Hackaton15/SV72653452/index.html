@@ -82,9 +82,7 @@
         document.getElementById('messages').appendChild(item);
         messages.push({ name: 'Servidor', message: msg });
         renderMessages();
-        // Verificar si el mensaje del servidor es sobre el curier
     if (msg.includes('curier')) {
-        // Agregar mensaje temporal
         messages.push({ name: '', message: 'Esperando al agente curier', temp: true });
         renderMessages();
     }
@@ -107,7 +105,6 @@
         });
        }
  
-       // Evento de envío de mensaje
     document.getElementById('form').addEventListener('submit', function(e) {
         e.preventDefault();
         var input = document.getElementById('input');
@@ -118,12 +115,10 @@
     });
 
 
-        // Mostrar un cuadro de diálogo para solicitar el nombre de usuario y la ubicación de residencia al cargar la página
         window.onload = function() {
             var username = prompt("Please enter your username:");
             var ubicacionResidencia = prompt("Please enter your location:");
             if (username !== null && username !== "") {
-                // Enviar el nombre de usuario y la ubicación de residencia al servidor
                 socket.emit('userinfo', { username, ubicacionResidencia });
             }
         };
