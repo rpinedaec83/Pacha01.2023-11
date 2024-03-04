@@ -3,18 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat</title>
+    <title>Sistema de curier</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
         #messages {
             list-style-type: none;
             margin: 0;
             padding: 0;
         }
         #messages li {
-            padding: 5px 10px;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
         }
         #messages li:nth-child(odd) {
             background-color: #f1f1f1;
+        }
+        #input {
+            padding: 10px;
+            width: calc(100% - 60px);
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-right: 5px;
+        }
+        #btnSend {
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .server-message {
+            font-style: italic;
+            color: #888;
+        }
+        .temp-message {
+            font-weight: bold;
+            color: #007bff;
         }
     </style>
 </head>
@@ -27,6 +55,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
+        var messages = [];
 
         var form = document.getElementById('form');
         var input = document.getElementById('input');
@@ -43,7 +72,50 @@
             var item = document.createElement('li');
             item.textContent = data.name + ': ' + data.message;
             document.getElementById('messages').appendChild(item);
+            messages.push(data);
+            renderMessages();
         });
+
+        socket.on('server message', function(msg) {
+        var item = document.createElement('li');
+        item.textContent =  msg;
+        document.getElementById('messages').appendChild(item);
+        messages.push({ name: 'Servidor', message: msg });
+        renderMessages();
+        // Verificar si el mensaje del servidor es sobre el curier
+    if (msg.includes('curier')) {
+        // Agregar mensaje temporal
+        messages.push({ name: '', message: 'Esperando al agente curier', temp: true });
+        renderMessages();
+    }
+    });
+
+
+        function renderMessages() {
+        var messagesList = document.getElementById('messages');
+        messagesList.innerHTML = '';
+        messages.forEach(function(data) {
+            var item = document.createElement('li');
+            item.textContent = data.name + ': ' + data.message;
+            if (data.temp) {
+                item.classList.add('temp-message');
+            } else if (data.name === 'Servidor') {
+                item.classList.add('server-message');
+            }
+
+            messagesList.appendChild(item);
+        });
+       }
+ 
+       // Evento de envío de mensaje
+    document.getElementById('form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var input = document.getElementById('input');
+        if (input.value.trim() !== '') {
+            socket.emit('chat message', input.value.trim());
+            input.value = '';
+        }
+    });
 
 
         // Mostrar un cuadro de diálogo para solicitar el nombre de usuario y la ubicación de residencia al cargar la página

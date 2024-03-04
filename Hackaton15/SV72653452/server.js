@@ -103,13 +103,25 @@ server.listen(PORT, () => {
     console.log(`Servidor HTTP escuchando en el puerto ${PORT}`);
 });
 
+// Variable para controlar si el servidor ha hablado con alguien
+let firstUserConnected = false;
+
 // Configurar la conexión de Socket.IO
 io.on('connection', (socket) => {
   console.log('Nuevo cliente conectado');
 
+  // Verificar si es el primer usuario conectado
+  if (!firstUserConnected) {
+    firstUserConnected = true;
+    // Mandar un mensaje de bienvenida al primer usuario
+    socket.emit('server message', 'Bienvenido al chat. ¿Cómo puedo ayudarte?');
+}
+
   // Manejar evento para recibir el nombre de usuario
   socket.on('userinfo', (data) => {
     const { username, ubicacionResidencia } = data;
+    socket.username = username; // Establecer el nombre de usuario en el socket
+
 
     // Guardar el nombre de usuario y la ubicación de residencia en la base de datos
     db.query('INSERT INTO InformacionDeUsuario (nombreUsuario, ubicacionResidencia) VALUES (?, ?)', [username, ubicacionResidencia], (err, result) => {
@@ -118,20 +130,70 @@ io.on('connection', (socket) => {
       } else {
           console.log('Información del usuario guardada en la base de datos');
       }
+      
+      if (firstUserConnected) {
+      
+        // Mandar un mensaje de bienvenida al primer usuario
+        socket.emit('server message', '¿Qué servicio desea?');
+    }
+
+
+
   });
 
     
 });
 
+
+
+let canSendMessages = true;
+
  // Manejar eventos de chat
 socket.on('chat message', (msg) => {
-  // Guardar el mensaje y el nombre de usuario en la base de datos
+  
+    // Verificar si el servidor puede enviar mensajes
+    if (!canSendMessages) {
+        return;
+    }
+
+    if (msg.includes('necesito') && msg.includes('paquete')) {
+        // Emitir un mensaje especial al cliente
+        
+        setTimeout(() => {
+
+            if (firstUserConnected) {
+      
+                io.emit('server message', ' Un curier entrará al chat para ayudarte a enviar el paquete.');
+            canSendMessages = false; // Detener al servidor de enviar más mensajes
+            }
+
+          
+
+        }, 2000);
+
+
+    }
+    else {
+        // Si el mensaje no contiene las palabras clave, preguntar al cliente si necesita ayuda después de un retraso de 3 segundos
+        setTimeout(() => {
+
+            if (firstUserConnected) {
+      
+                io.emit('server message', ' ¿Lo puedo ayudar en algo?');
+            }
+            
+        }, 2000);
+    }
+  
+    // Guardar el mensaje y el nombre de usuario en la base de datos
   db.query('INSERT INTO MensajesDeChat (mensaje, nombreUsuario) VALUES (?, ?)', [msg, socket.username], (err, result) => {
-      if (err) {
+      
+    if (err) {
           console.error('Error al guardar el mensaje en la base de datos:', err);
       } else {
           console.log('Mensaje guardado en la base de datos');
       }
+      
   });
 
   // Emitir el mensaje a todos los clientes
