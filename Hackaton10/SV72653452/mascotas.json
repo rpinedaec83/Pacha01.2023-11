@@ -1,0 +1,192 @@
+[
+    {
+        "nombre": "Pancho",
+        "especie": "Gato",
+        "raza": "Mestizo",
+        "sexo": "Macho",
+        "color": "Atigrado",
+        "edad": 1.5,
+        "propietario": {
+            "tipoIdentificacion": "CE",
+            "nombre": "Roberto",
+            "apellido": "Pineda",
+            "direccion": "Lima",
+            "telefono": "916730940"
+        },
+        "vacunas": [
+            "TripleFelina",
+            "Antirabica"
+        ]
+    },
+    {
+        "nombre": "Luna",
+        "especie": "Perro",
+        "raza": "Labrador",
+        "sexo": "Hembra",
+        "color": "Dorado",
+        "edad": 2,
+        "propietario": {
+            "tipoIdentificacion": "DNI",
+            "nombre": "Ana",
+            "apellido": "Gomez",
+            "direccion": "Buenos Aires",
+            "telefono": "987654321"
+        },
+        "vacunas": [
+            "Rabia",
+            "Antiparasitaria"
+        ]
+    },
+    {
+        "nombre": "Michi",
+        "especie": "Gato",
+        "raza": "Siames",
+        "sexo": "Macho",
+        "color": "Blanco",
+        "edad": 1,
+        "propietario": {
+            "tipoIdentificacion": "RUC",
+            "nombre": "Maria",
+            "apellido": "Lopez",
+            "direccion": "Lima",
+            "telefono": "945678123"
+        },
+        "vacunas": [
+            "TripleFelina",
+            "Leucemia"
+        ]
+    },
+    {
+        "nombre": "Rocky",
+        "especie": "Perro",
+        "raza": "Bulldog",
+        "sexo": "Macho",
+        "color": "Gris",
+        "edad": 3,
+        "propietario": {
+            "tipoIdentificacion": "DNI",
+            "nombre": "Carlos",
+            "apellido": "Martinez",
+            "direccion": "Lima",
+            "telefono": "912345678"
+        },
+        "vacunas": [
+            "Quintuple felina",
+            "Antirabica"
+        ]
+    },
+    {
+        "nombre": "Pelusa",
+        "especie": "Gato",
+        "raza": "Persa",
+        "sexo": "Hembra",
+        "color": "Gris",
+        "edad": 2.5,
+        "propietario": {
+            "tipoIdentificacion": "CE",
+            "nombre": "Laura",
+            "apellido": "Fernandez",
+            "direccion": "Lima",
+            "telefono": "987612345"
+        },
+        "vacunas": [
+            "TripleFelina",
+            "Quintuple felina"
+        ]
+    },
+    {
+        "nombre": "Bobby",
+        "especie": "Perro",
+        "raza": "Cocker Spaniel",
+        "sexo": "Macho",
+        "color": "Negro",
+        "edad": 1.8,
+        "propietario": {
+            "tipoIdentificacion": "RUC",
+            "nombre": "Sandra",
+            "apellido": "Castillo",
+            "direccion": "Lima",
+            "telefono": "934567890"
+        },
+        "vacunas": [
+            "Sextuple felina",
+            "Antiparasitaria"
+        ]
+    },
+    {
+        "nombre": "Miau",
+        "especie": "Gato",
+        "raza": "Angora",
+        "sexo": "Hembra",
+        "color": "Blanco y Negro",
+        "edad": 1.2,
+        "propietario": {
+            "tipoIdentificacion": "DNI",
+            "nombre": "Jorge",
+            "apellido": "Perez",
+            "direccion": "Lima",
+            "telefono": "923456789"
+        },
+        "vacunas": [
+            "TripleFelina",
+            "Leucemia"
+        ]
+    },
+    {
+        "nombre": "Max",
+        "especie": "Perro",
+        "raza": "Golden Retriever",
+        "sexo": "Macho",
+        "color": "Canela",
+        "edad": 4,
+        "propietario": {
+            "tipoIdentificacion": "CE",
+            "nombre": "Monica",
+            "apellido": "Ramirez",
+            "direccion": "Lima",
+            "telefono": "945678912"
+        },
+        "vacunas": [
+            "Quintuple felina",
+            "Antirabica"
+        ]
+    },
+    {
+        "nombre": "Whiskers",
+        "especie": "Gato",
+        "raza": "Siberiano",
+        "sexo": "Macho",
+        "color": "Gris y Blanco",
+        "edad": 2.3,
+        "propietario": {
+            "tipoIdentificacion": "DNI",
+            "nombre": "Isabel",
+            "apellido": "Torres",
+            "direccion": "Lima",
+            "telefono": "956789123"
+        },
+        "vacunas": [
+            "TripleFelina",
+            "Sextuple felina"
+        ]
+    },
+    {
+        "nombre": "Bella",
+        "especie": "Perro",
+        "raza": "Chihuahua",
+        "sexo": "Hembra",
+        "color": "Marrón",
+        "edad": 1.5,
+        "propietario": {
+            "tipoIdentificacion": "RUC",
+            "nombre": "Hector",
+            "apellido": "Gutierrez",
+            "direccion": "Lima",
+            "telefono": "967890123"
+        },
+        "vacunas": [
+            "Quintuple felina",
+            "Antiparasitaria"
+        ]
+    }
+]

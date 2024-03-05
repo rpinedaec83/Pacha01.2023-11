@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterinaria V.2</title>
+</head>
+<body>
+
+    <h2>Veterinaria</h2>
+
+    <button onclick="addEspecie()">Crear Especie</button>
+    <button onclick="getEspecie()">Mostrar Especie</button>
+    <button onclick="getEspecieById()">Buscar Especie</button>
+    <button onclick="updateEspecieById()">Actualizar Especie</button>
+    <button onclick="deleteEspecieById()">Eliminar Especie</button>
+    <button onclick="deleteAllEspecie()">Eliminar Todos</button>
+
+    <script>
+        async function addEspecie() {
+            const nuevo = {
+                id: 1, 
+                descripcion: "Perro" 
+            };
+            try {
+                const response = await fetch('http://127.0.0.1:8080/api/especie', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(nuevoEspecie)
+                });
+
+                const data = await response.json();
+                console.log('Especie creado:', data);
+            } catch (error) {
+                console.error('Error en la solicitud POST:', error);
+            }
+        }
+
+        async function getEspecie() {
+            try {
+                const response = await fetch('http://127.0.0.1:8080/api/especie');
+                const data = await response.json();
+                console.log('Especie:', data);
+                
+            } catch (error) {
+                console.error('Error en la solicitud GET:', error);
+            }
+        }
+
+
+
+        async function getEspecieById() {
+           
+            const id = 2; 
+
+            try {
+                const response = await fetch(`http://127.0.0.1:8080/api/especie/${id}`);
+                const data = await response.json();
+                console.log('Especie encontrado:', data);
+               
+            } catch (error) {
+                console.error('Error en la solicitud GET:', error);
+            }
+        }
+
+        async function updateEspecieById() {
+           
+            const id = 1;
+            const updatedEspecie = {
+                descripcion: "Salchicha", 
+              
+            };
+
+            try {
+                const response = await fetch(`http://127.0.0.1:8080/api/especie/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updatedEspecie)
+                });
+                const data = await response.json();
+                console.log('Especie actualizado:', data);
+            
+            } catch (error) {
+                console.error('Error en la solicitud PUT:', error);
+            }
+        }
+
+        async function deleteEspecieById() {
+        
+            const id = 1; 
+
+            try {
+                const response = await fetch(`http://127.0.0.1:8080/api/especie/${id}`, {
+                    method: 'DELETE'
+                });
+                const data = await response.json();
+                console.log('Especie eliminado:', data);
+             
+            } catch (error) {
+                console.error('Error en la solicitud DELETE:', error);
+            }
+        }
+
+        async function deleteAllEspecie() {
+            try {
+                const response = await fetch(`http://127.0.0.1:8080/api/especie/`, {
+                    method: 'DELETE'
+                });
+                const data = await response.json();
+                console.log('Todos las especies han sido eliminados:', data);
+              
+            } catch (error) {
+                console.error('Error en la solicitud DELETE:', error);
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de reparacion de Celulares</title>
+</head>
+<body>
+
+    <h1>Sistema de Reparación de Celulares</h1>
+<table border="1" style="margin: 10px; margin-bottom: 50px;">
+    <form id="formularioReparacion">
+        <tr>
+            <td><label for="nombreCliente">Nombre del cliente:</label></td>
+            <td><input type="text" id="nombreCliente" required></td>
+        </tr>        
+        <tr>
+            <td><label for="numeroSerie">Número de Serie:</label></td>
+            <td><input type="text" id="numeroSerie" required></td>
+        </tr>
+        <tr>
+            <td><label for="imei">IMEI:</label></td>
+            <td><input type="text" id="imei" required></td>
+        </tr>
+
+        <tr>
+            <td><label for="marca">Marca:</label></td>
+            <td><input type="text" id="marca" required></td>
+        </tr>
+        
+        <tr>
+            <td><label for="autorizacion">Autorización del cliente:</label></td>
+            <td><input type="checkbox" name="check" id="autorizacionCliente" 
+                onclick="checkBoxOne(this)">Acepto el cliente
+        </tr>
+        <tr>
+            <td><label for="pagoMitad">Pago del 50%:</label></td>
+            <td><input type="checkbox" name="check2" id="pagoMitad" 
+                onclick="checkBoxTwo(this)">Si, acepto
+        </tr>        
+        <tr>
+            <td>
+                <div align="center">
+                <button type="button" id="validarCelular"
+                onclick="validarAutorizacionCliente()">Iniciar validación</button>
+                </div>
+            </td>
+            <td>
+                <div align="center">
+                    <button type="button" id="limpiarCampos"
+                    onclick="limpiar()">Limpiar campos</button>
+                </div>
+            </td>
+        </tr>
+    </form>
+</table>
+<h3>Tabla de celulares reportados como robados o perdidos</h3>
+<table border="1" id="tablaCelularesHtml">
+    <thead>
+      <tr>
+          <th>ID</th>
+          <th>IMEI</th>
+          <th>Marca</th>
+          <th>Nro. Serie</th>
+      </tr>
+    </thead>
+</table>
+<h1>Tabla de diagnósticos</h1>
+<table border="1" id="tablaDiagnoticosHtml">
+    <thead>
+      <tr>
+          <th>ID</th>
+          <th>Bateria estado</th>
+          <th>Pantalla estado</th>
+          <th>Botones estado</th>
+          <th>Cámara estado</th>
+          <th>Marca</th>
+          <th>Serie</th>
+          <th>Estado</th>
+          <th>IMEI</th>
+          <th>Nombre cliente</th>
+          <th>Nombre técnico</th>
+          <th>Atender ticket</th>
+      </tr>
+    </thead>
+</table>
+<h1>Técnicos con skills</h1>
+<table border="1" id="tablaTecnicosHtml">
+    <thead>
+      <tr>
+          <th>ID</th>
+          <th>Nombre técnico</th>
+          <th>Experto en</th>
+      </tr>
+    </thead>
+</table>
+<h3>Tabla de repuestos</h3>
+<table border="1" id="tablaRepuestosHtml">
+    <thead>
+      <tr>
+          <th>ID</th>
+          <th>Nombre repuestos</th>
+          <th>Cantidad</th>
+      </tr>
+    </thead>
+</table>
+<script src="script.js"></script>
+</body>
+</html>

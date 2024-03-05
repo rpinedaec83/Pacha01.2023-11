@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Empresa de Reparaciones de Celulares Razor</title>
+    <link rel="stylesheet" type="text/css" href="estilos.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Empresa de Reparaciones de Celulares Razor</h1>
+    </div>
+    <div id="inicio" class="form-container">
+        <form id="verificacionForm">
+            <label for="numeroSerie">Número de Serie (14 dígitos):</label>
+            <input type="text" id="numeroSerie" name="numeroSerie" required minlength="14" maxlength="14"><br><br>
+            <label for="numeroIMEI">Número IMEI (15 dígitos):</label>
+            <input type="text" id="numeroIMEI" name="numeroIMEI" required minlength="15" maxlength="15"><br><br>
+            <input type="submit" value="Verificar">
+        </form>
+    </div>
+    <div id="modalAlerta" class="modal">
+      <div class="modal-content">
+          <span class="close">&times;</span>
+          <p id="modalMensaje"></p>
+          <button id="continuarBtn" style="display: none;">Continuar</button>
+      </div>
+    </div>
+    <div id="informacionAdicional" style="display: none;">
+      <h2>Información Adicional</h2>
+      <form id="informacionForm">
+          <label for="nombreDueno">Nombre del Dueño:</label>
+          <input type="text" id="nombreDueno" name="nombreDueno" required><br><br>
+  
+          <label for="telefonoCelular">Número de Teléfono:</label>
+          <input type="text" id="telefonoCelular" name="telefonoCelular" required><br><br>
+  
+          <label for="modeloCelular">Modelo del Celular:</label>
+          <input type="text" id="modeloCelular" name="modeloCelular" required><br><br>
+  
+          <label for="imeiCelular">IMEI:</label>
+          <input type="text" id="imeiCelular" name="imeiCelular" disabled><br><br>
+  
+          <input type="submit" value="Registrar Información">
+      </form>
+  
+      <button id="diagnosticarBtn" style="display: none;">Diagnosticar Falla de Celular</button>
+      <p id="diagnosticoCelular"></p>
+  </div>
+  <div id="seccionCostos" style="display: none;">
+    <h2>Costos por la Reparación del Equipo</h2>
+    <p id="costoRepuesto"></p>
+    <p id="costoServicio"></p>
+    <p id="montoTotal"></p>
+    <p id="montoAbonar"></p>
+    <p id="tecnicoSeleccionado"></p>
+    <p id="autorizacion">
+       <span class="checkbox-container">
+          <input type="checkbox" id="autorizo">
+          <label for="autorizo">Yo <span id="nombreAutorizacion"></span> autorizo y realizo el pago del 50% para la realización de la reparación de mi equipo.</label>
+       </span>
+    </p>
+    <button id="btnComenzarReparacion">Comenzar la Reparación</button>
+  </div>
+  <div id="seccionProgresoReparacion" style="display: none;">
+    <h2>Progreso de la Reparación</h2>
+    <div class="etapa">
+        <p>Diagnóstico del Problema</p>
+        <div class="barra-progreso" id="progreso1"><div class="progreso"></div></div>
+    </div>
+    <div class="etapa">
+        <p>Reemplazo de Componentes</p>
+        <div class="barra-progreso" id="progreso2"><div class="progreso"></div></div>
+    </div>
+    <div class="etapa">
+        <p>Pruebas de Funcionamiento</p>
+        <div class="barra-progreso" id="progreso3"><div class="progreso"></div></div>
+    </div>
+    <div class="etapa">
+        <p>Finalización y Limpieza</p>
+        <div class="barra-progreso" id="progreso4"><div class="progreso"></div></div>
+    </div>
+  </div>
+  
+    <script src="scripts.js"></script>
+</body>
+</html>
+
+

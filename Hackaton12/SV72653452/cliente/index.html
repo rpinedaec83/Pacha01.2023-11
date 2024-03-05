@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterinaria</title>
+
+
+    
+</head>
+<body>
+
+    <h2>Veterinaria sexos de mascotas</h2>
+
+    <button onclick="addSexo()">Crear Sexo</button>
+    <button onclick="getSexos()">Mostrar Sexos</button>
+    <button onclick="getSexoById()">Buscar Sexo</button>
+    <button onclick="updateSexoById()">Actualizar Sexo</button>
+    <button onclick="deleteSexoById()">Eliminar Sexo</button>
+    <button onclick="deleteAllSexos()">Eliminar Todos</button>
+
+    <script>
+        async function addSexo() {
+            const nuevoSexo = {
+                id: 1, 
+                descripcion: "Masculino" 
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8080/api/sexo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                    body: JSON.stringify(nuevoSexo)
+                });
+
+                const data = await response.json();
+                console.log('Nuevo sexo creado:', data);
+            } catch (error) {
+                console.error('Error en la solicitud POST para sexos:', error);
+            }
+        }
+
+
+
+
+
+
+
+        async function getSexos() {
+            try {
+                const response = await fetch('http://127.0.0.1:8080/api/sexo');
+                const data = await response.json();
+                console.log('Sexos:', data);
+                
+            } catch (error) {
+                console.error('Error en la solicitud GET para sexos:', error);
+            }
+        }
+
+
+
+        async function getSexoById() {
+           
+            const id = 2; 
+
+            try {
+                const response = await fetch(`http://127.0.0.1:8080/api/sexo/${id}`);
+                const data = await response.json();
+                console.log('Sexo encontrado por ID:', data);
+               
+            } catch (error) {
+                console.error('Error en la solicitud GET para sexo por ID:', error);
+            }
+        }
+
+        async function updateSexoById() {
+           
+            const id = 1;
+            const updatedSexo = {
+                descripcion: "Masculino2", 
+              
+            };
+
+            try {
+                const response = await fetch(`http://127.0.0.1:8080/api/sexo/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updatedSexo)
+                });
+                const data = await response.json();
+                console.log('Sexo actualizado:', data);
+            
+            } catch (error) {
+                console.error('Error en la solicitud PUT para actualizar sexo por ID:', error);
+            }
+        }
+
+
+
+        async function deleteSexoById() {
+        
+            const id = 1; 
+
+            try {
+                const response = await fetch(`http://127.0.0.1:8080/api/sexo/${id}`, {
+                    method: 'DELETE'
+                });
+                const data = await response.json();
+                console.log('Sexo eliminado:', data);
+             
+            } catch (error) {
+                console.error('Error en la solicitud DELETE para eliminar sexo por ID:', error);
+            }
+        }
+
+
+        async function deleteAllSexos() {
+            try {
+                const response = await fetch(`http://127.0.0.1:8080/api/sexo/`, {
+                    method: 'DELETE'
+                });
+                const data = await response.json();
+                console.log('Todos los sexos han sido eliminados:', data);
+              
+            } catch (error) {
+                console.error('Error en la solicitud DELETE para eliminar todos los sexos:', error);
+            }
+        }
+    </script>
+
+</body>
+</html>
