@@ -95,7 +95,7 @@ export default {
         const token = resultado.id;
         const response = await axios({
           method: 'post',
-          url: '/api/process/pay', // YOUR BACKEND
+          url: 'http://localhost:8000/api/process/pay', // YOUR BACKEND
           data: {
             order_id: this.order_id,
             description: this.description,
