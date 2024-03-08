@@ -20,16 +20,24 @@ app.get("/", (req, res) => {
 app.post("/api/process/pay", async (req, res) => { 
     const  product  = req.body; 
     console.log(product);
-    const charge = await culqi.charges.createCharge({
-      amount: product.amount,
-      currency_code: product.currency_code,
-      email: 'richard@piedpiper.com',
-      source_id: product.token,
-  });
+    try {
+      const charge = await culqi.charges.createCharge({
+        amount: product.amount*100,
+        currency_code: product.currency_code,
+        email: product.email,
+        installments:product.installments,
+        description: product.description,
+        source_id: product.token,
+  
+    });
+  
+    console.log(charge.id);
+     res.send("recibido");
 
-  console.log(charge.id);
-   res.send("ok");
-  }); 
+    } catch (error) {
+      console.log(error)
+    }
+});
 
 
 app.listen(8000, () => { 

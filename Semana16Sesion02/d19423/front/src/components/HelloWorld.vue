@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     async getToken() {
-      return new Promise((resolve) => {
+      return new Promise((resolve, myerror) => {
         let c = 0;
         _Culqi.createToken();
         const checkToken = setInterval(() => {
@@ -84,6 +84,7 @@ export default {
             console.log('token en variable', _Culqi.token);
             resolve(_Culqi.token);
           } else {
+            myerror("Error");
           }
         }, 1000);
       });
@@ -103,6 +104,7 @@ export default {
             installments: this.installments,
             telefono: this.telefono,
             currency_code: this.currency_code,
+            email: this.email,
             token,
           },
           headers: {
