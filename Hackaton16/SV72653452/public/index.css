@@ -18,16 +18,21 @@ h1 {
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     background-color: #fff;
     margin-bottom: 20px;
+    
 }
 
 #productos h2, #carrito h2 {
     text-align: center;
     color: #555;
+    font-size: 50px; /* Ajusta este valor a tu gusto */
+
 }
 
 #productos ul, #carrito ul {
     list-style: none;
     padding: 0;
+    
+    
 }
 
 #productos li, #carrito li {
@@ -35,6 +40,7 @@ h1 {
     padding: 10px;
     display: flex;
     justify-content: space-between;
+    
 }
 
 button {
@@ -48,4 +54,21 @@ button {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+    font-size: 20px; /* Ajusta este valor a tu gusto */
+}
+
+.imagen-producto {
+    width: 200px;
+    height: 264px;
+}
+.precio {
+    font-size: 30px; /* Ajusta este valor a tu gusto */
+}
+
+li {
+    font-size: 30px; /* Ajusta este valor a tu gusto */
+}
+.imagen-carrito {
+    width: 300px;  /* Ajusta este valor a tu gusto */
+    height: 300px; /* Ajusta este valor a tu gusto */
 }

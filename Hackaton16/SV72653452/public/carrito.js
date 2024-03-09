@@ -3,11 +3,20 @@ let carrito = [];
 
 
 function agregarAlCarrito(videojuego, imgId, precio) {
-  const imgSrc = document.getElementById(imgId).src;
+  // Clona la imagen y agrega la clase "imagen-carrito"
+  const imagen = document.getElementById(imgId).cloneNode(true);
+  imagen.classList.add("imagen-carrito");
+
+  // Usa la URL de la imagen clonada
+  const imgSrc = imagen.src;
+
   // Asegúrate de que el precio sea un número válido
   precio = parseFloat(precio.replace('$', '')); // Convierte el precio a un número
 
+  // Agrega el producto al carrito
   carrito.push({ nombre: videojuego, imagen: imgSrc, cantidad: 1, precio: precio });
+
+  // Actualiza el carrito
   actualizarCarrito();
 }
   
@@ -23,6 +32,7 @@ function agregarAlCarrito(videojuego, imgId, precio) {
         const li = document.createElement('li');
         const img = document.createElement('img');
         img.src = item.imagen;
+        img.classList.add("imagen-carrito"); // Agrega la clase "imagen-carrito" a la imagen
         li.appendChild(img);
         li.appendChild(document.createTextNode(item.nombre + ' - Cantidad: ' + item.cantidad));
         const button = document.createElement('button');
@@ -36,6 +46,7 @@ function agregarAlCarrito(videojuego, imgId, precio) {
         itemsCarrito.appendChild(li);
     });
 }
+
 
 function agregarMas(index) {
     carrito[index].cantidad++;
