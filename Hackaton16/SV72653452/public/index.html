@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tienda de Videojuegos</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+    <h1>Bienvenido a nuestra tienda de videojuegos</h1>
+    <div id="productos">
+        <h2>Videojuegos</h2>
+        <ul>
+            <li>
+                Videojuego 1 
+    <img id="img1" src="Hackaton16/SV72653452/img/imagen1.jpg" alt="Videojuego 1">
+    <span class="precio">Precio: $50</span>
+    <button onclick="agregarAlCarrito('Videojuego 1', 'img1','$50')">Agregar al carrito</button>
+            </li>
+            <li>
+                Videojuego 2 
+    <img id="img2" src="ruta/a/tu/imagen2.jpg" alt="Videojuego 2">
+    <span class="precio">Precio: $60</span>
+    <button onclick="agregarAlCarrito('Videojuego 2', 'img2','$60')">Agregar al carrito</button>
+            </li>
+            <li>
+                Videojuego 3 
+                <img id="img3" src="ruta/a/tu/imagen3.jpg" alt="Videojuego 3">
+                <span class="precio">Precio: $70</span>
+                <button onclick="agregarAlCarrito('Videojuego 3', 'img3','$70')">Agregar al carrito</button>
+            </li>
+            <li>
+                Videojuego 4 
+    <img id="img4" src="ruta/a/tu/imagen4.jpg" alt="Videojuego 4">
+    <span class="precio">Precio: $80</span>
+    <button onclick="agregarAlCarrito('Videojuego 4', 'img4','$80')">Agregar al carrito</button>
+            </li>
+            <li>
+                Videojuego 5 
+    <img id="img5" src="ruta/a/tu/imagen5.jpg" alt="Videojuego 5">
+    <span class="precio">Precio: $90</span>
+    <button onclick="agregarAlCarrito('Videojuego 5', 'img5','$90')">Agregar al carrito</button>
+            </li>
+        </ul>
+    </div>
+    <div id="carrito">
+        <h2>Carrito</h2>
+        <ul id="items-carrito">
+            <!-- Aquí irían los items del carrito -->
+        </ul>
+       
+        <button onclick="comprar()">Comprar</button>
+    </div>
+    <script src="carrito.js"></script>
+</body>
+</html>

@@ -2,10 +2,18 @@ const express = require('express');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const mysql = require('mysql');
+const path = require('path');
 
 require('dotenv').config();
 
 const app = express();
+app.use(express.json());
+
+const stripe = require('stripe')('sk_test_51OsBgTJU0Twa6MrrPZo5MqemrrMl3ttkxwxhMrU6lg1SArRu7cRUNPqOUPK9rG0EjL90DHBog9WHtNZSddTKUVfm00JVNyt3CR');
+
+
+// Aquí agregamos el middleware para servir archivos estáticos
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Crea la conexión a la base de datos
 const connection = mysql.createConnection({
@@ -18,6 +26,7 @@ const connection = mysql.createConnection({
 // Añade los middlewares de Passport
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 console.log('http://localhost:3000/auth/google');
 
@@ -61,7 +70,39 @@ app.get('/auth/google/callback',
   function(req, res) {
     // Usuario autenticado exitosamente, redirigir a la página de inicio.
     console.log('Usuario autenticado exitosamente');
-    res.send('INICIO EXITOSO');
+    res.redirect('/index.html');
   });
+
+
+  
+
+
+  app.post('/create-checkout-session', async (req, res) => {
+    const productosSeleccionados = req.body.carrito;
+
+    const line_items = productosSeleccionados.map(producto => ({
+        price_data: {
+            currency: 'usd',
+            product_data: {
+                name: producto.nombre,
+                images: [producto.imagen],
+            },
+            unit_amount: producto.precio * 100,  // El precio debe estar en centavos
+        },
+        quantity: producto.cantidad,
+    }));
+
+    const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items,
+        mode: 'payment',
+        success_url: 'http://localhost:3000/success.html',
+        cancel_url: 'http://localhost:3000/cancel.html',
+    });
+
+    res.json({ id: session.id });
+});
+  
+  
 
 app.listen(3000, () => console.log('App listening on port 3000!'));
