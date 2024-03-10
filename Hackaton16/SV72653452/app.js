@@ -12,10 +12,10 @@ app.use(express.json());
 const stripe = require('stripe')('sk_test_51OsBgTJU0Twa6MrrPZo5MqemrrMl3ttkxwxhMrU6lg1SArRu7cRUNPqOUPK9rG0EjL90DHBog9WHtNZSddTKUVfm00JVNyt3CR');
 
 
-// Aquí agregamos el middleware para servir archivos estáticos
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Crea la conexión a la base de datos
+
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -23,7 +23,7 @@ const connection = mysql.createConnection({
     database: 'hackaton16'
 });
 
-// Añade los middlewares de Passport
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -36,14 +36,14 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:3000/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
-    // Aquí es donde guardarías el perfil del usuario en tu base de datos.
+    
     const query = 'INSERT INTO usuarios SET ?';
     const usuario = {
       id: profile.id,
-      nombre: profile.name.givenName, // Nombre de la persona
-      apellido: profile.name.familyName, // Apellido de la persona
-      correo: undefined, // Correo de la persona
-      // Añade aquí cualquier otro dato que quieras guardar
+      nombre: profile.name.givenName, 
+      apellido: profile.name.familyName, 
+      correo: undefined, 
+      
     };
 
     connection.query(query, usuario, function(error, results, fields) {
@@ -53,7 +53,7 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-// Añade las funciones de serialización y deserialización
+
 passport.serializeUser(function(user, done) {
     done(null, user);
   });
@@ -68,7 +68,7 @@ app.get('/auth/google',
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
-    // Usuario autenticado exitosamente, redirigir a la página de inicio.
+  
     console.log('Usuario autenticado exitosamente');
     res.redirect('/index.html');
   });
@@ -80,6 +80,37 @@ app.get('/auth/google/callback',
   app.post('/create-checkout-session', async (req, res) => {
     const productosSeleccionados = req.body.carrito;
 
+
+    productosSeleccionados.forEach(producto => {
+        const orden = {
+            nombre_videojuego: producto.nombre,
+            precio: producto.precio,
+            cantidad: producto.cantidad
+        };
+
+        connection.query('INSERT INTO OrdenDeCompra SET ?', orden, function(error, results, fields) {
+            if (error) throw error;
+            console.log('Orden de compra guardada en la base de datos.');
+        });
+    });
+
+    if (req.body.tarjeta) {
+
+        const tarjeta = req.body.tarjeta;
+        const datosTarjeta = {
+          numero: tarjeta.numero,
+            cvv: tarjeta.cvv,
+            nombre: tarjeta.nombre,
+            fecha_expiracion: tarjeta.fecha_expiracion,
+        };
+
+        connection.query('INSERT INTO DatosTarjeta SET ?', datosTarjeta, function(error, results, fields) {
+            if (error) throw error;
+            console.log('Datos de tarjeta guardados en la base de datos.');
+        });
+    }
+
+
     const line_items = productosSeleccionados.map(producto => ({
         price_data: {
             currency: 'usd',
@@ -87,7 +118,7 @@ app.get('/auth/google/callback',
                 name: producto.nombre,
                 images: [producto.imagen],
             },
-            unit_amount: producto.precio * 100,  // El precio debe estar en centavos
+            unit_amount: producto.precio * 100,  
         },
         quantity: producto.cantidad,
     }));
@@ -96,13 +127,13 @@ app.get('/auth/google/callback',
         payment_method_types: ['card'],
         line_items,
         mode: 'payment',
-        success_url: 'http://localhost:3000/success.html',
-        cancel_url: 'http://localhost:3000/cancel.html',
+        success_url: 'http://localhost:3000/index.html',
+        cancel_url: 'http://localhost:3000/index.html',
     });
 
     res.json({ id: session.id });
 });
-  
-  
 
+  
+  
 app.listen(3000, () => console.log('App listening on port 3000!'));
