@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sockets chat</title>
+    <style>
+        body {
+            margin: 0;
+            padding-bottom: 3rem;
+            font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #form {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        #input {
+            border: none;
+            padding: 10px;
+            flex-grow: 1;
+            border-radius: 20px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        #input:focus {
+            outline: none;
+        }
+
+        #form>button {
+            background: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            outline: none;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        #clear-chat-button {
+            background-color: #ff0000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        #cont-messages {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow-y: auto;
+            max-height: 300px;
+        }
+
+        #cont-messages>li {
+            padding: 10px;
+            margin-bottom: 5px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        #cont-messages>li:nth-child(odd) {
+            background-color: #e9e9e9;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <ul id="cont-messages"></ul>
+        <form id="form">
+            <input id="message" autocomplete="off" placeholder="Mensaje...">
+            <button>Enviar</button>
+        </form>
+        <button id="btn-clear-chat">Limpiar Chat</button>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const form = document.getElementById('form');
+        const cont_messages = document.getElementById('cont-messages');
+        const input = document.getElementById('message');
+        const btn_clear_chat = document.getElementById('btn-clear-chat'); 
+        let username = null;
+
+        function Username() {
+            username = prompt("Por favor ingresa su nombre de usuario: ");
+            if (username === null || username.trim() === "") {
+                alert("El nombre de usuario es obligatorio");
+                Username();
+            }
+        }
+
+        Username();
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (input.value) {
+                socket.emit('chat message', `${username}: ${input.value}`);
+                input.value = '';
+            }
+        });
+
+        socket.on('chat message', (msg) => {
+            const item = document.createElement('li');
+            const originalText = msg.substring(msg.indexOf(':') + 2);
+            item.textContent = msg;
+            item.dataset.originalText = originalText;
+            cont_messages.appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+
+
+        btn_clear_chat.addEventListener('click', () => {
+            const confirmation = confirm("¿Está seguro de que desea limpiar el chat?");
+            if (confirmation) {
+                socket.emit('clear chat');
+            }
+        });
+    </script>
+</body>
+</html>
