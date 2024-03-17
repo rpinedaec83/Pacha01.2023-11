@@ -8,9 +8,9 @@ services:
     ports: 
       - '5432:5432'
     volumes:
-      - PRUEBA-db:/var/lib/postgresql/data
+      - prueba-db:/var/lib/postgresql/data
 
-  PRUEBA:
+  prueba:
     build:
       context: .
     environment:
@@ -24,4 +24,4 @@ services:
       - '9000:9000'
         
 volumes:
-  PRUEBA-db:
+  prueba-db:
