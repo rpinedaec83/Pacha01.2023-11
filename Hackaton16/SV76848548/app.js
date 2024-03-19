@@ -28,7 +28,7 @@ console.log('http://localhost:3000/auth/google');
 
 passport.use(new GoogleStrategy({
     clientID: '294182781040-8s2dolvgh82mq6fitttsqukc8gces07l.apps.googleusercontent.com',
-    clientSecret: 'coloque su cliente secreto',
+    clientSecret: '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',
     callbackURL: "http://localhost:3000/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
