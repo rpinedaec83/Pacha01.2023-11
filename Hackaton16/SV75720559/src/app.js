@@ -40,13 +40,13 @@ app.post("/api/create-checkout-session", async (req, res) => {
       }, 
     ], 
     mode: "payment", 
-    success_url: "http://localhost:3000/success", 
-    cancel_url: "http://localhost:3000/cancel", 
+    success_url: "http://localhost:8080/success", 
+    cancel_url: "http://localhost:8080/cancel", 
   }); 
   res.json({ id: session.id }); 
 }); 
 
-const PORT = 3000 || 8080;
+const PORT = 8000 || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
