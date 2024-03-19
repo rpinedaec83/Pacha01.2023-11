@@ -1,11 +1,9 @@
 let carrito = [];
 let stripe;
 
-
 document.addEventListener('DOMContentLoaded', function() {
  
   stripe = Stripe('pk_test_51Ow6H1LhefJPPZ8eK39qzTGu9P9dCPmphuqPcKYpfKnyW2Vtj6Vcihj6kDxoGxirjNMS3gy2VbPkCc6NdobBF5pj00cK1hFib6');
-
 
   const form = document.getElementById('formulario');
 
@@ -25,12 +23,12 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-function agregar(videojuego, imgId, precio) {
+function agregar(ropa, imgId, precio) {
   const imagen = document.getElementById(imgId).cloneNode(true);
-  imagen.classList.add("imagen-carrito");
+  imagen.classList.add("img-cont");
   const imgSrc = imagen.src;
   precio = parseFloat(precio); 
-  carrito.push({ nombre: videojuego, imagen: imgSrc, cantidad: 1, precio: precio });
+  carrito.push({ nombre: ropa, imagen: imgSrc, cantidad: 1, precio: precio });
   updateCart();
 }
   
@@ -48,7 +46,7 @@ function updateCart() {
       var td = document.createElement('td');
       const img = document.createElement('img');
       img.src = item.imagen;
-      img.classList.add("imagen-carrito"); 
+      img.classList.add("img-cont"); 
       img.style.height = '150px';
       img.style.width = '250px';
       td.appendChild(img);

@@ -32,7 +32,7 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:3000/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
-
+    console.log(profile)
     const query = 'INSERT INTO usuarios SET ?';
     const usuario = {
       id: profile.id,
