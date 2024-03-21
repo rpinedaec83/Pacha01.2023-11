@@ -1,0 +1,41 @@
+body {
+    height: 100vh;
+    background-color: antiquewhite;
+}
+
+.card.card-body {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.card.card-body h1 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+.card.card-body p {
+    color: #666;
+}
+
+.btn-sm.delete {
+    background-color: #ff4d4f;
+    border-color: #ff4d4f;
+}
+
+.btn-sm.update {
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.btn-sm.delete:hover {
+    background-color: #ff7875;
+    border-color: #ff7875;
+}
+
+.btn-sm.update:hover {
+    background-color: #ffec3d;
+    border-color: #ffec3d;
+}
